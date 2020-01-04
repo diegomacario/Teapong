@@ -343,7 +343,3 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
-
-# Exceptions
-#!Projects/Breakout/Breakout/LearnOpenGL_1/objects/*.obj
-#!Projects/LearnOpenGL_1/LearnOpenGL_1/LearnOpenGL_1/objects/*.obj
