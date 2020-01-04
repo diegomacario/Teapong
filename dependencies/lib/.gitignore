@@ -1,5 +1,5 @@
 # Exceptions
 
 # Don't ignore Debug and Release folders in the Libraries folder
-!Debug/
-!Release/
+!debug/
+!release/

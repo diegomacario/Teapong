@@ -18,6 +18,63 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inc\ball.h" />
+    <ClInclude Include="..\inc\camera.h" />
+    <ClInclude Include="..\inc\collision.h" />
+    <ClInclude Include="..\inc\finite_state_machine.h" />
+    <ClInclude Include="..\inc\game.h" />
+    <ClInclude Include="..\inc\game_object_2D.h" />
+    <ClInclude Include="..\inc\game_object_3D.h" />
+    <ClInclude Include="..\inc\menu_state.h" />
+    <ClInclude Include="..\inc\mesh.h" />
+    <ClInclude Include="..\inc\model.h" />
+    <ClInclude Include="..\inc\model_loader.h" />
+    <ClInclude Include="..\inc\movable_game_object_2D.h" />
+    <ClInclude Include="..\inc\movable_game_object_3D.h" />
+    <ClInclude Include="..\inc\paddle.h" />
+    <ClInclude Include="..\inc\pause_state.h" />
+    <ClInclude Include="..\inc\play_state.h" />
+    <ClInclude Include="..\inc\renderer_2D.h" />
+    <ClInclude Include="..\inc\resource_manager.h" />
+    <ClInclude Include="..\inc\shader.h" />
+    <ClInclude Include="..\inc\shader_loader.h" />
+    <ClInclude Include="..\inc\state.h" />
+    <ClInclude Include="..\inc\stb_image.h" />
+    <ClInclude Include="..\inc\texture.h" />
+    <ClInclude Include="..\inc\texture_loader.h" />
+    <ClInclude Include="..\inc\window.h" />
+    <ClInclude Include="..\inc\win_state.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ball.cpp" />
+    <ClCompile Include="..\src\camera.cpp" />
+    <ClCompile Include="..\src\collision.cpp" />
+    <ClCompile Include="..\src\finite_state_machine.cpp" />
+    <ClCompile Include="..\src\game.cpp" />
+    <ClCompile Include="..\src\game_object_2D.cpp" />
+    <ClCompile Include="..\src\game_object_3D.cpp" />
+    <ClCompile Include="..\src\glad.c" />
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\menu_state.cpp" />
+    <ClCompile Include="..\src\mesh.cpp" />
+    <ClCompile Include="..\src\model.cpp" />
+    <ClCompile Include="..\src\model_loader.cpp" />
+    <ClCompile Include="..\src\movable_game_object_2D.cpp" />
+    <ClCompile Include="..\src\movable_game_object_3D.cpp" />
+    <ClCompile Include="..\src\paddle.cpp" />
+    <ClCompile Include="..\src\pause_state.cpp" />
+    <ClCompile Include="..\src\play_state.cpp" />
+    <ClCompile Include="..\src\projection_tests.cpp" />
+    <ClCompile Include="..\src\renderer_2D.cpp" />
+    <ClCompile Include="..\src\shader.cpp" />
+    <ClCompile Include="..\src\shader_loader.cpp" />
+    <ClCompile Include="..\src\stb_image.cpp" />
+    <ClCompile Include="..\src\texture.cpp" />
+    <ClCompile Include="..\src\texture_loader.cpp" />
+    <ClCompile Include="..\src\window.cpp" />
+    <ClCompile Include="..\src\win_state.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{35C217EB-B659-4C23-AF00-17883368029F}</ProjectGuid>
@@ -74,18 +131,18 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\..\Includes;$(ProjectDir)\..\Dependencies\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\Dependencies\Libraries\Debug;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(ProjectDir)\..\Source;$(SourcePath)</SourcePath>
+    <IncludePath>$(ProjectDir)\..\inc;$(ProjectDir)\..\dependencies\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\dependencies\lib\debug;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)\..\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)\..\Includes;$(ProjectDir)\..\Dependencies\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\Dependencies\Libraries\Release;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(ProjectDir)\..\Source;$(SourcePath)</SourcePath>
+    <IncludePath>$(ProjectDir)\..\inc;$(ProjectDir)\..\dependencies\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\dependencies\lib\release;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)\..\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -145,63 +202,6 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc142-mt.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Includes\ball.h" />
-    <ClInclude Include="..\Includes\camera.h" />
-    <ClInclude Include="..\Includes\collision.h" />
-    <ClInclude Include="..\Includes\finite_state_machine.h" />
-    <ClInclude Include="..\Includes\game.h" />
-    <ClInclude Include="..\Includes\game_object_2D.h" />
-    <ClInclude Include="..\Includes\game_object_3D.h" />
-    <ClInclude Include="..\Includes\menu_state.h" />
-    <ClInclude Include="..\Includes\mesh.h" />
-    <ClInclude Include="..\Includes\model.h" />
-    <ClInclude Include="..\Includes\model_loader.h" />
-    <ClInclude Include="..\Includes\movable_game_object_2D.h" />
-    <ClInclude Include="..\Includes\movable_game_object_3D.h" />
-    <ClInclude Include="..\Includes\paddle.h" />
-    <ClInclude Include="..\Includes\pause_state.h" />
-    <ClInclude Include="..\Includes\play_state.h" />
-    <ClInclude Include="..\Includes\renderer_2D.h" />
-    <ClInclude Include="..\Includes\resource_manager.h" />
-    <ClInclude Include="..\Includes\shader.h" />
-    <ClInclude Include="..\Includes\shader_loader.h" />
-    <ClInclude Include="..\Includes\state.h" />
-    <ClInclude Include="..\Includes\stb_image.h" />
-    <ClInclude Include="..\Includes\texture.h" />
-    <ClInclude Include="..\Includes\texture_loader.h" />
-    <ClInclude Include="..\Includes\window.h" />
-    <ClInclude Include="..\Includes\win_state.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\Source\ball.cpp" />
-    <ClCompile Include="..\Source\camera.cpp" />
-    <ClCompile Include="..\Source\collision.cpp" />
-    <ClCompile Include="..\Source\finite_state_machine.cpp" />
-    <ClCompile Include="..\Source\game.cpp" />
-    <ClCompile Include="..\Source\game_object_2D.cpp" />
-    <ClCompile Include="..\Source\game_object_3D.cpp" />
-    <ClCompile Include="..\Source\glad.c" />
-    <ClCompile Include="..\Source\main.cpp" />
-    <ClCompile Include="..\Source\menu_state.cpp" />
-    <ClCompile Include="..\Source\mesh.cpp" />
-    <ClCompile Include="..\Source\model.cpp" />
-    <ClCompile Include="..\Source\model_loader.cpp" />
-    <ClCompile Include="..\Source\movable_game_object_2D.cpp" />
-    <ClCompile Include="..\Source\movable_game_object_3D.cpp" />
-    <ClCompile Include="..\Source\paddle.cpp" />
-    <ClCompile Include="..\Source\pause_state.cpp" />
-    <ClCompile Include="..\Source\play_state.cpp" />
-    <ClCompile Include="..\Source\projection_tests.cpp" />
-    <ClCompile Include="..\Source\renderer_2D.cpp" />
-    <ClCompile Include="..\Source\shader.cpp" />
-    <ClCompile Include="..\Source\shader_loader.cpp" />
-    <ClCompile Include="..\Source\stb_image.cpp" />
-    <ClCompile Include="..\Source\texture.cpp" />
-    <ClCompile Include="..\Source\texture_loader.cpp" />
-    <ClCompile Include="..\Source\window.cpp" />
-    <ClCompile Include="..\Source\win_state.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

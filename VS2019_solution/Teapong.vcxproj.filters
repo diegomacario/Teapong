@@ -15,165 +15,165 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Includes\ball.h">
+    <ClInclude Include="..\inc\ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\camera.h">
+    <ClInclude Include="..\inc\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\collision.h">
+    <ClInclude Include="..\inc\collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\finite_state_machine.h">
+    <ClInclude Include="..\inc\finite_state_machine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\game.h">
+    <ClInclude Include="..\inc\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\game_object_2D.h">
+    <ClInclude Include="..\inc\game_object_2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\game_object_3D.h">
+    <ClInclude Include="..\inc\game_object_3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\menu_state.h">
+    <ClInclude Include="..\inc\menu_state.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\mesh.h">
+    <ClInclude Include="..\inc\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\model.h">
+    <ClInclude Include="..\inc\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\model_loader.h">
+    <ClInclude Include="..\inc\model_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\movable_game_object_2D.h">
+    <ClInclude Include="..\inc\movable_game_object_2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\movable_game_object_3D.h">
+    <ClInclude Include="..\inc\movable_game_object_3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\paddle.h">
+    <ClInclude Include="..\inc\paddle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\pause_state.h">
+    <ClInclude Include="..\inc\pause_state.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\play_state.h">
+    <ClInclude Include="..\inc\play_state.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\renderer_2D.h">
+    <ClInclude Include="..\inc\renderer_2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\resource_manager.h">
+    <ClInclude Include="..\inc\resource_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\shader.h">
+    <ClInclude Include="..\inc\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\shader_loader.h">
+    <ClInclude Include="..\inc\shader_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\state.h">
+    <ClInclude Include="..\inc\state.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\stb_image.h">
+    <ClInclude Include="..\inc\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\texture.h">
+    <ClInclude Include="..\inc\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\texture_loader.h">
+    <ClInclude Include="..\inc\texture_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\win_state.h">
+    <ClInclude Include="..\inc\win_state.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Includes\window.h">
+    <ClInclude Include="..\inc\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\ball.cpp">
+    <ClCompile Include="..\src\ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\camera.cpp">
+    <ClCompile Include="..\src\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\collision.cpp">
+    <ClCompile Include="..\src\collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\finite_state_machine.cpp">
+    <ClCompile Include="..\src\finite_state_machine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\game.cpp">
+    <ClCompile Include="..\src\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\game_object_2D.cpp">
+    <ClCompile Include="..\src\game_object_2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\game_object_3D.cpp">
+    <ClCompile Include="..\src\game_object_3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\glad.c">
+    <ClCompile Include="..\src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\main.cpp">
+    <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\menu_state.cpp">
+    <ClCompile Include="..\src\menu_state.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\mesh.cpp">
+    <ClCompile Include="..\src\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\model.cpp">
+    <ClCompile Include="..\src\model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\model_loader.cpp">
+    <ClCompile Include="..\src\model_loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\movable_game_object_2D.cpp">
+    <ClCompile Include="..\src\movable_game_object_2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\movable_game_object_3D.cpp">
+    <ClCompile Include="..\src\movable_game_object_3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\paddle.cpp">
+    <ClCompile Include="..\src\paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\pause_state.cpp">
+    <ClCompile Include="..\src\pause_state.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\play_state.cpp">
+    <ClCompile Include="..\src\play_state.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\projection_tests.cpp">
+    <ClCompile Include="..\src\projection_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\renderer_2D.cpp">
+    <ClCompile Include="..\src\renderer_2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\shader.cpp">
+    <ClCompile Include="..\src\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\shader_loader.cpp">
+    <ClCompile Include="..\src\shader_loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\stb_image.cpp">
+    <ClCompile Include="..\src\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\texture.cpp">
+    <ClCompile Include="..\src\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\texture_loader.cpp">
+    <ClCompile Include="..\src\texture_loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\win_state.cpp">
+    <ClCompile Include="..\src\win_state.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\window.cpp">
+    <ClCompile Include="..\src\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
