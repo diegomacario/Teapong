@@ -66,8 +66,8 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
                                     1.0f);                                         // Far
 
    auto gameObj2DShader = mShaderManager.loadResource<ShaderLoader>("game_object_2D",
-                                                                    "shaders/game_object_2D.vs",
-                                                                    "shaders/game_object_2D.fs");
+                                                                    "resources/shaders/game_object_2D.vs",
+                                                                    "resources/shaders/game_object_2D.fs");
    gameObj2DShader->use();
    gameObj2DShader->setInt("image", 0);
    gameObj2DShader->setMat4("projection", orthoProj);
@@ -75,8 +75,8 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
 
    // Initialize the 3D shader
    auto gameObj3DShader = mShaderManager.loadResource<ShaderLoader>("game_object_3D",
-                                                                    "shaders/game_object_3D.vs",
-                                                                    "shaders/game_object_3D.fs");
+                                                                    "resources/shaders/game_object_3D.vs",
+                                                                    "resources/shaders/game_object_3D.fs");
    gameObj3DShader->use();
    gameObj3DShader->setMat4("projection", mCamera->getPerspectiveProjectionMatrix());
    gameObj3DShader->setVec3("pointLights[0].worldPos", glm::vec3(0.0f, 0.0f, 100.0f));
@@ -88,9 +88,9 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
 
    // Initialize the explosive 3D shader
    auto gameObj3DExplosiveShader = mShaderManager.loadResource<ShaderLoader>("game_object_3D_explosive",
-                                                                             "shaders/game_object_3D.vs",
-                                                                             "shaders/game_object_3D.fs",
-                                                                             "shaders/game_object_3D_explosive.gs");
+                                                                             "resources/shaders/game_object_3D.vs",
+                                                                             "resources/shaders/game_object_3D.fs",
+                                                                             "resources/shaders/game_object_3D_explosive.gs");
    gameObj3DExplosiveShader->use();
    gameObj3DExplosiveShader->setMat4("projection", mCamera->getPerspectiveProjectionMatrix());
    gameObj3DExplosiveShader->setVec3("pointLights[0].worldPos", glm::vec3(0.0f, 0.0f, 100.0f));
@@ -101,10 +101,10 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
    gameObj3DExplosiveShader->setInt("numPointLightsInScene", 1);
 
    // Load the models
-   mModelManager.loadResource<ModelLoader>("title", "models/title/title.obj");
-   mModelManager.loadResource<ModelLoader>("table", "models/table/table.obj");
-   mModelManager.loadResource<ModelLoader>("paddle", "models/paddle/paddle.obj");
-   mModelManager.loadResource<ModelLoader>("teapot", "models/teapot/teapot.obj");
+   mModelManager.loadResource<ModelLoader>("title", "resources/models/title/title.obj");
+   mModelManager.loadResource<ModelLoader>("table", "resources/models/table/table.obj");
+   mModelManager.loadResource<ModelLoader>("paddle", "resources/models/paddle/paddle.obj");
+   mModelManager.loadResource<ModelLoader>("teapot", "resources/models/teapot/teapot.obj");
 
    mTitle = std::make_shared<GameObject3D>(mModelManager.getResource("title"),
                                            glm::vec3(0.0f, 0.0f, 13.75f),
@@ -187,7 +187,7 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
    // Initialize the FSM
    mFSM->initialize(std::move(mStates), "menu");
 
-   irrklang::ISound* backgroundMusic = mSoundEngine->play2D("sounds/podington_bear_filaments.wav", true, false, true);
+   irrklang::ISound* backgroundMusic = mSoundEngine->play2D("resources/sounds/podington_bear_filaments.wav", true, false, true);
    backgroundMusic->setVolume(0.3f);
 
    return true;

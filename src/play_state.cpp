@@ -269,7 +269,7 @@ void PlayState::playSoundOfCollision()
 
    if (glfwGetTime() > lastPlayed + 1)
    {
-      mSoundEngine->play2D("sounds/ping_pong_hit.wav", false);
+      mSoundEngine->play2D("resources/sounds/ping_pong_hit.wav", false);
       lastPlayed = glfwGetTime();
    }
 }
