@@ -187,7 +187,7 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
    // Initialize the FSM
    mFSM->initialize(std::move(mStates), "menu");
 
-   irrklang::ISound* backgroundMusic = mSoundEngine->play2D("sounds/podington_bear_filaments.mp3", true, false, true);
+   irrklang::ISound* backgroundMusic = mSoundEngine->play2D("sounds/podington_bear_filaments.wav", true, false, true);
    backgroundMusic->setVolume(0.3f);
 
    return true;

@@ -5,7 +5,7 @@
 Mesh::Mesh(const std::vector<Vertex>&       vertices,
            const std::vector<unsigned int>& indices,
            const Material&                  material)
-   : mNumIndices(indices.size())
+   : mNumIndices(static_cast<unsigned int>(indices.size()))
    , mMaterial(material)
 {
    configureVAO(vertices, indices);
