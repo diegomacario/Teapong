@@ -46,6 +46,8 @@ private:
    std::shared_ptr<Paddle>             mLeftPaddle;
    std::shared_ptr<Paddle>             mRightPaddle;
    std::shared_ptr<Ball>               mBall;
+
+   bool                                mCameraIsFree;
 };
 
 #endif

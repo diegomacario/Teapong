@@ -66,6 +66,8 @@ private:
 
    unsigned int                            mPointsScoredByLeftPaddle;
    unsigned int                            mPointsScoredByRightPaddle;
+
+   bool                                    mCameraIsFree;
 };
 
 #endif

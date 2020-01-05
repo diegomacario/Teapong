@@ -28,6 +28,7 @@ PlayState::PlayState(const std::shared_ptr<FiniteStateMachine>&     finiteStateM
    , mBallIsFalling(false)
    , mPointsScoredByLeftPaddle(0)
    , mPointsScoredByRightPaddle(0)
+   , mCameraIsFree(false)
 {
 
 }
@@ -93,33 +94,45 @@ void PlayState::processInput(float deltaTime)
    // Reset the camera
    if (mWindow->keyIsPressed(GLFW_KEY_R)) { resetCamera(); }
 
-   // Move the camera
-   if (mWindow->keyIsPressed(GLFW_KEY_W)) { mCamera->processKeyboardInput(Camera::MovementDirection::Forward, deltaTime); }
-   if (mWindow->keyIsPressed(GLFW_KEY_S)) { mCamera->processKeyboardInput(Camera::MovementDirection::Backward, deltaTime); }
-   if (mWindow->keyIsPressed(GLFW_KEY_A)) { mCamera->processKeyboardInput(Camera::MovementDirection::Left, deltaTime); }
-   if (mWindow->keyIsPressed(GLFW_KEY_D)) { mCamera->processKeyboardInput(Camera::MovementDirection::Right, deltaTime); }
-
-   // Orient the camera
-   if (mWindow->mouseMoved())
+   // Check if the camera is free to move
+   if (mWindow->keyIsPressed(GLFW_KEY_F) && !mWindow->keyHasBeenProcessed(GLFW_KEY_F))
    {
-      mCamera->processMouseMovement(mWindow->getCursorXOffset(), mWindow->getCursorYOffset());
+      mWindow->setKeyAsProcessed(GLFW_KEY_F);
+      mCameraIsFree = !mCameraIsFree;
       mWindow->resetMouseMoved();
    }
 
-   // Zoom in or out
-   if (mWindow->scrollWheelMoved())
+   // Move and orient the camera
+   if (mCameraIsFree)
    {
-      mCamera->processScrollWheelMovement(mWindow->getScrollYOffset());
-      mGameObject3DShader->use();
-      mGameObject3DShader->setMat4("projection", mCamera->getPerspectiveProjectionMatrix());
-      mWindow->resetScrollWheelMoved();
+      // Move
+      if (mWindow->keyIsPressed(GLFW_KEY_W)) { mCamera->processKeyboardInput(Camera::MovementDirection::Forward, deltaTime); }
+      if (mWindow->keyIsPressed(GLFW_KEY_S)) { mCamera->processKeyboardInput(Camera::MovementDirection::Backward, deltaTime); }
+      if (mWindow->keyIsPressed(GLFW_KEY_A)) { mCamera->processKeyboardInput(Camera::MovementDirection::Left, deltaTime); }
+      if (mWindow->keyIsPressed(GLFW_KEY_D)) { mCamera->processKeyboardInput(Camera::MovementDirection::Right, deltaTime); }
+
+      // Orient
+      if (mWindow->mouseMoved())
+      {
+         mCamera->processMouseMovement(mWindow->getCursorXOffset(), mWindow->getCursorYOffset());
+         mWindow->resetMouseMoved();
+      }
+
+      // Zoom
+      if (mWindow->scrollWheelMoved())
+      {
+         mCamera->processScrollWheelMovement(mWindow->getScrollYOffset());
+         mGameObject3DShader->use();
+         mGameObject3DShader->setMat4("projection", mCamera->getPerspectiveProjectionMatrix());
+         mWindow->resetScrollWheelMoved();
+      }
    }
 
    // Move the paddles
-   if (mWindow->keyIsPressed(GLFW_KEY_Z)) { mLeftPaddle->moveAlongLine(deltaTime, 60.0f, Paddle::MovementDirection::Up); }
-   if (mWindow->keyIsPressed(GLFW_KEY_X)) { mLeftPaddle->moveAlongLine(deltaTime, 60.0f, Paddle::MovementDirection::Down); }
-   if (mWindow->keyIsPressed(GLFW_KEY_N)) { mRightPaddle->moveAlongLine(deltaTime, 60.0f, Paddle::MovementDirection::Up); }
-   if (mWindow->keyIsPressed(GLFW_KEY_M)) { mRightPaddle->moveAlongLine(deltaTime, 60.0f, Paddle::MovementDirection::Down); }
+   if (mWindow->keyIsPressed(GLFW_KEY_G)) { mLeftPaddle->moveAlongLine(deltaTime, 60.0f, Paddle::MovementDirection::Up); }
+   if (mWindow->keyIsPressed(GLFW_KEY_B)) { mLeftPaddle->moveAlongLine(deltaTime, 60.0f, Paddle::MovementDirection::Down); }
+   if (mWindow->keyIsPressed(GLFW_KEY_UP)) { mRightPaddle->moveAlongLine(deltaTime, 60.0f, Paddle::MovementDirection::Up); }
+   if (mWindow->keyIsPressed(GLFW_KEY_DOWN)) { mRightPaddle->moveAlongLine(deltaTime, 60.0f, Paddle::MovementDirection::Down); }
 }
 
 void PlayState::update(float deltaTime)
