@@ -48,11 +48,33 @@ The answer to that question, however, is quite disappointing. I just wanted to w
 
 Teapong allowed me to do all those things, and it gave me something to laugh at in the end.
 
-## Configuration
- 
+## Installation
+
 ### macOS
 
 To run Teapong on macOS, you must follow these steps:
+- Download this repository.
+- Install GLFW, GLM and Assimp by executing the following command:
+ ```sh
+ $ brew install cmake assimp glm glfw
+ ```
+- Install GLAD by doing the following:
+  - Copy the `/dependencies/mac/inc/glad` directory to `/usr/local/include`.
+  - Copy the `/dependencies/mac/inc/KHR` directory to `/usr/local/include`.
+- Install irrKlang by doing the following:
+  - Copy the `/dependencies/mac/inc/irrKlang` directory to `/usr/local/include`.
+  - Copy the dylibs stored in the `/dependencies/mac/lib/irrKlang` directory to `/usr/local/lib`.
+- Download release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases), place the Teapong executable inside the repository and launch the game.
+ 
+### Windows
+
+To run Teapong on Windows, simply download release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases) and launch the game.
+
+## Building
+ 
+### macOS
+
+To build Teapong on macOS, you must follow these steps:
 - Download this repository.
 - Install GLFW, GLM and Assimp by executing the following command:
  ```sh
@@ -68,11 +90,10 @@ To run Teapong on macOS, you must follow these steps:
  ```sh
  $ make Teapong
  ```
-Once you have completed the steps listed above, you should be able to launch the game!
 
 ### Windows
 
-To install the application globally, download the executable named _pfox_windows.exe_ included in release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases), rename it as _pfox.exe_ and place it in a folder that's on the PATH environment variable.
+To build Teapong on Windows, you can download this repository and use the Visual Studio solution file stored in `VS2019_solution`.
 
 ## Usage
 
