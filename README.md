@@ -34,7 +34,7 @@ The sources of the game assets are the following:
 - The sound effects can be found in [freesound.org](https://freesound.org/).
 - The background music is Filaments by Podington Bear, and it can be found in [freemusicarchive.org](https://freemusicarchive.org/).
 
-For a more detailed description of this project, see [this]() presentation.
+For a more detailed description of this project, see [this](https://github.com/diegomacario/Teapong/blob/master/documentation/making_of_teapong.pdf) presentation.
 
 ## Justification
 
