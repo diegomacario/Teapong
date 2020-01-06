@@ -4,7 +4,7 @@
 
 # Teapong
 
-A two-player game for anyone who loves the [Utah teapot](https://en.wikipedia.org/wiki/Utah_teapot)!
+A two-player game for fans of the [Utah teapot](https://en.wikipedia.org/wiki/Utah_teapot)!
 
 <p align="center">
   <a href="youtube">
