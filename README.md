@@ -4,24 +4,40 @@
 
 # Teapong
 
-Pong but with a teapot!
+A two-player game for anyone who loves the [Utah teapot](https://en.wikipedia.org/wiki/Utah_teapot)!
 
 <p align="center">
-  <img src=""/>
+  <a href="youtube">
+    <img src="" href="youtube" width="450">
+  </a>
+  <br></br>
+  <em>Click on this image to see a one minute demo of Teapong.</em>
 </p>
 
 ## Technical details
 
-This is the first 3D game I ever make. It was written from scratch using C++ and OpenGL. The libraries used and their purposes are listed below:
+This is the first game I ever make.
 
-- [GLFW](https://www.glfw.org/) was used to interact with the windowing system and to receive inputs.
-- [GLAD](https://glad.dav1d.de/) was used to load pointers to OpenGL functions.
-- [GLM](https://glm.g-truc.net/0.9.9/index.html) was used to perform 3D math.
-- [Assimp](http://www.assimp.org/) was used to load 3D models.
-- [stb_image](https://github.com/nothings/stb) was used to load textures.
-- [irrKlang](https://www.ambiera.com/irrklang/) was used to play sounds.
+All the code was writen from a very low level using C++ and OpenGL.
 
-It is supported in macOS and Windows (I haven't tried Linux yet).
+The external libraries used and their purposes are listed below:
+
+- [GLFW](https://www.glfw.org/) is used to interact with the windowing system and to receive inputs.
+- [GLAD](https://glad.dav1d.de/) is used to load pointers to OpenGL functions.
+- [GLM](https://glm.g-truc.net/0.9.9/index.html) is used to perform 3D math.
+- [Assimp](http://www.assimp.org/) is used to load 3D models.
+- [stb_image](https://github.com/nothings/stb) is used to load textures.
+- [irrKlang](https://www.ambiera.com/irrklang/) is used to play sounds.
+
+It is supported on macOS and Windows (I haven't tried Linux yet).
+
+The 3D models were created using 3ds Max.
+
+The textures come from [3dtextures.me](https://3dtextures.me/).
+
+The sound effects come from [freesound.org](https://freesound.org/).
+
+The background music is Filaments by Podington Bear, which can be found in [freemusicarchive.org](https://freemusicarchive.org/).
 
 ## Installation
 
