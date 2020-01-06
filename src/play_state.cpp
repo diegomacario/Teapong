@@ -28,7 +28,6 @@ PlayState::PlayState(const std::shared_ptr<FiniteStateMachine>&     finiteStateM
    , mBallIsFalling(false)
    , mPointsScoredByLeftPaddle(0)
    , mPointsScoredByRightPaddle(0)
-   , mCameraIsFree(false)
 {
 
 }
@@ -77,6 +76,13 @@ void PlayState::processInput(float deltaTime)
    // Close the game
    if (mWindow->keyIsPressed(GLFW_KEY_ESCAPE)) { mWindow->setShouldClose(true); }
 
+   // Make the game full screen or windowed
+   if (mWindow->keyIsPressed(GLFW_KEY_F) && !mWindow->keyHasBeenProcessed(GLFW_KEY_F))
+   {
+      mWindow->setKeyAsProcessed(GLFW_KEY_F);
+      mWindow->setFullScreen(!mWindow->isFullScreen());
+   }
+
    // Pause the game
    if (mWindow->keyIsPressed(GLFW_KEY_P) && !mWindow->keyHasBeenProcessed(GLFW_KEY_P))
    {
@@ -94,16 +100,16 @@ void PlayState::processInput(float deltaTime)
    // Reset the camera
    if (mWindow->keyIsPressed(GLFW_KEY_R)) { resetCamera(); }
 
-   // Check if the camera is free to move
-   if (mWindow->keyIsPressed(GLFW_KEY_F) && !mWindow->keyHasBeenProcessed(GLFW_KEY_F))
+   // Make the camera free or fixed
+   if (mWindow->keyIsPressed(GLFW_KEY_C) && !mWindow->keyHasBeenProcessed(GLFW_KEY_C))
    {
-      mWindow->setKeyAsProcessed(GLFW_KEY_F);
-      mCameraIsFree = !mCameraIsFree;
+      mWindow->setKeyAsProcessed(GLFW_KEY_C);
+      mWindow->setCameraFree(!mWindow->isCameraFree());
       mWindow->resetMouseMoved();
    }
 
    // Move and orient the camera
-   if (mCameraIsFree)
+   if (mWindow->isCameraFree())
    {
       // Move
       if (mWindow->keyIsPressed(GLFW_KEY_W)) { mCamera->processKeyboardInput(Camera::MovementDirection::Forward, deltaTime); }

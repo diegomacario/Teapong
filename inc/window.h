@@ -27,8 +27,13 @@ public:
    void         swapBuffers();                    // TODO: Could this be considered to be const?
    void         pollEvents();                     // TODO: Could this be considered to be const?
 
+   // Window
    unsigned int getWidthInPix() const;
    unsigned int getHeightInPix() const;
+   bool         isFullScreen() const;
+   void         setFullScreen(bool fullScreen);
+   bool         isCameraFree() const;
+   void         setCameraFree(bool free);
 
    // Keyboard
    bool         keyIsPressed(int key) const;
@@ -54,11 +59,13 @@ private:
    void         cursorPosCallback(GLFWwindow* window, double xPos, double yPos);
    void         scrollCallback(GLFWwindow* window, double xOffset, double yOffset);
 
+   // Window
    GLFWwindow*                    mWindow;
-
    unsigned int                   mWidthInPix;
    unsigned int                   mHeightInPix;
    std::string                    mTitle;
+   bool                           mWindowIsFullScreen;
+   bool                           mCameraIsFree;
 
    // Keyboard
    std::bitset<GLFW_KEY_LAST + 1> mKeys;

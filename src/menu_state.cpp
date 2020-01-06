@@ -85,6 +85,13 @@ void MenuState::processInput(float deltaTime)
    // Close the game
    if (mWindow->keyIsPressed(GLFW_KEY_ESCAPE)) { mWindow->setShouldClose(true); }
 
+   // Make the game full screen or windowed
+   if (mWindow->keyIsPressed(GLFW_KEY_F) && !mWindow->keyHasBeenProcessed(GLFW_KEY_F))
+   {
+      mWindow->setKeyAsProcessed(GLFW_KEY_F);
+      mWindow->setFullScreen(!mWindow->isFullScreen());
+   }
+
    if (!mTransitionToPlayState && mWindow->keyIsPressed(GLFW_KEY_SPACE))
    {
       mFirstIterationOfTransitionToPlayState = true;

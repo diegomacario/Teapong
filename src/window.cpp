@@ -7,6 +7,8 @@ Window::Window(unsigned int widthInPix, unsigned int heightInPix, const std::str
    , mWidthInPix(widthInPix)
    , mHeightInPix(heightInPix)
    , mTitle(title)
+   , mWindowIsFullScreen(true)
+   , mCameraIsFree(false)
    , mKeys()
    , mProcessedKeys()
    , mMouseMoved(false)
@@ -41,14 +43,14 @@ bool Window::initialize()
    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-   //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); // TODO: Can we keep it resizable? And how can we offer a fullscreen option?
+   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); // TODO: Can we keep it resizable? And how can we offer a fullscreen option?
    glfwWindowHint(GLFW_SAMPLES, 4);
 
 #ifdef __APPLE__
    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-   mWindow = glfwCreateWindow(mWidthInPix, mHeightInPix, mTitle.c_str(), nullptr, nullptr);
+   mWindow = glfwCreateWindow(mWidthInPix, mHeightInPix, mTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
    if (!mWindow)
    {
       std::cout << "Error - Window::initialize - Failed to create the GLFW window" << "\n";
@@ -117,6 +119,35 @@ unsigned int Window::getWidthInPix() const
 unsigned int Window::getHeightInPix() const
 {
    return mHeightInPix;
+}
+
+bool Window::isFullScreen() const
+{
+   return mWindowIsFullScreen;
+}
+
+void Window::setFullScreen(bool fullScreen)
+{
+   if (fullScreen)
+   {
+      glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, 1280, 720, GLFW_DONT_CARE);
+   }
+   else
+   {
+      glfwSetWindowMonitor(mWindow, NULL, 20, 50, mWidthInPix, mHeightInPix, GLFW_DONT_CARE);
+   }
+
+   mWindowIsFullScreen = fullScreen;
+}
+
+bool Window::isCameraFree() const
+{
+   return mCameraIsFree;
+}
+
+void Window::setCameraFree(bool free)
+{
+    mCameraIsFree = free;
 }
 
 bool Window::keyIsPressed(int key) const
