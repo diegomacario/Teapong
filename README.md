@@ -49,43 +49,21 @@ The answer to that question, however, is quite disappointing. I just wanted to w
 Teapong allowed me to do all those things, and it gave me something to laugh at in the end.
 
 ## Installation
-
-### Requirements 
-
-Have Node.js, npm and Chalk installed in your system. 
-
-- To install Node.js and npm in __macOS__ you can follow these [instructions](http://blog.teamtreehouse.com/install-node-js-npm-mac).
-- To install Node.js and npm in __Linux__ you can execute the following commands:
-```sh
- $ sudo apt-get update
- $ sudo apt-get install nodejs
- $ sudo apt-get install npm
-```
-- To install Node.js and npm in __Windows__ you can follow these [instructions](http://blog.teamtreehouse.com/install-node-js-npm-windows).
-
-To install Chalk you can then execute the following command:
-```sh
- $ npm install --save chalk
-```
  
 ### macOS
 
-To install the application globally, execute the command below.
+To run Teapong on macOS, you must first install all the necessary dependencies.
+- To install GLFW, GLM and Assimp, you must execute the following command:
  ```sh
- $ curl -s -L https://github.com/diegomacario/Poor-Fox/raw/master/installer/unix_installer.sh | sudo bash -s macos
+ $ brew install cmake assimp glm glfw
  ```
-This command downloads the binary _pfox_macOS_ included in release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases) and places it in your _/usr/local/bin/_ folder.
-
-### Linux
-
-To install the application globally, execute the command below.
- ```sh
- $ curl -s -L https://github.com/diegomacario/Poor-Fox/raw/master/installer/unix_installer.sh | sudo bash -s linux
- ```
-This command downloads the binary _pfox_linux_ included in release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases) and places it in your _/usr/local/bin/_ folder. If you do not have Curl installed, execute the following command first:
- ```sh
- $ sudo apt-get install curl
- ```
+- To install GLAD, you must do the following:
+  - Copy the _/dependencies/mac/inc/glad_ directory to _/usr/local/include_.
+  - Copy the _/dependencies/mac/inc/KHR_ directory to _/usr/local/include_.
+- To install irrKlang, you must do the following:
+  - Copy the _/dependencies/mac/inc/irrKlang_ directory to _/usr/local/include_.
+  - Copy the dylibs stored in the _/dependencies/mac/lib/irrKlang_ directory to _/usr/local/lib_.
+Once you have completed the steps listed above, you can build the game using the Makefile included in this project.
 
 ### Windows
 
