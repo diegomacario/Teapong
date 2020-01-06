@@ -40,7 +40,7 @@ For a more detailed description of this project's code, see [this](https://githu
 
 When one encounters such a strange piece of software as Teapong, it is normal to ask: why would anyone make this?
 
-The answer to that question, however, is quite disappointing. I simply wanted to work on something that would allow me to:
+The answer to that question, however, is quite disappointing. I just wanted to work on something that would allow me to:
 
 - Deepen my understanding of real-time rendering and the linear algebra it involves.
 - Improve my C++ and OpenGL skills.
