@@ -48,22 +48,27 @@ The answer to that question, however, is quite disappointing. I just wanted to w
 
 Teapong allowed me to do all those things, and it gave me something to laugh at in the end.
 
-## Installation
+## Configuration
  
 ### macOS
 
-To run Teapong on macOS, you must first install all the necessary dependencies.
-- To install GLFW, GLM and Assimp, you must execute the following command:
+To run Teapong on macOS, you must follow these steps:
+- Download this repository.
+- Install GLFW, GLM and Assimp by executing the following command:
  ```sh
  $ brew install cmake assimp glm glfw
  ```
-- To install GLAD, you must do the following:
-  - Copy the _/dependencies/mac/inc/glad_ directory to _/usr/local/include_.
-  - Copy the _/dependencies/mac/inc/KHR_ directory to _/usr/local/include_.
-- To install irrKlang, you must do the following:
-  - Copy the _/dependencies/mac/inc/irrKlang_ directory to _/usr/local/include_.
-  - Copy the dylibs stored in the _/dependencies/mac/lib/irrKlang_ directory to _/usr/local/lib_.
-Once you have completed the steps listed above, you can build the game using the Makefile included in this project.
+- Install GLAD by doing the following:
+  - Copy the `/dependencies/mac/inc/glad` directory to `/usr/local/include`.
+  - Copy the `/dependencies/mac/inc/KHR` directory to `/usr/local/include`.
+- Install irrKlang by doing the following:
+  - Copy the `/dependencies/mac/inc/irrKlang` directory to `/usr/local/include`.
+  - Copy the dylibs stored in the `/dependencies/mac/lib/irrKlang` directory to `/usr/local/lib`.
+- Open a Terminal window, navigate to this repository, and execute the following command:
+ ```sh
+ $ make Teapong
+ ```
+Once you have completed the steps listed above, you should be able to launch the game!
 
 ### Windows
 
