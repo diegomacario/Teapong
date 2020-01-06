@@ -14,9 +14,19 @@ A two-player game for anyone who loves the [Utah teapot](https://en.wikipedia.or
   <em>Click on this image to see a one minute demo of Teapong.</em>
 </p>
 
-## Technical details
+## Justification
 
-This is the first game I ever make.
+When one encounters such a strange piece of software as Teapong, it is normal to ask: why would anyone make this?
+
+The answer to that question, however, is quite disappointing. I simply wanted to work on something that would allow me to:
+
+- Deepen my understanding of real-time rendering and the linear algebra it involves.
+- Improve my C++ and OpenGL skills.
+- Explore new design patterns and libraries.
+
+Teapong allowed me to do all those things, and it gave me something to laugh at in the end.
+
+## Technical details
 
 All the code was writen from a very low level using C++ and OpenGL.
 
