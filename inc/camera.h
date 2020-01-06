@@ -49,6 +49,9 @@ public:
    void      processMouseMovement(float xOffset, float yOffset);
    void      processScrollWheelMovement(float yOffset);
 
+   bool      isCameraFree() const;
+   void      setCameraFree(bool free);
+
 private:
 
    void      updateCoordinateFrame();
@@ -69,6 +72,8 @@ private:
 
    float     mMovementSpeed;
    float     mMouseSensitivity;
+
+   bool      mCameraIsFree;
 };
 
 #endif

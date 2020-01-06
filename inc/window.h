@@ -32,8 +32,6 @@ public:
    unsigned int getHeightInPix() const;
    bool         isFullScreen() const;
    void         setFullScreen(bool fullScreen);
-   bool         isCameraFree() const;
-   void         setCameraFree(bool free);
 
    // Keyboard
    bool         keyIsPressed(int key) const;
@@ -65,7 +63,6 @@ private:
    unsigned int                   mHeightInPix;
    std::string                    mTitle;
    bool                           mWindowIsFullScreen;
-   bool                           mCameraIsFree;
 
    // Keyboard
    std::bitset<GLFW_KEY_LAST + 1> mKeys;

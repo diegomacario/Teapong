@@ -8,7 +8,6 @@ Window::Window(unsigned int widthInPix, unsigned int heightInPix, const std::str
    , mHeightInPix(heightInPix)
    , mTitle(title)
    , mWindowIsFullScreen(true)
-   , mCameraIsFree(false)
    , mKeys()
    , mProcessedKeys()
    , mMouseMoved(false)
@@ -138,16 +137,6 @@ void Window::setFullScreen(bool fullScreen)
    }
 
    mWindowIsFullScreen = fullScreen;
-}
-
-bool Window::isCameraFree() const
-{
-   return mCameraIsFree;
-}
-
-void Window::setCameraFree(bool free)
-{
-    mCameraIsFree = free;
 }
 
 bool Window::keyIsPressed(int key) const

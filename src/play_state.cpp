@@ -104,12 +104,12 @@ void PlayState::processInput(float deltaTime)
    if (mWindow->keyIsPressed(GLFW_KEY_C) && !mWindow->keyHasBeenProcessed(GLFW_KEY_C))
    {
       mWindow->setKeyAsProcessed(GLFW_KEY_C);
-      mWindow->setCameraFree(!mWindow->isCameraFree());
+      mCamera->setCameraFree(!mCamera->isCameraFree());
       mWindow->resetMouseMoved();
    }
 
    // Move and orient the camera
-   if (mWindow->isCameraFree())
+   if (mCamera->isCameraFree())
    {
       // Move
       if (mWindow->keyIsPressed(GLFW_KEY_W)) { mCamera->processKeyboardInput(Camera::MovementDirection::Forward, deltaTime); }
