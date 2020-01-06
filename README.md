@@ -16,9 +16,9 @@ A two-player game for anyone who loves the [Utah teapot](https://en.wikipedia.or
 
 ## Technical details
 
-This project was started at a very low level using C++ and OpenGL. The code was written with a strong focus on making it clear, organized and cross-platform. It has been compiled successfully on macOS and Windows (Linux hasn't been tested yet).
+This project was started at a very low level using C++ and OpenGL. The code was written with a strong focus on making it clear, organized and cross-platform. It has been built successfully on macOS and Windows.
 
-The external libraries used by this project and their purposes are listed below:
+The external libraries used by this project and their purposes are the following:
 
 - [GLFW](https://www.glfw.org/) is used to interact with the windowing system and to receive inputs.
 - [GLAD](https://glad.dav1d.de/) is used to load pointers to OpenGL functions.
@@ -33,6 +33,8 @@ The sources of the game assets are the following:
 - The textures can be found in [3dtextures.me](https://3dtextures.me/).
 - The sound effects can be found in [freesound.org](https://freesound.org/).
 - The background music is Filaments by Podington Bear, and it can be found in [freemusicarchive.org](https://freemusicarchive.org/).
+
+For a more detailed description of this project, see [this]() presentation.
 
 ## Justification
 
