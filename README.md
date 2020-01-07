@@ -67,9 +67,20 @@ To build Teapong on macOS, you must follow the same steps listed in the **Instal
  ```sh
  $ make Teapong
  ```
+Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 
 ### Windows
 
 To build Teapong on Windows, you can download this repository and use the Visual Studio solution file stored in `VS2019_solution`.
 
-## Controls
+## Rules and controls
+
+The first player to score three points wins.
+
+The controls are as follows:
+
+- Press <kbd>F</kbd> to toggle between the full screen and windowed modes.
+- When in the menu, press <kbd>Space</kbd> to start a game.
+- When ready to play, press <kbd>Space</kbd> to launch a teapot.
+- The left paddle is controled with the <kbd>G</kbd> and <kbd>B</kbd> keys, while the right paddle is controlled with the <kbd>Up</kbd> and <kbd>Down</kbd> keys.
+- Press <kbd>P</kbd> to pause the game.
