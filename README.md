@@ -14,6 +14,21 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
   <em>Click on this image to see a one minute demo of Teapong.</em>
 </p>
 
+## Rules and controls
+
+The first player to score three points wins.
+
+The controls are as follows:
+
+- Press <kbd>Esc</kbd> to close the game.
+- Press <kbd>F</kbd> to toggle between the full screen and the windowed modes.
+- When in the menu, press <kbd>Space</kbd> to start a game.
+- When ready to play, press <kbd>Space</kbd> to launch a teapot.
+- The left paddle is controled with <kbd>G</kbd> and <kbd>B</kbd>, while the right paddle is controlled with <kbd>Up</kbd> and <kbd>Down</kbd>.
+- Press <kbd>P</kbd> to pause the game.
+- Press <kbd>C</kbd> to toggle between the fixed and free camera modes. When the camera is free, you can position it using <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> and the mouse.
+- Press <kbd>R</kbd> to reset the camera to its original position.
+
 ## Technical details
 
 This is the first 3D game I ever make. It was written using C++ and OpenGL, with a strong focus on making the code clear, organized and cross-platform. It is currently supported on macOS and Windows.
@@ -72,15 +87,3 @@ Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 ### Windows
 
 To build Teapong on Windows, you can download this repository and use the Visual Studio solution file stored in `VS2019_solution`.
-
-## Rules and controls
-
-The first player to score three points wins.
-
-The controls are as follows:
-
-- Press <kbd>F</kbd> to toggle between the full screen and windowed modes.
-- When in the menu, press <kbd>Space</kbd> to start a game.
-- When ready to play, press <kbd>Space</kbd> to launch a teapot.
-- The left paddle is controled with the <kbd>G</kbd> and <kbd>B</kbd> keys, while the right paddle is controlled with the <kbd>Up</kbd> and <kbd>Down</kbd> keys.
-- Press <kbd>P</kbd> to pause the game.
