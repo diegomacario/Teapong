@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=""/>
+  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/teapong_logo.PNG"/>
 </p>
 
 # Teapong
@@ -8,7 +8,7 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 <p align="center">
   <a href="youtube">
-    <img src="" href="youtube" width="450">
+    <img src="" href="youtube">
   </a>
   <br></br>
   <em>Click on this image to see a one minute demo of Teapong.</em>
