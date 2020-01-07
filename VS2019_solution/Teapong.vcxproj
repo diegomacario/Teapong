@@ -131,8 +131,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\..\inc;$(ProjectDir)\..\dependencies\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\dependencies\lib\debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\..\inc;$(ProjectDir)\..\dependencies\win\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\dependencies\win\lib\debug;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)\..\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,8 +140,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)\..\inc;$(ProjectDir)\..\dependencies\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\dependencies\lib\release;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\..\inc;$(ProjectDir)\..\dependencies\win\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\dependencies\win\lib\release;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)\..\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
