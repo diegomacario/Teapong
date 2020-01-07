@@ -87,3 +87,13 @@ Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 ### Windows
 
 To build Teapong on Windows, you can download this repository and use the Visual Studio solution file stored in `VS2019_solution`.
+
+## Learning resources
+
+Listing all the pages I studied to make this game would be impossible, so I will limit myself to the three most influential ones:
+
+- The external libraries I used are presented with excellent clarity in [this](https://learnopengl.com/) page.
+- The design pattern I used for game state management was inspired by [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
+- The classes I wrote for resource management were inspired by [this](https://github.com/skypjack/entt/tree/master/src/entt/resource) code.
+
+Thank you to the authors of those great sources of information!
