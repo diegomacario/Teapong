@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/teapong_logo.png"/>
+  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/teapong_logo.PNG"/>
 </p>
 
 # Teapong
