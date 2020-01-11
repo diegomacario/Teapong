@@ -22,9 +22,9 @@ public:
    std::shared_ptr<Texture> loadResource(const std::string& texFilePath,
                                          unsigned int       wrapS     = GL_REPEAT,
                                          unsigned int       wrapT     = GL_REPEAT,
-                                         unsigned int       minFilter = GL_LINEAR,
+                                         unsigned int       minFilter = GL_LINEAR_MIPMAP_LINEAR,
                                          unsigned int       magFilter = GL_LINEAR,
-                                         bool               genMipmap = false) const;
+                                         bool               genMipmap = true) const;
 
 private:
 

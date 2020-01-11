@@ -12,6 +12,6 @@ newmtl Table_Material
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.9000 0.9000 0.9000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka table_ambient.jpg
-	map_Kd table_diffuse.jpg
+	map_Ka table_ambient_diffuse.jpg
+	map_Kd table_ambient_diffuse.jpg
 	map_Ks table_specular.jpg
