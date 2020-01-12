@@ -103,7 +103,8 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
    // Load the models
    mModelManager.loadResource<ModelLoader>("title", "resources/models/title/title.obj");
    mModelManager.loadResource<ModelLoader>("table", "resources/models/table/table.obj");
-   mModelManager.loadResource<ModelLoader>("paddle", "resources/models/paddle/paddle.obj");
+   mModelManager.loadResource<ModelLoader>("left_paddle", "resources/models/left_paddle/paddle.obj");
+   mModelManager.loadResource<ModelLoader>("right_paddle", "resources/models/right_paddle/paddle.obj");
    mModelManager.loadResource<ModelLoader>("teapot", "resources/models/teapot/teapot.obj");
 
    mTitle = std::make_shared<GameObject3D>(mModelManager.getResource("title"),
@@ -118,7 +119,7 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
                                            glm::vec3(1.0f, 0.0f, 0.0f),
                                            1.0f);
 
-   mLeftPaddle = std::make_shared<Paddle>(mModelManager.getResource("paddle"),
+   mLeftPaddle = std::make_shared<Paddle>(mModelManager.getResource("left_paddle"),
                                           glm::vec3(-45.0f, 0.0f, 0.0f),
                                           90.0f,
                                           glm::vec3(1.0f, 0.0f, 0.0f),
@@ -127,7 +128,7 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
                                           3.5f,
                                           7.5f);
 
-   mRightPaddle = std::make_shared<Paddle>(mModelManager.getResource("paddle"),
+   mRightPaddle = std::make_shared<Paddle>(mModelManager.getResource("right_paddle"),
                                            glm::vec3(45.0f, 0.0f, 0.0f),
                                            90.0f,
                                            glm::vec3(1.0f, 0.0f, 0.0f),
