@@ -12,6 +12,6 @@ newmtl Paddle_Material
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka paddle_ambient.jpg
-	map_Kd paddle_diffuse.jpg
+	map_Ka paddle_ambient_diffuse.jpg
+	map_Kd paddle_ambient_diffuse.jpg
 	map_Ks paddle_specular.jpg
