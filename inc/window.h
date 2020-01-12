@@ -11,7 +11,7 @@ class Window
 {
 public:
 
-   Window(unsigned int widthInPix, unsigned int heightInPix, const std::string& title);
+   Window(const std::string& title);
    ~Window();
 
    Window(const Window&) = delete;

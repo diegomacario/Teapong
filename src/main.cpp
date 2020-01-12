@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 {
    Game game;
 
-   if (!game.initialize(1280, 720, "Teapong"))
+   if (!game.initialize("Teapong"))
    {
       std::cout << "Error - main - Failed to initialize the game" << "\n";
       return -1;

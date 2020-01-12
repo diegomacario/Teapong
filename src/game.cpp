@@ -32,10 +32,10 @@ Game::~Game()
 
 }
 
-bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const std::string& title)
+bool Game::initialize(const std::string& title)
 {
    // Initialize the window
-   mWindow = std::make_shared<Window>(widthInPix, heightInPix, title);
+   mWindow = std::make_shared<Window>(title);
 
    if (!mWindow->initialize())
    {
@@ -44,7 +44,9 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
    }
 
    // Initialize the camera
-   float aspectRatio = static_cast<float>(mWindow->getWidthInPix()) / static_cast<float>(mWindow->getHeightInPix());
+   float widthInPix = 1280.0f;
+   float heightInPix = 720.0f;
+   float aspectRatio = (widthInPix / heightInPix);
 
    mCamera = std::make_shared<Camera>(glm::vec3(0.0f, 0.0f, 95.0f),
                                       glm::vec3(0.0f, 1.0f, 0.0f),
@@ -58,12 +60,12 @@ bool Game::initialize(unsigned int widthInPix, unsigned int heightInPix, const s
                                       0.1f);       // Mouse sensitivity
 
    // Initialize the 2D renderer
-   glm::mat4 orthoProj = glm::ortho(0.0f,                                          // Left
-                                    static_cast<float>(mWindow->getWidthInPix()),  // Right
-                                    static_cast<float>(mWindow->getHeightInPix()), // Bottom
-                                    0.0f,                                          // Top
-                                   -1.0f,                                          // Near
-                                    1.0f);                                         // Far
+   glm::mat4 orthoProj = glm::ortho(0.0f,        // Left
+                                    widthInPix,  // Right
+                                    heightInPix, // Bottom
+                                    0.0f,        // Top
+                                   -1.0f,        // Near
+                                    1.0f);       // Far
 
    auto gameObj2DShader = mShaderManager.loadResource<ShaderLoader>("game_object_2D",
                                                                     "resources/shaders/game_object_2D.vs",

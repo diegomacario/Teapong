@@ -27,7 +27,7 @@ public:
    Game(Game&&) = delete;
    Game& operator=(Game&&) = delete;
 
-   bool  initialize(unsigned int widthInPix, unsigned int heightInPix, const std::string& title);
+   bool  initialize(const std::string& title);
    void  executeGameLoop();
 
 private:

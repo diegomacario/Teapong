@@ -2,10 +2,10 @@
 
 #include "window.h"
 
-Window::Window(unsigned int widthInPix, unsigned int heightInPix, const std::string& title)
+Window::Window(const std::string& title)
    : mWindow(nullptr)
-   , mWidthInPix(widthInPix)
-   , mHeightInPix(heightInPix)
+   , mWidthInPix(0)
+   , mHeightInPix(0)
    , mTitle(title)
    , mWindowIsFullScreen(true)
    , mKeys()
@@ -49,6 +49,9 @@ bool Window::initialize()
    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
+   const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+   mWidthInPix = mode->width;
+   mHeightInPix = mode->height;
    mWindow = glfwCreateWindow(mWidthInPix, mHeightInPix, mTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
    if (!mWindow)
    {
@@ -129,10 +132,15 @@ void Window::setFullScreen(bool fullScreen)
 {
    if (fullScreen)
    {
-      glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, 1280, 720, GLFW_DONT_CARE);
+      const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+      mWidthInPix = mode->width;
+      mHeightInPix = mode->height;
+      glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mWidthInPix, mHeightInPix, GLFW_DONT_CARE);
    }
    else
    {
+      mWidthInPix = 1280;
+      mHeightInPix = 720;
       glfwSetWindowMonitor(mWindow, NULL, 20, 50, mWidthInPix, mHeightInPix, GLFW_DONT_CARE);
    }
 
