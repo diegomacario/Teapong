@@ -12,6 +12,6 @@ newmtl Teapot_Material
 	Kd 0.5882 0.5882 0.5882
 	Ks 0.9020 0.9020 0.9020
 	Ke 0.0000 0.0000 0.0000
-	map_Ka teapot_ambient.jpg
-	map_Kd teapot_diffuse.jpg
+	map_Ka teapot_ambient_diffuse.jpg
+	map_Kd teapot_ambient_diffuse.jpg
 	map_Ks teapot_specular.jpg
