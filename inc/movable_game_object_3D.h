@@ -26,7 +26,7 @@ public:
 
 private:
 
-   glm::vec3 mVelocity; // TODO: Should this be divided into speed and direction?
+   glm::vec3 mVelocity;
 };
 
 #endif

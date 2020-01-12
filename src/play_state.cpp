@@ -173,7 +173,6 @@ void PlayState::update(float deltaTime)
    }
    else
    {
-      // TODO: Get the vertical range the table
       mBall->moveWithinVerticalRange(deltaTime, 60.0f);
 
       glm::vec2 vecFromCenterOfCircleToPointOfCollision;
