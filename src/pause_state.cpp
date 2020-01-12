@@ -46,17 +46,35 @@ void PauseState::processInput(float deltaTime)
    {
       mWindow->setKeyAsProcessed(GLFW_KEY_F);
       mWindow->setFullScreen(!mWindow->isFullScreen());
+
+      // In the pause state, the following rules are applied to the cursor:
+      // - Fullscreen: Cursor is always disabled
+      // - Windowed with a free camera: Cursor is disabled
+      // - Windowed with a fixed camera: Cursor is enabled
       if (mWindow->isFullScreen())
       {
+         // Disable the cursor when fullscreen
          mWindow->enableCursor(false);
+         if (mCamera->isFree())
+         {
+            // Going from windowed to fullscreen changes the position of the cursor, so we reset the first move flag to avoid a jump
+            mWindow->resetFirstMove();
+         }
       }
-      else if (!mWindow->isFullScreen() && mCamera->isFree())
+      else if (!mWindow->isFullScreen())
       {
-         mWindow->enableCursor(false);
-      }
-      else if (!mWindow->isFullScreen() && !mCamera->isFree())
-      {
-         mWindow->enableCursor(true);
+         if (mCamera->isFree())
+         {
+            // Disable the cursor when windowed with a free camera
+            mWindow->enableCursor(false);
+            // Going from fullscreen to windowed changes the position of the cursor, so we reset the first move flag to avoid a jump
+            mWindow->resetFirstMove();
+         }
+         else
+         {
+            // Enable the cursor when windowed with a fixed camera
+            mWindow->enableCursor(true);
+         }
       }
    }
 
@@ -75,14 +93,21 @@ void PauseState::processInput(float deltaTime)
    {
       mWindow->setKeyAsProcessed(GLFW_KEY_C);
       mCamera->setFree(!mCamera->isFree());
-      if (!mWindow->isFullScreen() && mCamera->isFree())
+
+      if (!mWindow->isFullScreen())
       {
-         mWindow->enableCursor(false);
+         if (mCamera->isFree())
+         {
+            // Disable the cursor when windowed with a free camera
+            mWindow->enableCursor(false);
+         }
+         else
+         {
+            // Enable the cursor when windowed with a fixed camera
+            mWindow->enableCursor(true);
+         }
       }
-      else if (!mWindow->isFullScreen() && !mCamera->isFree())
-      {
-         mWindow->enableCursor(true);
-      }
+
       mWindow->resetMouseMoved();
    }
 

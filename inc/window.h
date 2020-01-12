@@ -41,6 +41,7 @@ public:
    // Cursor
    bool         mouseMoved() const;
    void         resetMouseMoved();
+   void         resetFirstMove();
    float        getCursorXOffset() const;
    float        getCursorYOffset() const;
    void         enableCursor(bool enable);

@@ -172,6 +172,11 @@ void Window::resetMouseMoved()
    mMouseMoved = false;
 }
 
+void Window::resetFirstMove()
+{
+   mFirstCursorPosCallback = true;
+}
+
 float Window::getCursorXOffset() const
 {
    return mCursorXOffset;

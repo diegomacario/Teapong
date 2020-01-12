@@ -41,6 +41,7 @@ MenuState::MenuState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachi
 
 void MenuState::enter()
 {
+   // In the menu state, the cursor is disabled when fullscreen and enabled when windowed
    mWindow->enableCursor(!mWindow->isFullScreen());
 
    mTitle->setRotationMatrix(glm::mat4(1.0f));

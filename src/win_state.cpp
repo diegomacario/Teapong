@@ -23,6 +23,7 @@ WinState::WinState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachine
 
 void WinState::enter()
 {
+   // In the win state, the cursor is disabled when fullscreen and enabled when windowed
    mWindow->enableCursor(!mWindow->isFullScreen());
 
    float currRadius = mBall->getRadius();
