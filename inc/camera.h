@@ -49,8 +49,8 @@ public:
    void      processMouseMovement(float xOffset, float yOffset);
    void      processScrollWheelMovement(float yOffset);
 
-   bool      isCameraFree() const;
-   void      setCameraFree(bool free);
+   bool      isFree() const;
+   void      setFree(bool free);
 
 private:
 
@@ -73,7 +73,7 @@ private:
    float     mMovementSpeed;
    float     mMouseSensitivity;
 
-   bool      mCameraIsFree;
+   bool      mIsFree;
 };
 
 #endif

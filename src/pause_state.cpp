@@ -46,6 +46,18 @@ void PauseState::processInput(float deltaTime)
    {
       mWindow->setKeyAsProcessed(GLFW_KEY_F);
       mWindow->setFullScreen(!mWindow->isFullScreen());
+      if (mWindow->isFullScreen())
+      {
+         mWindow->enableCursor(false);
+      }
+      else if (!mWindow->isFullScreen() && mCamera->isFree())
+      {
+         mWindow->enableCursor(false);
+      }
+      else if (!mWindow->isFullScreen() && !mCamera->isFree())
+      {
+         mWindow->enableCursor(true);
+      }
    }
 
    // Unpause the game
@@ -62,12 +74,20 @@ void PauseState::processInput(float deltaTime)
    if (mWindow->keyIsPressed(GLFW_KEY_C) && !mWindow->keyHasBeenProcessed(GLFW_KEY_C))
    {
       mWindow->setKeyAsProcessed(GLFW_KEY_C);
-      mCamera->setCameraFree(!mCamera->isCameraFree());
+      mCamera->setFree(!mCamera->isFree());
+      if (!mWindow->isFullScreen() && mCamera->isFree())
+      {
+         mWindow->enableCursor(false);
+      }
+      else if (!mWindow->isFullScreen() && !mCamera->isFree())
+      {
+         mWindow->enableCursor(true);
+      }
       mWindow->resetMouseMoved();
    }
 
    // Move and orient the camera
-   if (mCamera->isCameraFree())
+   if (mCamera->isFree())
    {
       // Move
       if (mWindow->keyIsPressed(GLFW_KEY_W)) { mCamera->processKeyboardInput(Camera::MovementDirection::Forward, deltaTime); }

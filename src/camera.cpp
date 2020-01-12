@@ -25,7 +25,7 @@ Camera::Camera(glm::vec3 position,
    , mFar(far)
    , mMovementSpeed(movementSpeed)
    , mMouseSensitivity(mouseSensitivity)
-   , mCameraIsFree(false)
+   , mIsFree(false)
 {
    updateCoordinateFrame();
 }
@@ -44,7 +44,7 @@ Camera::Camera(Camera&& rhs) noexcept
    , mFar(std::exchange(rhs.mFar, 0.0f))
    , mMovementSpeed(std::exchange(rhs.mMovementSpeed, 0.0f))
    , mMouseSensitivity(std::exchange(rhs.mMouseSensitivity, 0.0f))
-   , mCameraIsFree(std::exchange(rhs.mCameraIsFree, false))
+   , mIsFree(std::exchange(rhs.mIsFree, false))
 {
 
 }
@@ -64,7 +64,7 @@ Camera& Camera::operator=(Camera&& rhs) noexcept
    mFar               = std::exchange(rhs.mFar, 0.0f);
    mMovementSpeed     = std::exchange(rhs.mMovementSpeed, 0.0f);
    mMouseSensitivity  = std::exchange(rhs.mMouseSensitivity, 0.0f);
-   mCameraIsFree      = std::exchange(rhs.mCameraIsFree, false);
+   mIsFree            = std::exchange(rhs.mIsFree, false);
    return *this;
 }
 
@@ -164,14 +164,14 @@ void Camera::processScrollWheelMovement(float yOffset)
    }
 }
 
-bool Camera::isCameraFree() const
+bool Camera::isFree() const
 {
-   return mCameraIsFree;
+   return mIsFree;
 }
 
-void Camera::setCameraFree(bool free)
+void Camera::setFree(bool free)
 {
-   mCameraIsFree = free;
+   mIsFree = free;
 }
 
 void Camera::updateCoordinateFrame()

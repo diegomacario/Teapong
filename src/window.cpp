@@ -7,7 +7,7 @@ Window::Window(const std::string& title)
    , mWidthInPix(0)
    , mHeightInPix(0)
    , mTitle(title)
-   , mWindowIsFullScreen(true)
+   , mIsFullScreen(true)
    , mKeys()
    , mProcessedKeys()
    , mMouseMoved(false)
@@ -65,7 +65,7 @@ bool Window::initialize()
 
    setInputCallbacks();
 
-   glfwSetInputMode(mWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+   enableCursor(false);
 
    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
    {
@@ -125,7 +125,7 @@ unsigned int Window::getHeightInPix() const
 
 bool Window::isFullScreen() const
 {
-   return mWindowIsFullScreen;
+   return mIsFullScreen;
 }
 
 void Window::setFullScreen(bool fullScreen)
@@ -144,7 +144,7 @@ void Window::setFullScreen(bool fullScreen)
       glfwSetWindowMonitor(mWindow, NULL, 20, 50, mWidthInPix, mHeightInPix, GLFW_DONT_CARE);
    }
 
-   mWindowIsFullScreen = fullScreen;
+   mIsFullScreen = fullScreen;
 }
 
 bool Window::keyIsPressed(int key) const
@@ -180,6 +180,11 @@ float Window::getCursorXOffset() const
 float Window::getCursorYOffset() const
 {
    return mCursorYOffset;
+}
+
+void Window::enableCursor(bool enable)
+{
+      glfwSetInputMode(mWindow, GLFW_CURSOR, enable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
 bool Window::scrollWheelMoved() const

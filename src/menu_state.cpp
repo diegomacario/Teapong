@@ -41,6 +41,8 @@ MenuState::MenuState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachi
 
 void MenuState::enter()
 {
+   mWindow->enableCursor(!mWindow->isFullScreen());
+
    mTitle->setRotationMatrix(glm::mat4(1.0f));
    mTitle->rotate(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -90,6 +92,7 @@ void MenuState::processInput(float deltaTime)
    {
       mWindow->setKeyAsProcessed(GLFW_KEY_F);
       mWindow->setFullScreen(!mWindow->isFullScreen());
+      mWindow->enableCursor(!mWindow->isFullScreen());
    }
 
    if (!mTransitionToPlayState && mWindow->keyIsPressed(GLFW_KEY_SPACE))

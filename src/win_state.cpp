@@ -23,6 +23,8 @@ WinState::WinState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachine
 
 void WinState::enter()
 {
+   mWindow->enableCursor(!mWindow->isFullScreen());
+
    float currRadius = mBall->getRadius();
    mBall->scale(7.5f / currRadius);
    mBall->setRadius(7.5f);
@@ -60,6 +62,7 @@ void WinState::processInput(float deltaTime)
    {
       mWindow->setKeyAsProcessed(GLFW_KEY_F);
       mWindow->setFullScreen(!mWindow->isFullScreen());
+      mWindow->enableCursor(!mWindow->isFullScreen());
    }
 }
 

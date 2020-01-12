@@ -43,6 +43,7 @@ public:
    void         resetMouseMoved();
    float        getCursorXOffset() const;
    float        getCursorYOffset() const;
+   void         enableCursor(bool enable);
 
    // Scroll wheel
    bool         scrollWheelMoved() const;
@@ -62,7 +63,7 @@ private:
    unsigned int                   mWidthInPix;
    unsigned int                   mHeightInPix;
    std::string                    mTitle;
-   bool                           mWindowIsFullScreen;
+   bool                           mIsFullScreen;
 
    // Keyboard
    std::bitset<GLFW_KEY_LAST + 1> mKeys;
