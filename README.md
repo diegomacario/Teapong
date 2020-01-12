@@ -26,7 +26,7 @@ The controls are as follows:
 - When ready to play, press <kbd>Space</kbd> to launch a teapot.
 - The left paddle is controled with <kbd>G</kbd> and <kbd>B</kbd>, while the right paddle is controlled with <kbd>Up</kbd> and <kbd>Down</kbd>.
 - Press <kbd>P</kbd> to pause the game.
-- Press <kbd>C</kbd> to toggle between the fixed and free camera modes. When the camera is free, you can position it using <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> and the mouse.
+- Press <kbd>C</kbd> to toggle between the fixed and free camera modes. When the camera is free, you can position it using <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> and the mouse. You can also zoom in and out using the scroll wheel.
 - Press <kbd>R</kbd> to reset the camera to its original position.
 
 ## Technical details
@@ -45,7 +45,7 @@ The external libraries it uses and their purposes are the following:
 The sources of the assets it uses are the following:
 
 - The 3D models were created using [3ds Max](https://area.autodesk.com/3ds-max-indie/).
-- The textures can be found in [3dtextures.me](https://3dtextures.me/).
+- The textures were created procedurally using 3ds Max and the [Open Shading Language](https://github.com/imageworks/OpenShadingLanguage).
 - The sound effects can be found in [freesound.org](https://freesound.org/).
 - The background music is Filaments by Podington Bear, and it can be found in [freemusicarchive.org](https://freemusicarchive.org/).
 
@@ -90,10 +90,8 @@ To build Teapong on Windows, you can download this repository and use the Visual
 
 ## Learning resources
 
-Listing all the pages I studied to make this game would be impossible, so I will limit myself to the three most influential ones:
+The following sources of information are the ones that helped me the most while working on this game:
 
 - The external libraries I used are presented with excellent clarity in [this](https://learnopengl.com/) page.
 - The design pattern I used for game state management was inspired by [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
 - The classes I wrote for resource management were inspired by [this](https://github.com/skypjack/entt/tree/master/src/entt/resource) code.
-
-Thank you to the authors of those great sources of information!
