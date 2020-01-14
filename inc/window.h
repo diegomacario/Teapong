@@ -6,6 +6,8 @@
 
 #include <bitset>
 
+#include "shader.h"
+
 // TODO: Take advantage of inlining in this class.
 class Window
 {
@@ -51,6 +53,12 @@ public:
    void         resetScrollWheelMoved();
    float        getScrollYOffset() const;
 
+   // Anti aliasing support
+   bool configureAntiAliasingSupport();
+   bool createMultisampleTexture(unsigned int numSamples);
+   void prepareMultisampleTexture();
+   void generateAndDisplayAntiAliasedImage();
+
 private:
 
    void         setInputCallbacks();
@@ -81,6 +89,13 @@ private:
    // Scroll wheel
    bool                           mScrollWheelMoved;
    float                          mScrollYOffset;
+
+   // Anti aliasing support
+   unsigned int                   mScreenVAO;
+   unsigned int                   mRawMultisampleFBO;
+   unsigned int                   mAntiAliasedFBO;
+   unsigned int                   mAntiAliasedTexture;
+   std::shared_ptr<Shader>        mScreenShader;
 };
 
 #endif

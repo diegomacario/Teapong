@@ -97,8 +97,7 @@ void WinState::update(float deltaTime)
 
 void WinState::render(float deltaTime)
 {
-   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   mWindow->prepareMultisampleTexture();
 
    // Enable depth testing for 3D objects
    glEnable(GL_DEPTH_TEST);
@@ -118,6 +117,8 @@ void WinState::render(float deltaTime)
    glDisable(GL_CULL_FACE);
    mBall->render(*mGameObject3DExplosiveShader);
    glEnable(GL_CULL_FACE);
+
+   mWindow->generateAndDisplayAntiAliasedImage();
 
    mWindow->swapBuffers();
    mWindow->pollEvents();

@@ -237,8 +237,7 @@ void PlayState::update(float deltaTime)
 
 void PlayState::render()
 {
-   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   mWindow->prepareMultisampleTexture();
 
    // Enable depth testing for 3D objects
    glEnable(GL_DEPTH_TEST);
@@ -255,6 +254,8 @@ void PlayState::render()
    glDisable(GL_CULL_FACE);
    mBall->render(*mGameObject3DShader);
    glEnable(GL_CULL_FACE);
+
+   mWindow->generateAndDisplayAntiAliasedImage();
 
    mWindow->swapBuffers();
    mWindow->pollEvents();

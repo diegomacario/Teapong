@@ -46,7 +46,6 @@ void Mesh::render(const Shader& shader) const
 void Mesh::configureVAO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
 {
    unsigned int VBO, EBO;
-
    glGenVertexArrays(1, &mVAO);
    glGenBuffers(1, &VBO);
    glGenBuffers(1, &EBO);
