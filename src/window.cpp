@@ -27,6 +27,7 @@ Window::Window(const std::string& title)
    , mAntiAliasedFBO(0)
    , mAntiAliasedTexture(0)
    , mScreenShader()
+   , mNumOfSamples(1)
 {
 
 }
@@ -76,17 +77,11 @@ bool Window::initialize()
       return false;
    }
 
-   // TODO TODO: Remove this
-   //setFullScreen(false);
-
    glfwMakeContextCurrent(mWindow);
 
    setInputCallbacks();
 
    enableCursor(false);
-
-   // TODO TODO: Remove this
-   //enableCursor(true);
 
    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
    {
@@ -272,11 +267,6 @@ void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height)
 
    resizeFramebuffers();
 
-   if (glGetError() != GL_NO_ERROR)
-   {
-      std::cout << "Something is wrong DeAngy!" << "\n";
-   }
-
    glViewport(0, 0, width, height);
 }
 
@@ -330,7 +320,7 @@ bool Window::configureAntiAliasingSupport()
 {
    createScreenVAO();
 
-   if (!createMultisampleFramebuffer(4))
+   if (!createMultisampleFramebuffer())
    {
       return false;
    }
@@ -389,7 +379,7 @@ void Window::createScreenVAO()
    glDeleteBuffers(1, &screenVBO);
 }
 
-bool Window::createMultisampleFramebuffer(unsigned int numSamples)
+bool Window::createMultisampleFramebuffer()
 {
    // Configure a framebuffer object to store raw multisample renders
 
@@ -401,7 +391,7 @@ bool Window::createMultisampleFramebuffer(unsigned int numSamples)
    glGenTextures(1, &mMultisampleTexture);
 
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, mMultisampleTexture);
-   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, numSamples, GL_RGB, mWidthInPix, mHeightInPix, GL_TRUE);
+   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthInPix, mHeightInPix, GL_TRUE);
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 
    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, mMultisampleTexture, 0);
@@ -410,7 +400,7 @@ bool Window::createMultisampleFramebuffer(unsigned int numSamples)
    glGenRenderbuffers(1, &mMultisampleRBO);
 
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
-   glRenderbufferStorageMultisample(GL_RENDERBUFFER, numSamples, GL_DEPTH_COMPONENT32F, mWidthInPix, mHeightInPix);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthInPix, mHeightInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mMultisampleRBO);
@@ -463,7 +453,7 @@ void Window::generateAndDisplayAntiAliasedImage()
 {
    glBindFramebuffer(GL_READ_FRAMEBUFFER, mMultisampleFBO);
    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, mAntiAliasedFBO);
-   glBlitFramebuffer(0, 0, mWidthInPix, mHeightInPix, 0, 0, mWidthInPix, mHeightInPix, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+   glBlitFramebuffer(0, 0, mWidthInPix, mHeightInPix, 0, 0, mWidthInPix, mHeightInPix, GL_COLOR_BUFFER_BIT, GL_LINEAR); // TODO: Should this be GL_NEAREST?
 
    glBindFramebuffer(GL_FRAMEBUFFER, 0);
    glClear(GL_COLOR_BUFFER_BIT);
@@ -480,14 +470,27 @@ void Window::generateAndDisplayAntiAliasedImage()
 void Window::resizeFramebuffers()
 {
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, mMultisampleTexture);
-   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGB, mWidthInPix, mHeightInPix, GL_TRUE);
+   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthInPix, mHeightInPix, GL_TRUE);
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
-   glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT32F, mWidthInPix, mHeightInPix);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthInPix, mHeightInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
    glBindTexture(GL_TEXTURE_2D, mAntiAliasedTexture);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidthInPix, mHeightInPix, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Window::setNumberOfSamples(unsigned int numOfSamples)
+{
+   mNumOfSamples = numOfSamples;
+
+   glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, mMultisampleTexture);
+   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthInPix, mHeightInPix, GL_TRUE);
+   glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
+
+   glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthInPix, mHeightInPix);
+   glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }

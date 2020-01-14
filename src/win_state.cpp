@@ -65,6 +65,28 @@ void WinState::processInput(float deltaTime)
       mWindow->setFullScreen(!mWindow->isFullScreen());
       mWindow->enableCursor(!mWindow->isFullScreen());
    }
+
+   // Change the number of samples used for anti aliasing
+   if (mWindow->keyIsPressed(GLFW_KEY_1) && !mWindow->keyHasBeenProcessed(GLFW_KEY_1))
+   {
+      mWindow->setKeyAsProcessed(GLFW_KEY_1);
+      mWindow->setNumberOfSamples(1);
+   }
+   else if (mWindow->keyIsPressed(GLFW_KEY_2) && !mWindow->keyHasBeenProcessed(GLFW_KEY_2))
+   {
+      mWindow->setKeyAsProcessed(GLFW_KEY_2);
+      mWindow->setNumberOfSamples(2);
+   }
+   else if (mWindow->keyIsPressed(GLFW_KEY_4) && !mWindow->keyHasBeenProcessed(GLFW_KEY_4))
+   {
+      mWindow->setKeyAsProcessed(GLFW_KEY_4);
+      mWindow->setNumberOfSamples(4);
+   }
+   else if (mWindow->keyIsPressed(GLFW_KEY_8) && !mWindow->keyHasBeenProcessed(GLFW_KEY_8))
+   {
+      mWindow->setKeyAsProcessed(GLFW_KEY_8);
+      mWindow->setNumberOfSamples(8);
+   }
 }
 
 void WinState::update(float deltaTime)

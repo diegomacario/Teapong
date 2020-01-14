@@ -56,11 +56,12 @@ public:
    // Anti aliasing support
    bool configureAntiAliasingSupport();
    void createScreenVAO();
-   bool createMultisampleFramebuffer(unsigned int numSamples);
+   bool createMultisampleFramebuffer();
    bool createAntiAliasedFramebuffer();
    void clearAndBindMultisampleFramebuffer();
    void generateAndDisplayAntiAliasedImage();
    void resizeFramebuffers();
+   void setNumberOfSamples(unsigned int numOfSamples);
 
 private:
 
@@ -104,6 +105,8 @@ private:
    unsigned int                   mAntiAliasedTexture;
 
    std::shared_ptr<Shader>        mScreenShader;
+
+   unsigned int                   mNumOfSamples;
 };
 
 #endif
