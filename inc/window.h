@@ -55,9 +55,12 @@ public:
 
    // Anti aliasing support
    bool configureAntiAliasingSupport();
-   bool createMultisampleTexture(unsigned int numSamples);
-   void prepareMultisampleTexture();
+   void createScreenVAO();
+   bool createMultisampleFramebuffer(unsigned int numSamples);
+   bool createAntiAliasedFramebuffer();
+   void clearAndBindMultisampleFramebuffer();
    void generateAndDisplayAntiAliasedImage();
+   void resizeFramebuffers();
 
 private:
 
@@ -92,9 +95,14 @@ private:
 
    // Anti aliasing support
    unsigned int                   mScreenVAO;
-   unsigned int                   mRawMultisampleFBO;
+
+   unsigned int                   mMultisampleFBO;
+   unsigned int                   mMultisampleTexture;
+   unsigned int                   mMultisampleRBO;
+
    unsigned int                   mAntiAliasedFBO;
    unsigned int                   mAntiAliasedTexture;
+
    std::shared_ptr<Shader>        mScreenShader;
 };
 

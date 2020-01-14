@@ -139,7 +139,7 @@ void MenuState::update(float deltaTime)
 
 void MenuState::render()
 {
-   mWindow->prepareMultisampleTexture();
+   mWindow->clearAndBindMultisampleFramebuffer();
 
    // Enable depth testing for 3D objects
    glEnable(GL_DEPTH_TEST);

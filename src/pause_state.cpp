@@ -142,7 +142,7 @@ void PauseState::processInput(float deltaTime)
 
 void PauseState::render()
 {
-   mWindow->prepareMultisampleTexture();
+   mWindow->clearAndBindMultisampleFramebuffer();
 
    // Enable depth testing for 3D objects
    glEnable(GL_DEPTH_TEST);

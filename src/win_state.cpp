@@ -97,7 +97,7 @@ void WinState::update(float deltaTime)
 
 void WinState::render(float deltaTime)
 {
-   mWindow->prepareMultisampleTexture();
+   mWindow->clearAndBindMultisampleFramebuffer();
 
    // Enable depth testing for 3D objects
    glEnable(GL_DEPTH_TEST);
