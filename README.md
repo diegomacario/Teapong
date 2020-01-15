@@ -59,18 +59,25 @@ For a more detailed description of this project's code, see [this](https://githu
 ### macOS
 
 To run Teapong on macOS, you must follow these steps:
-- Download this repository.
-- Install GLFW, GLM and Assimp by executing the following command:
+- Download or clone this repository and open a Terminal window in its root.
+- Execute the following command to install GLFW, GLM and Assimp:
  ```sh
  $ brew install cmake assimp glm glfw
  ```
-- Install GLAD by doing the following:
-  - Copy the `/dependencies/mac/inc/glad` directory to `/usr/local/include`.
-  - Copy the `/dependencies/mac/inc/KHR` directory to `/usr/local/include`.
-- Install irrKlang by doing the following:
-  - Copy the `/dependencies/mac/inc/irrKlang` directory to `/usr/local/include`.
-  - Copy the dylibs stored in the `/dependencies/mac/lib/irrKlang` directory to `/usr/local/lib`.
-- Download release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases), place the Teapong executable inside the repository and launch the game.
+- Execute the following commands to install GLAD:
+ ```sh
+ $ cp dependencies/mac/inc/glad/glad.h /usr/local/include/
+ $ cp dependencies/mac/inc/KHR/khrplatform.h /usr/local/include/
+ ```
+- Execute the following commands to install irrKlang:
+ ```sh
+ $ cp -r dependencies/mac/inc/irrklang /usr/local/include/
+ $ cp -R dependencies/mac/lib/ /usr/local/lib/
+ ```
+- Download release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases), place the Teapong executable at the root of the repository and execute the following command to launch the game:
+ ```sh
+ $ ./Teapong
+ ```
  
 ### Windows
 
@@ -81,7 +88,7 @@ To run Teapong on Windows, simply download release [1.0.0](https://github.com/di
 ### macOS
 
 To build Teapong on macOS, you must follow the same steps listed in the **Installation** section, except for the last one, which you must replace with the following:
-- Open a Terminal window, navigate to this repository, and execute the following command:
+- Execute the following command to build the game:
  ```sh
  $ make Teapong
  ```
