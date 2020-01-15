@@ -30,8 +30,10 @@ public:
    void         pollEvents();                     // TODO: Could this be considered to be const?
 
    // Window
-   unsigned int getWidthInPix() const;
-   unsigned int getHeightInPix() const;
+   unsigned int getWidthOfWindowInPix() const;
+   unsigned int getHeightOfWindowInPix() const;
+   unsigned int getWidthOfFramebufferInPix() const;
+   unsigned int getHeightOfFramebufferInPix() const;
    bool         isFullScreen() const;
    void         setFullScreen(bool fullScreen);
 
@@ -73,8 +75,10 @@ private:
 
    // Window
    GLFWwindow*                    mWindow;
-   unsigned int                   mWidthInPix;
-   unsigned int                   mHeightInPix;
+   int                            mWidthOfWindowInPix;
+   int                            mHeightOfWindowInPix;
+   int                            mWidthOfFramebufferInPix;
+   int                            mHeightOfFramebufferInPix;
    std::string                    mTitle;
    bool                           mIsFullScreen;
 

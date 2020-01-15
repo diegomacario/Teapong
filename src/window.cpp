@@ -6,8 +6,10 @@
 
 Window::Window(const std::string& title)
    : mWindow(nullptr)
-   , mWidthInPix(0)
-   , mHeightInPix(0)
+   , mWidthOfWindowInPix(0)
+   , mHeightOfWindowInPix(0)
+   , mWidthOfFramebufferInPix(0)
+   , mHeightOfFramebufferInPix(0)
    , mTitle(title)
    , mIsFullScreen(true)
    , mKeys()
@@ -66,9 +68,9 @@ bool Window::initialize()
 #endif
 
    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-   mWidthInPix = mode->width;
-   mHeightInPix = mode->height;
-   mWindow = glfwCreateWindow(mWidthInPix, mHeightInPix, mTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
+   mWidthOfWindowInPix = mode->width;
+   mHeightOfWindowInPix = mode->height;
+   mWindow = glfwCreateWindow(mWidthOfWindowInPix, mHeightOfWindowInPix, mTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
    if (!mWindow)
    {
       std::cout << "Error - Window::initialize - Failed to create the GLFW window" << "\n";
@@ -76,6 +78,8 @@ bool Window::initialize()
       mWindow = nullptr;
       return false;
    }
+
+   glfwGetFramebufferSize(mWindow, &mWidthOfFramebufferInPix, &mHeightOfFramebufferInPix);
 
    glfwMakeContextCurrent(mWindow);
 
@@ -91,7 +95,7 @@ bool Window::initialize()
       return false;
    }
 
-   glViewport(0, 0, mWidthInPix, mHeightInPix);
+   glViewport(0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glEnable(GL_CULL_FACE);
    glEnable(GL_BLEND);
    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -136,14 +140,24 @@ void Window::pollEvents()
    glfwPollEvents();
 }
 
-unsigned int Window::getWidthInPix() const
+unsigned int Window::getWidthOfWindowInPix() const
 {
-   return mWidthInPix;
+   return mWidthOfWindowInPix;
 }
 
-unsigned int Window::getHeightInPix() const
+unsigned int Window::getHeightOfWindowInPix() const
 {
-   return mHeightInPix;
+   return mHeightOfWindowInPix;
+}
+
+unsigned int Window::getWidthOfFramebufferInPix() const
+{
+   return mWidthOfFramebufferInPix;
+}
+
+unsigned int Window::getHeightOfFramebufferInPix() const
+{
+   return mHeightOfFramebufferInPix;
 }
 
 bool Window::isFullScreen() const
@@ -156,15 +170,15 @@ void Window::setFullScreen(bool fullScreen)
    if (fullScreen)
    {
       const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-      mWidthInPix = mode->width;
-      mHeightInPix = mode->height;
-      glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mWidthInPix, mHeightInPix, GLFW_DONT_CARE);
+      mWidthOfWindowInPix = mode->width;
+      mHeightOfWindowInPix = mode->height;
+      glfwSetWindowMonitor(mWindow, glfwGetPrimaryMonitor(), 0, 0, mWidthOfWindowInPix, mHeightOfWindowInPix, GLFW_DONT_CARE);
    }
    else
    {
-      mWidthInPix = 1280;
-      mHeightInPix = 720;
-      glfwSetWindowMonitor(mWindow, NULL, 20, 50, mWidthInPix, mHeightInPix, GLFW_DONT_CARE);
+      mWidthOfWindowInPix = 1280;
+      mHeightOfWindowInPix = 720;
+      glfwSetWindowMonitor(mWindow, NULL, 20, 50, mWidthOfWindowInPix, mHeightOfWindowInPix, GLFW_DONT_CARE);
    }
 
    mIsFullScreen = fullScreen;
@@ -262,8 +276,10 @@ void Window::setInputCallbacks()
 
 void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
-   mWidthInPix = width;
-   mHeightInPix = height;
+   glfwGetWindowSize(window, &mWidthOfWindowInPix, &mHeightOfWindowInPix);
+
+   mWidthOfFramebufferInPix = width;
+   mHeightOfFramebufferInPix = height;
 
    resizeFramebuffers();
 
@@ -391,7 +407,7 @@ bool Window::createMultisampleFramebuffer()
    glGenTextures(1, &mMultisampleTexture);
 
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, mMultisampleTexture);
-   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthInPix, mHeightInPix, GL_TRUE);
+   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, GL_TRUE);
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 
    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, mMultisampleTexture, 0);
@@ -400,7 +416,7 @@ bool Window::createMultisampleFramebuffer()
    glGenRenderbuffers(1, &mMultisampleRBO);
 
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
-   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthInPix, mHeightInPix);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mMultisampleRBO);
@@ -426,7 +442,7 @@ bool Window::createAntiAliasedFramebuffer()
    // Create a texture and use it as a color attachment
    glGenTextures(1, &mAntiAliasedTexture);
    glBindTexture(GL_TEXTURE_2D, mAntiAliasedTexture);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidthInPix, mHeightInPix, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // TODO: Should this be GL_LINEAR_MIPMAP_LINEAR?
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mAntiAliasedTexture, 0);
@@ -453,7 +469,7 @@ void Window::generateAndDisplayAntiAliasedImage()
 {
    glBindFramebuffer(GL_READ_FRAMEBUFFER, mMultisampleFBO);
    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, mAntiAliasedFBO);
-   glBlitFramebuffer(0, 0, mWidthInPix, mHeightInPix, 0, 0, mWidthInPix, mHeightInPix, GL_COLOR_BUFFER_BIT, GL_LINEAR); // TODO: Should this be GL_NEAREST?
+   glBlitFramebuffer(0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, 0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, GL_COLOR_BUFFER_BIT, GL_LINEAR); // TODO: Should this be GL_NEAREST?
 
    glBindFramebuffer(GL_FRAMEBUFFER, 0);
    glClear(GL_COLOR_BUFFER_BIT);
@@ -470,15 +486,15 @@ void Window::generateAndDisplayAntiAliasedImage()
 void Window::resizeFramebuffers()
 {
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, mMultisampleTexture);
-   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthInPix, mHeightInPix, GL_TRUE);
+   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, GL_TRUE);
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
-   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthInPix, mHeightInPix);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
    glBindTexture(GL_TEXTURE_2D, mAntiAliasedTexture);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidthInPix, mHeightInPix, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -487,10 +503,10 @@ void Window::setNumberOfSamples(unsigned int numOfSamples)
    mNumOfSamples = numOfSamples;
 
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, mMultisampleTexture);
-   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthInPix, mHeightInPix, GL_TRUE);
+   glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, mNumOfSamples, GL_RGB, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, GL_TRUE);
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
-   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthInPix, mHeightInPix);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
