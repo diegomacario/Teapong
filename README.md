@@ -96,7 +96,7 @@ Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 
 ### Windows
 
-To build Teapong on Windows, you can download this repository and use the Visual Studio solution file stored in `VS2019_solution`.
+To build Teapong on Windows, simply download or clone this repository and use the Visual Studio 2019 solution file that's stored in the **VS2019_solution** directory.
 
 ## Learning resources
 
