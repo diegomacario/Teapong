@@ -32,7 +32,7 @@ The controls are as follows:
 
 ## Technical details
 
-This is the first 3D game I ever make!
+This is the first game I ever make! :blush:
 
 It was written using C++ and OpenGL, with a strong focus on making the code clear, organized and cross-platform. It is currently supported on macOS and Windows.
 
@@ -96,7 +96,7 @@ Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 
 ### Windows
 
-To build Teapong on Windows, simply download or clone this repository and use the Visual Studio 2019 solution file that's stored in the **VS2019_solution** directory.
+To build Teapong on Windows, simply download or clone this repository and use the Visual Studio 2019 solution file that is stored in the **VS2019_solution** directory.
 
 ## Learning resources
 
