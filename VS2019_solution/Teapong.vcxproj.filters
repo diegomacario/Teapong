@@ -149,9 +149,6 @@
     <ClCompile Include="..\src\play_state.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\projection_tests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\renderer_2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

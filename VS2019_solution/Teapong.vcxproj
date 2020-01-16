@@ -65,7 +65,6 @@
     <ClCompile Include="..\src\paddle.cpp" />
     <ClCompile Include="..\src\pause_state.cpp" />
     <ClCompile Include="..\src\play_state.cpp" />
-    <ClCompile Include="..\src\projection_tests.cpp" />
     <ClCompile Include="..\src\renderer_2D.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\shader_loader.cpp" />
