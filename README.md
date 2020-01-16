@@ -32,7 +32,7 @@ The controls are as follows:
 
 ## Technical details
 
-This is the first game I ever make! :blush:
+This is the first game that I ever make! :blush:
 
 It was written using C++ and OpenGL, with a strong focus on making the code clear, organized and cross-platform. It is currently supported on macOS and Windows.
 
