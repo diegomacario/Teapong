@@ -13,11 +13,15 @@ Renderer2D::Renderer2D(const std::shared_ptr<Shader>& shader)
 Renderer2D::~Renderer2D()
 {
    glDeleteVertexArrays(1, &mVAO);
+   glDeleteBuffers(1, &mVBO);
+   glDeleteBuffers(1, &mEBO);
 }
 
 Renderer2D::Renderer2D(Renderer2D&& rhs) noexcept
    : mShader(std::move(rhs.mShader))
    , mVAO(std::exchange(rhs.mVAO, 0))
+   , mVBO(std::exchange(rhs.mVBO, 0))
+   , mEBO(std::exchange(rhs.mEBO, 0))
 {
 
 }
@@ -26,6 +30,8 @@ Renderer2D& Renderer2D::operator=(Renderer2D&& rhs) noexcept
 {
    mShader = std::move(rhs.mShader);
    mVAO    = std::exchange(rhs.mVAO, 0);
+   mVBO    = std::exchange(rhs.mVBO, 0);
+   mEBO    = std::exchange(rhs.mEBO, 0);
    return *this;
 }
 
@@ -74,21 +80,19 @@ void Renderer2D::configureVAO()
    std::array<unsigned int, 6> indices = {0, 1, 2,  // Triangle 1
                                           0, 3, 1}; // Triangle 2
 
-   unsigned int VBO, EBO;
-
    glGenVertexArrays(1, &mVAO);
-   glGenBuffers(1, &VBO);
-   glGenBuffers(1, &EBO);
+   glGenBuffers(1, &mVBO);
+   glGenBuffers(1, &mEBO);
 
    glBindVertexArray(mVAO);
 
    // Load the quad's data into the buffers
 
    // Positions and texture coordinates
-   glBindBuffer(GL_ARRAY_BUFFER, VBO);
+   glBindBuffer(GL_ARRAY_BUFFER, mVBO);
    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
    // Indices
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
    // Set the vertex attribute pointers
@@ -98,6 +102,4 @@ void Renderer2D::configureVAO()
    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 
    glBindVertexArray(0);
-   glDeleteBuffers(1, &VBO);
-   glDeleteBuffers(1, &EBO);
 }

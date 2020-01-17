@@ -23,6 +23,7 @@ Window::Window(const std::string& title)
    , mScrollWheelMoved(false)
    , mScrollYOffset(0.0)
    , mScreenVAO(0)
+   , mScreenVBO(0)
    , mMultisampleFBO(0)
    , mMultisampleTexture(0)
    , mMultisampleRBO(0)
@@ -37,6 +38,7 @@ Window::Window(const std::string& title)
 Window::~Window()
 {
    glDeleteVertexArrays(1, &mScreenVAO);
+   glDeleteBuffers(1, &mScreenVBO);
    glDeleteFramebuffers(1, &mMultisampleFBO);
    glDeleteTextures(1, &mMultisampleTexture);
    glDeleteRenderbuffers(1, &mMultisampleRBO);
@@ -370,16 +372,15 @@ void Window::createScreenVAO()
         1.0f,  1.0f,  1.0f, 1.0f
    };
 
-   unsigned int screenVBO;
    glGenVertexArrays(1, &mScreenVAO);
-   glGenBuffers(1, &screenVBO);
+   glGenBuffers(1, &mScreenVBO);
 
    glBindVertexArray(mScreenVAO);
 
    // Load the quad's data into the buffers
 
    // Positions, normals and texture coordinates
-   glBindBuffer(GL_ARRAY_BUFFER, screenVBO);
+   glBindBuffer(GL_ARRAY_BUFFER, mScreenVBO);
    glBufferData(GL_ARRAY_BUFFER, sizeof(screenVertAttributes), &screenVertAttributes, GL_STATIC_DRAW);
 
    // Set the vertex attribute pointers
@@ -392,7 +393,6 @@ void Window::createScreenVAO()
    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
    glBindVertexArray(0);
-   glDeleteBuffers(1, &screenVBO);
 }
 
 bool Window::createMultisampleFramebuffer()
@@ -469,7 +469,7 @@ void Window::generateAndDisplayAntiAliasedImage()
 {
    glBindFramebuffer(GL_READ_FRAMEBUFFER, mMultisampleFBO);
    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, mAntiAliasedFBO);
-   glBlitFramebuffer(0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, 0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, GL_COLOR_BUFFER_BIT, GL_LINEAR); // TODO: Should this be GL_NEAREST?
+   glBlitFramebuffer(0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, 0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, GL_COLOR_BUFFER_BIT, GL_NEAREST); // TODO: Should this be GL_LINEAR?
 
    glBindFramebuffer(GL_FRAMEBUFFER, 0);
    glClear(GL_COLOR_BUFFER_BIT);

@@ -100,6 +100,7 @@ private:
 
    // Anti aliasing support
    unsigned int                   mScreenVAO;
+   unsigned int                   mScreenVBO;
 
    unsigned int                   mMultisampleFBO;
    unsigned int                   mMultisampleTexture;

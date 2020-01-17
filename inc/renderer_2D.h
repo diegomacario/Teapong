@@ -25,6 +25,8 @@ private:
 
    std::shared_ptr<Shader> mShader;
    unsigned int            mVAO;
+   unsigned int            mVBO;
+   unsigned int            mEBO;
 };
 
 #endif

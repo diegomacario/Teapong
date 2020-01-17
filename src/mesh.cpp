@@ -14,12 +14,16 @@ Mesh::Mesh(const std::vector<Vertex>&       vertices,
 Mesh::~Mesh()
 {
    glDeleteVertexArrays(1, &mVAO);
+   glDeleteBuffers(1, &mVBO);
+   glDeleteBuffers(1, &mEBO);
 }
 
 Mesh::Mesh(Mesh&& rhs) noexcept
    : mNumIndices(std::exchange(rhs.mNumIndices, 0))
    , mMaterial(std::move(rhs.mMaterial))
    , mVAO(std::exchange(rhs.mVAO, 0))
+   , mVBO(std::exchange(rhs.mVBO, 0))
+   , mEBO(std::exchange(rhs.mEBO, 0))
 {
 
 }
@@ -29,6 +33,8 @@ Mesh& Mesh::operator=(Mesh&& rhs) noexcept
    mNumIndices = std::exchange(rhs.mNumIndices, 0);
    mMaterial   = std::move(rhs.mMaterial);
    mVAO        = std::exchange(rhs.mVAO, 0);
+   mVBO        = std::exchange(rhs.mVBO, 0);
+   mEBO        = std::exchange(rhs.mEBO, 0);
    return *this;
 }
 
@@ -45,20 +51,19 @@ void Mesh::render(const Shader& shader) const
 
 void Mesh::configureVAO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
 {
-   unsigned int VBO, EBO;
    glGenVertexArrays(1, &mVAO);
-   glGenBuffers(1, &VBO);
-   glGenBuffers(1, &EBO);
+   glGenBuffers(1, &mVBO);
+   glGenBuffers(1, &mEBO);
 
    glBindVertexArray(mVAO);
 
    // Load the mesh's data into the buffers
 
    // Positions, normals and texture coordinates
-   glBindBuffer(GL_ARRAY_BUFFER, VBO);
+   glBindBuffer(GL_ARRAY_BUFFER, mVBO);
    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
    // Indices
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
    // Set the vertex attribute pointers
@@ -74,8 +79,6 @@ void Mesh::configureVAO(const std::vector<Vertex>& vertices, const std::vector<u
    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
 
    glBindVertexArray(0);
-   glDeleteBuffers(1, &VBO);
-   glDeleteBuffers(1, &EBO);
 }
 
 void Mesh::bindMaterialTextures(const Shader& shader) const
