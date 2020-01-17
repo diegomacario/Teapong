@@ -43,7 +43,7 @@ void PlayState::enter()
    }
 }
 
-void PlayState::execute(float deltaTime)
+void PlayState::processInputAndUpdate(float deltaTime)
 {
    processInput(deltaTime);
 
@@ -51,8 +51,32 @@ void PlayState::execute(float deltaTime)
    {
       update(deltaTime);
    }
+}
 
-   render();
+void PlayState::render()
+{
+   mWindow->clearAndBindMultisampleFramebuffer();
+
+   // Enable depth testing for 3D objects
+   glEnable(GL_DEPTH_TEST);
+
+   mGameObject3DShader->use();
+   mGameObject3DShader->setMat4("view", mCamera->getViewMatrix());
+   mGameObject3DShader->setVec3("cameraPos", mCamera->getPosition());
+
+   mTable->render(*mGameObject3DShader);
+
+   mLeftPaddle->render(*mGameObject3DShader);
+   mRightPaddle->render(*mGameObject3DShader);
+
+   glDisable(GL_CULL_FACE);
+   mBall->render(*mGameObject3DShader);
+   glEnable(GL_CULL_FACE);
+
+   mWindow->generateAndDisplayAntiAliasedImage();
+
+   mWindow->swapBuffers();
+   mWindow->pollEvents();
 }
 
 void PlayState::exit()
@@ -255,32 +279,6 @@ void PlayState::update(float deltaTime)
          resolveCollisionBetweenBallAndPaddle(*mBall, *mRightPaddle, vecFromCenterOfCircleToPointOfCollision);
       }
    }
-}
-
-void PlayState::render()
-{
-   mWindow->clearAndBindMultisampleFramebuffer();
-
-   // Enable depth testing for 3D objects
-   glEnable(GL_DEPTH_TEST);
-
-   mGameObject3DShader->use();
-   mGameObject3DShader->setMat4("view", mCamera->getViewMatrix());
-   mGameObject3DShader->setVec3("cameraPos", mCamera->getPosition());
-
-   mTable->render(*mGameObject3DShader);
-
-   mLeftPaddle->render(*mGameObject3DShader);
-   mRightPaddle->render(*mGameObject3DShader);
-
-   glDisable(GL_CULL_FACE);
-   mBall->render(*mGameObject3DShader);
-   glEnable(GL_CULL_FACE);
-
-   mWindow->generateAndDisplayAntiAliasedImage();
-
-   mWindow->swapBuffers();
-   mWindow->pollEvents();
 }
 
 void PlayState::calculateInitialDirectionOfBall()

@@ -41,11 +41,39 @@ void WinState::enter()
    mDistanceTravelledByExplodingFragments = 0.0f;
 }
 
-void WinState::execute(float deltaTime)
+void WinState::processInputAndUpdate(float deltaTime)
 {
    processInput(deltaTime);
    update(deltaTime);
-   render(deltaTime);
+}
+
+void WinState::render()
+{
+   mWindow->clearAndBindMultisampleFramebuffer();
+
+   // Enable depth testing for 3D objects
+   glEnable(GL_DEPTH_TEST);
+
+   mGameObject3DExplosiveShader->use();
+   mGameObject3DExplosiveShader->setMat4("view", glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
+   mGameObject3DExplosiveShader->setVec3("cameraPos", mCameraPosition);
+   if (mExplode)
+   {
+      mGameObject3DExplosiveShader->setFloat("distanceToMove", mDistanceTravelledByExplodingFragments);
+   }
+   else
+   {
+      mGameObject3DExplosiveShader->setFloat("distanceToMove", 0.0f);
+   }
+
+   glDisable(GL_CULL_FACE);
+   mBall->render(*mGameObject3DExplosiveShader);
+   glEnable(GL_CULL_FACE);
+
+   mWindow->generateAndDisplayAntiAliasedImage();
+
+   mWindow->swapBuffers();
+   mWindow->pollEvents();
 }
 
 void WinState::exit()
@@ -115,33 +143,4 @@ void WinState::update(float deltaTime)
    // Rotate the camera CW around the positive Z axis
    glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(mIdleOrbitalAngularVelocity * deltaTime), glm::vec3(0.0f, 0.0f, 1.0f));
    mCameraPosition = glm::mat3(rotationMatrix) * mCameraPosition;
-}
-
-void WinState::render(float deltaTime)
-{
-   mWindow->clearAndBindMultisampleFramebuffer();
-
-   // Enable depth testing for 3D objects
-   glEnable(GL_DEPTH_TEST);
-
-   mGameObject3DExplosiveShader->use();
-   mGameObject3DExplosiveShader->setMat4("view", glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
-   mGameObject3DExplosiveShader->setVec3("cameraPos", mCameraPosition);
-   if (mExplode)
-   {
-      mGameObject3DExplosiveShader->setFloat("distanceToMove", mDistanceTravelledByExplodingFragments);
-   }
-   else
-   {
-      mGameObject3DExplosiveShader->setFloat("distanceToMove", 0.0f);
-   }
-
-   glDisable(GL_CULL_FACE);
-   mBall->render(*mGameObject3DExplosiveShader);
-   glEnable(GL_CULL_FACE);
-
-   mWindow->generateAndDisplayAntiAliasedImage();
-
-   mWindow->swapBuffers();
-   mWindow->pollEvents();
 }

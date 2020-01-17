@@ -22,9 +22,14 @@ void FiniteStateMachine::initialize(std::unordered_map<std::string, std::shared_
    }
 }
 
-void FiniteStateMachine::executeCurrentState(float deltaTime) const
+void FiniteStateMachine::updateCurrentState(float deltaTime) const
 {
-   mCurrentState->execute(deltaTime);
+   mCurrentState->processInputAndUpdate(deltaTime);
+}
+
+void FiniteStateMachine::renderCurrentState() const
+{
+   mCurrentState->render();
 }
 
 void FiniteStateMachine::changeState(const std::string& newStateID)

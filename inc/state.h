@@ -15,7 +15,8 @@ public:
    State& operator=(State&&) = delete;
 
    virtual void enter() = 0;
-   virtual void execute(float deltaTime) = 0;
+   virtual void processInputAndUpdate(float deltaTime) = 0;
+   virtual void render() = 0;
    virtual void exit() = 0;
 };
 

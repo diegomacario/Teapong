@@ -25,10 +25,35 @@ void PauseState::enter()
 
 }
 
-void PauseState::execute(float deltaTime)
+void PauseState::processInputAndUpdate(float deltaTime)
 {
    processInput(deltaTime);
-   render();
+}
+
+void PauseState::render()
+{
+   mWindow->clearAndBindMultisampleFramebuffer();
+
+   // Enable depth testing for 3D objects
+   glEnable(GL_DEPTH_TEST);
+
+   mGameObject3DShader->use();
+   mGameObject3DShader->setMat4("view", mCamera->getViewMatrix());
+   mGameObject3DShader->setVec3("cameraPos", mCamera->getPosition());
+
+   mTable->render(*mGameObject3DShader);
+
+   mLeftPaddle->render(*mGameObject3DShader);
+   mRightPaddle->render(*mGameObject3DShader);
+
+   glDisable(GL_CULL_FACE);
+   mBall->render(*mGameObject3DShader);
+   glEnable(GL_CULL_FACE);
+
+   mWindow->generateAndDisplayAntiAliasedImage();
+
+   mWindow->swapBuffers();
+   mWindow->pollEvents();
 }
 
 void PauseState::exit()
@@ -159,32 +184,6 @@ void PauseState::processInput(float deltaTime)
       }
    }
 
-   mWindow->pollEvents();
-}
-
-void PauseState::render()
-{
-   mWindow->clearAndBindMultisampleFramebuffer();
-
-   // Enable depth testing for 3D objects
-   glEnable(GL_DEPTH_TEST);
-
-   mGameObject3DShader->use();
-   mGameObject3DShader->setMat4("view", mCamera->getViewMatrix());
-   mGameObject3DShader->setVec3("cameraPos", mCamera->getPosition());
-
-   mTable->render(*mGameObject3DShader);
-
-   mLeftPaddle->render(*mGameObject3DShader);
-   mRightPaddle->render(*mGameObject3DShader);
-
-   glDisable(GL_CULL_FACE);
-   mBall->render(*mGameObject3DShader);
-   glEnable(GL_CULL_FACE);
-
-   mWindow->generateAndDisplayAntiAliasedImage();
-
-   mWindow->swapBuffers();
    mWindow->pollEvents();
 }
 

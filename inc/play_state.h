@@ -25,14 +25,14 @@ public:
    PlayState& operator=(PlayState&&) = delete;
 
    void enter() override;
-   void execute(float deltaTime) override;
+   void processInputAndUpdate(float deltaTime) override;
+   void render() override;
    void exit() override;
 
 private:
 
    void processInput(float deltaTime);
    void update(float deltaTime);
-   void render();
 
    void calculateInitialDirectionOfBall();
 

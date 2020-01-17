@@ -24,14 +24,14 @@ public:
    MenuState& operator=(MenuState&&) = delete;
 
    void enter() override;
-   void execute(float deltaTime) override;
+   void processInputAndUpdate(float deltaTime) override;
+   void render() override;
    void exit() override;
 
 private:
 
    void processInput(float deltaTime);
    void update(float deltaTime);
-   void render();
 
    void calculateAngularAndMovementSpeeds();
    void rotateCameraHorizontally(float deltaTime);
