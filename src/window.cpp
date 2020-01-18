@@ -1,7 +1,5 @@
 #include <iostream>
 
-#include "resource_manager.h"
-#include "shader_loader.h"
 #include "window.h"
 
 Window::Window(const std::string& title)
@@ -22,14 +20,9 @@ Window::Window(const std::string& title)
    , mCursorYOffset(0.0)
    , mScrollWheelMoved(false)
    , mScrollYOffset(0.0)
-   , mScreenVAO(0)
-   , mScreenVBO(0)
    , mMultisampleFBO(0)
    , mMultisampleTexture(0)
    , mMultisampleRBO(0)
-   , mAntiAliasedFBO(0)
-   , mAntiAliasedTexture(0)
-   , mScreenShader()
    , mNumOfSamples(1)
 {
 
@@ -37,13 +30,9 @@ Window::Window(const std::string& title)
 
 Window::~Window()
 {
-   glDeleteVertexArrays(1, &mScreenVAO);
-   glDeleteBuffers(1, &mScreenVBO);
    glDeleteFramebuffers(1, &mMultisampleFBO);
    glDeleteTextures(1, &mMultisampleTexture);
    glDeleteRenderbuffers(1, &mMultisampleRBO);
-   glDeleteFramebuffers(1, &mAntiAliasedFBO);
-   glDeleteTextures(1, &mAntiAliasedTexture);
 
    if (mWindow)
    {
@@ -336,63 +325,12 @@ void Window::scrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 
 bool Window::configureAntiAliasingSupport()
 {
-   createScreenVAO();
-
    if (!createMultisampleFramebuffer())
    {
       return false;
    }
 
-   if (!createAntiAliasedFramebuffer())
-   {
-      return false;
-   }
-
-   // Initialize the screen shader
-   mScreenShader = ResourceManager<Shader>().loadUnmanagedResource<ShaderLoader>("resources/shaders/screen.vs",
-                                                                                 "resources/shaders/screen.fs");
-
-   mScreenShader->use();
-   mScreenShader->setInt("screenTexture", 0);
-
    return true;
-}
-
-void Window::createScreenVAO()
-{
-   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates
-   float screenVertAttributes[] = {
-       // Positions   // Tex coords
-       -1.0f,  1.0f,  0.0f, 1.0f,
-       -1.0f, -1.0f,  0.0f, 0.0f,
-        1.0f, -1.0f,  1.0f, 0.0f,
-
-       -1.0f,  1.0f,  0.0f, 1.0f,
-        1.0f, -1.0f,  1.0f, 0.0f,
-        1.0f,  1.0f,  1.0f, 1.0f
-   };
-
-   glGenVertexArrays(1, &mScreenVAO);
-   glGenBuffers(1, &mScreenVBO);
-
-   glBindVertexArray(mScreenVAO);
-
-   // Load the quad's data into the buffers
-
-   // Positions, normals and texture coordinates
-   glBindBuffer(GL_ARRAY_BUFFER, mScreenVBO);
-   glBufferData(GL_ARRAY_BUFFER, sizeof(screenVertAttributes), &screenVertAttributes, GL_STATIC_DRAW);
-
-   // Set the vertex attribute pointers
-
-   // Positions
-   glEnableVertexAttribArray(0);
-   glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-   // Texture coords
-   glEnableVertexAttribArray(1);
-   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
-   glBindVertexArray(0);
 }
 
 bool Window::createMultisampleFramebuffer()
@@ -432,55 +370,17 @@ bool Window::createMultisampleFramebuffer()
    return true;
 }
 
-bool Window::createAntiAliasedFramebuffer()
-{
-   // Configure a framebuffer object to store anti aliased renders
-
-   glGenFramebuffers(1, &mAntiAliasedFBO);
-   glBindFramebuffer(GL_FRAMEBUFFER, mAntiAliasedFBO);
-
-   // Create a texture and use it as a color attachment
-   glGenTextures(1, &mAntiAliasedTexture);
-   glBindTexture(GL_TEXTURE_2D, mAntiAliasedTexture);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // TODO: Should this be GL_LINEAR_MIPMAP_LINEAR?
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mAntiAliasedTexture, 0);
-   glBindTexture(GL_TEXTURE_2D, 0);
-
-   if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-   {
-      std::cout << "Error - Window::configureAntiAliasingSupport - Anti aliased framebuffer is not complete" << "\n";
-      return false;
-   }
-
-   glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-   return true;
-}
-
 void Window::clearAndBindMultisampleFramebuffer()
 {
    glBindFramebuffer(GL_FRAMEBUFFER, mMultisampleFBO);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Window::generateAndDisplayAntiAliasedImage()
+void Window::generateAntiAliasedImage()
 {
    glBindFramebuffer(GL_READ_FRAMEBUFFER, mMultisampleFBO);
-   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, mAntiAliasedFBO);
+   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
    glBlitFramebuffer(0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, 0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, GL_COLOR_BUFFER_BIT, GL_NEAREST); // TODO: Should this be GL_LINEAR?
-
-   glBindFramebuffer(GL_FRAMEBUFFER, 0);
-   glClear(GL_COLOR_BUFFER_BIT);
-   glDisable(GL_DEPTH_TEST);
-
-   // Draw screen quad
-   mScreenShader->use();
-   glBindVertexArray(mScreenVAO);
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, mAntiAliasedTexture); // Use the now resolved color attachment as the quad's texture
-   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 void Window::resizeFramebuffers()
@@ -492,10 +392,6 @@ void Window::resizeFramebuffers()
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
    glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-   glBindTexture(GL_TEXTURE_2D, mAntiAliasedTexture);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Window::setNumberOfSamples(unsigned int numOfSamples)

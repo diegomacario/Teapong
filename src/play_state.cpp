@@ -250,11 +250,12 @@ void PlayState::render()
    mLeftPaddle->render(*mGameObject3DShader);
    mRightPaddle->render(*mGameObject3DShader);
 
+   // Disable face culling so that we render the inside of the teapot
    glDisable(GL_CULL_FACE);
    mBall->render(*mGameObject3DShader);
    glEnable(GL_CULL_FACE);
 
-   mWindow->generateAndDisplayAntiAliasedImage();
+   mWindow->generateAntiAliasedImage();
 
    mWindow->swapBuffers();
    mWindow->pollEvents();

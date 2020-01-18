@@ -6,8 +6,6 @@
 
 #include <bitset>
 
-#include "shader.h"
-
 // TODO: Take advantage of inlining in this class.
 class Window
 {
@@ -56,14 +54,12 @@ public:
    float        getScrollYOffset() const;
 
    // Anti aliasing support
-   bool configureAntiAliasingSupport();
-   void createScreenVAO();
-   bool createMultisampleFramebuffer();
-   bool createAntiAliasedFramebuffer();
-   void clearAndBindMultisampleFramebuffer();
-   void generateAndDisplayAntiAliasedImage();
-   void resizeFramebuffers();
-   void setNumberOfSamples(unsigned int numOfSamples);
+   bool         configureAntiAliasingSupport();
+   bool         createMultisampleFramebuffer();
+   void         clearAndBindMultisampleFramebuffer();
+   void         generateAntiAliasedImage();
+   void         resizeFramebuffers();
+   void         setNumberOfSamples(unsigned int numOfSamples);
 
 private:
 
@@ -99,17 +95,9 @@ private:
    float                          mScrollYOffset;
 
    // Anti aliasing support
-   unsigned int                   mScreenVAO;
-   unsigned int                   mScreenVBO;
-
    unsigned int                   mMultisampleFBO;
    unsigned int                   mMultisampleTexture;
    unsigned int                   mMultisampleRBO;
-
-   unsigned int                   mAntiAliasedFBO;
-   unsigned int                   mAntiAliasedTexture;
-
-   std::shared_ptr<Shader>        mScreenShader;
 
    unsigned int                   mNumOfSamples;
 };

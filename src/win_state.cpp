@@ -124,11 +124,12 @@ void WinState::render()
       mGameObject3DExplosiveShader->setFloat("distanceToMove", 0.0f);
    }
 
+   // Disable face culling so that we render the inside of the teapot
    glDisable(GL_CULL_FACE);
    mBall->render(*mGameObject3DExplosiveShader);
    glEnable(GL_CULL_FACE);
 
-   mWindow->generateAndDisplayAntiAliasedImage();
+   mWindow->generateAntiAliasedImage();
 
    mWindow->swapBuffers();
    mWindow->pollEvents();
