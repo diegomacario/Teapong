@@ -208,8 +208,8 @@ void Game::executeGameLoop()
       deltaTime    = static_cast<float>(currentFrame - lastFrame);
       lastFrame    = currentFrame;
 
-      mFSM->updateCurrentState(deltaTime);
       mFSM->processInputInCurrentState(deltaTime);
+      mFSM->updateCurrentState(deltaTime);
       mFSM->renderCurrentState();
    }
 }
