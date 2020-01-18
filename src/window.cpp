@@ -88,8 +88,6 @@ bool Window::initialize()
 
    glViewport(0, 0, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glEnable(GL_CULL_FACE);
-   glEnable(GL_BLEND);
-   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
    if (!configureAntiAliasingSupport())
    {
@@ -354,7 +352,7 @@ bool Window::createMultisampleFramebuffer()
    glGenRenderbuffers(1, &mMultisampleRBO);
 
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
-   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mMultisampleRBO);
@@ -390,7 +388,7 @@ void Window::resizeFramebuffers()
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
-   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
 
@@ -403,6 +401,6 @@ void Window::setNumberOfSamples(unsigned int numOfSamples)
    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 
    glBindRenderbuffer(GL_RENDERBUFFER, mMultisampleRBO);
-   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT32F, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
+   glRenderbufferStorageMultisample(GL_RENDERBUFFER, mNumOfSamples, GL_DEPTH_COMPONENT, mWidthOfFramebufferInPix, mHeightOfFramebufferInPix);
    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
