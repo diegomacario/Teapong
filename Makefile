@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := teapong
 
-FILES=ball.cpp camera.cpp collision.cpp finite_state_machine.cpp game.cpp game_object_2D.cpp game_object_3D.cpp main.cpp menu_state.cpp mesh.cpp model.cpp model_loader.cpp movable_game_object_2D.cpp movable_game_object_3D.cpp paddle.cpp pause_state.cpp play_state.cpp projection_tests.cpp renderer_2D.cpp shader.cpp shader_loader.cpp stb_image.cpp texture.cpp texture_loader.cpp win_state.cpp window.cpp
+FILES=ball.cpp camera.cpp collision.cpp finite_state_machine.cpp game.cpp game_object_2D.cpp game_object_3D.cpp main.cpp menu_state.cpp mesh.cpp model.cpp model_loader.cpp movable_game_object_2D.cpp movable_game_object_3D.cpp paddle.cpp pause_state.cpp play_state.cpp renderer_2D.cpp shader.cpp shader_loader.cpp stb_image.cpp texture.cpp texture_loader.cpp win_state.cpp window.cpp
 
 SRC=src
 INC=inc
