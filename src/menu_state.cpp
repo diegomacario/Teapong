@@ -71,48 +71,6 @@ void MenuState::enter()
    mDoneShrinking            = false;
 }
 
-void MenuState::processInputAndUpdate(float deltaTime)
-{
-   processInput(deltaTime);
-   update(deltaTime);
-}
-
-void MenuState::render()
-{
-   mWindow->clearAndBindMultisampleFramebuffer();
-
-   // Enable depth testing for 3D objects
-   glEnable(GL_DEPTH_TEST);
-
-   mGameObject3DShader->use();
-   mGameObject3DShader->setMat4("view", glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
-   mGameObject3DShader->setVec3("cameraPos", mCameraPosition);
-
-   if (!mTransitionToPlayState)
-   {
-      mTitle->render(*mGameObject3DShader);
-   }
-
-   mTable->render(*mGameObject3DShader);
-
-   mLeftPaddle->render(*mGameObject3DShader);
-   mRightPaddle->render(*mGameObject3DShader);
-
-   glDisable(GL_CULL_FACE);
-   mBall->render(*mGameObject3DShader);
-   glEnable(GL_CULL_FACE);
-
-   mWindow->generateAndDisplayAntiAliasedImage();
-
-   mWindow->swapBuffers();
-   mWindow->pollEvents();
-}
-
-void MenuState::exit()
-{
-
-}
-
 void MenuState::processInput(float deltaTime)
 {
    // Close the game
@@ -187,6 +145,42 @@ void MenuState::update(float deltaTime)
       // Rotate the title CW around the positive Z axis
       mTitle->rotate(mIdleOrbitalAngularVelocity * deltaTime, glm::vec3(0.0f, 0.0f, 1.0f));
    }
+}
+
+void MenuState::render()
+{
+   mWindow->clearAndBindMultisampleFramebuffer();
+
+   // Enable depth testing for 3D objects
+   glEnable(GL_DEPTH_TEST);
+
+   mGameObject3DShader->use();
+   mGameObject3DShader->setMat4("view", glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
+   mGameObject3DShader->setVec3("cameraPos", mCameraPosition);
+
+   if (!mTransitionToPlayState)
+   {
+      mTitle->render(*mGameObject3DShader);
+   }
+
+   mTable->render(*mGameObject3DShader);
+
+   mLeftPaddle->render(*mGameObject3DShader);
+   mRightPaddle->render(*mGameObject3DShader);
+
+   glDisable(GL_CULL_FACE);
+   mBall->render(*mGameObject3DShader);
+   glEnable(GL_CULL_FACE);
+
+   mWindow->generateAndDisplayAntiAliasedImage();
+
+   mWindow->swapBuffers();
+   mWindow->pollEvents();
+}
+
+void MenuState::exit()
+{
+
 }
 
 void MenuState::calculateAngularAndMovementSpeeds()

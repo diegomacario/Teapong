@@ -209,6 +209,7 @@ void Game::executeGameLoop()
       lastFrame    = currentFrame;
 
       mFSM->updateCurrentState(deltaTime);
+      mFSM->processInputInCurrentState(deltaTime);
       mFSM->renderCurrentState();
    }
 }

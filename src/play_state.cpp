@@ -43,58 +43,6 @@ void PlayState::enter()
    }
 }
 
-void PlayState::processInputAndUpdate(float deltaTime)
-{
-   processInput(deltaTime);
-
-   if (mBallIsInPlay)
-   {
-      update(deltaTime);
-   }
-}
-
-void PlayState::render()
-{
-   mWindow->clearAndBindMultisampleFramebuffer();
-
-   // Enable depth testing for 3D objects
-   glEnable(GL_DEPTH_TEST);
-
-   mGameObject3DShader->use();
-   mGameObject3DShader->setMat4("view", mCamera->getViewMatrix());
-   mGameObject3DShader->setVec3("cameraPos", mCamera->getPosition());
-
-   mTable->render(*mGameObject3DShader);
-
-   mLeftPaddle->render(*mGameObject3DShader);
-   mRightPaddle->render(*mGameObject3DShader);
-
-   glDisable(GL_CULL_FACE);
-   mBall->render(*mGameObject3DShader);
-   glEnable(GL_CULL_FACE);
-
-   mWindow->generateAndDisplayAntiAliasedImage();
-
-   mWindow->swapBuffers();
-   mWindow->pollEvents();
-}
-
-void PlayState::exit()
-{
-   if (mFSM->getCurrentStateID() != "pause")
-   {
-      if (mFSM->getCurrentStateID() == "win")
-      {
-         mLeftPaddle->setPosition(glm::vec3(-45.0f, 0.0f, 0.0f));
-         mRightPaddle->setPosition(glm::vec3(45.0f, 0.0f, 0.0f));
-      }
-      else
-      {
-         resetScene();
-      }
-   }
-}
-
 void PlayState::processInput(float deltaTime)
 {
    // Close the game
@@ -234,6 +182,11 @@ void PlayState::processInput(float deltaTime)
 
 void PlayState::update(float deltaTime)
 {
+   if (!mBallIsInPlay)
+   {
+      return;
+   }
+
    if (!mBallIsFalling && ballIsOutsideOfHorizontalRange())
    {
       updateScore();
@@ -277,6 +230,48 @@ void PlayState::update(float deltaTime)
       {
          playSoundOfCollision();
          resolveCollisionBetweenBallAndPaddle(*mBall, *mRightPaddle, vecFromCenterOfCircleToPointOfCollision);
+      }
+   }
+}
+
+void PlayState::render()
+{
+   mWindow->clearAndBindMultisampleFramebuffer();
+
+   // Enable depth testing for 3D objects
+   glEnable(GL_DEPTH_TEST);
+
+   mGameObject3DShader->use();
+   mGameObject3DShader->setMat4("view", mCamera->getViewMatrix());
+   mGameObject3DShader->setVec3("cameraPos", mCamera->getPosition());
+
+   mTable->render(*mGameObject3DShader);
+
+   mLeftPaddle->render(*mGameObject3DShader);
+   mRightPaddle->render(*mGameObject3DShader);
+
+   glDisable(GL_CULL_FACE);
+   mBall->render(*mGameObject3DShader);
+   glEnable(GL_CULL_FACE);
+
+   mWindow->generateAndDisplayAntiAliasedImage();
+
+   mWindow->swapBuffers();
+   mWindow->pollEvents();
+}
+
+void PlayState::exit()
+{
+   if (mFSM->getCurrentStateID() != "pause")
+   {
+      if (mFSM->getCurrentStateID() == "win")
+      {
+         mLeftPaddle->setPosition(glm::vec3(-45.0f, 0.0f, 0.0f));
+         mRightPaddle->setPosition(glm::vec3(45.0f, 0.0f, 0.0f));
+      }
+      else
+      {
+         resetScene();
       }
    }
 }
