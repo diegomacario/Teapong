@@ -26,6 +26,10 @@ Camera::Camera(glm::vec3 position,
    , mMovementSpeed(movementSpeed)
    , mMouseSensitivity(mouseSensitivity)
    , mIsFree(false)
+   , mViewMatrix()
+   , mPerspectiveProjectionMatrix()
+   , mNeedToUpdateViewMatrix(true)
+   , mNeedToUpdatePerspectiveProjectionMatrix(true)
 {
    updateCoordinateFrame();
 }
@@ -45,26 +49,34 @@ Camera::Camera(Camera&& rhs) noexcept
    , mMovementSpeed(std::exchange(rhs.mMovementSpeed, 0.0f))
    , mMouseSensitivity(std::exchange(rhs.mMouseSensitivity, 0.0f))
    , mIsFree(std::exchange(rhs.mIsFree, false))
+   , mViewMatrix(std::exchange(rhs.mViewMatrix, glm::mat4(0.0f)))
+   , mPerspectiveProjectionMatrix(std::exchange(rhs.mPerspectiveProjectionMatrix, glm::mat4(0.0f)))
+   , mNeedToUpdateViewMatrix(std::exchange(rhs.mNeedToUpdateViewMatrix, true))
+   , mNeedToUpdatePerspectiveProjectionMatrix(std::exchange(rhs.mNeedToUpdatePerspectiveProjectionMatrix, true))
 {
 
 }
 
 Camera& Camera::operator=(Camera&& rhs) noexcept
 {
-   mPosition          = std::exchange(rhs.mPosition, glm::vec3(0.0f));
-   mFront             = std::exchange(rhs.mFront, glm::vec3(0.0f));
-   mUp                = std::exchange(rhs.mUp, glm::vec3(0.0f));
-   mRight             = std::exchange(rhs.mRight, glm::vec3(0.0f));
-   mWorldUp           = std::exchange(rhs.mWorldUp, glm::vec3(0.0f));
-   mYawInDeg          = std::exchange(rhs.mYawInDeg, 0.0f);
-   mPitchInDeg        = std::exchange(rhs.mPitchInDeg, 0.0f);
-   mFieldOfViewYInDeg = std::exchange(rhs.mFieldOfViewYInDeg, 0.0f);
-   mAspectRatio       = std::exchange(rhs.mAspectRatio, 0.0f);
-   mNear              = std::exchange(rhs.mNear, 0.0f);
-   mFar               = std::exchange(rhs.mFar, 0.0f);
-   mMovementSpeed     = std::exchange(rhs.mMovementSpeed, 0.0f);
-   mMouseSensitivity  = std::exchange(rhs.mMouseSensitivity, 0.0f);
-   mIsFree            = std::exchange(rhs.mIsFree, false);
+   mPosition                                = std::exchange(rhs.mPosition, glm::vec3(0.0f));
+   mFront                                   = std::exchange(rhs.mFront, glm::vec3(0.0f));
+   mUp                                      = std::exchange(rhs.mUp, glm::vec3(0.0f));
+   mRight                                   = std::exchange(rhs.mRight, glm::vec3(0.0f));
+   mWorldUp                                 = std::exchange(rhs.mWorldUp, glm::vec3(0.0f));
+   mYawInDeg                                = std::exchange(rhs.mYawInDeg, 0.0f);
+   mPitchInDeg                              = std::exchange(rhs.mPitchInDeg, 0.0f);
+   mFieldOfViewYInDeg                       = std::exchange(rhs.mFieldOfViewYInDeg, 0.0f);
+   mAspectRatio                             = std::exchange(rhs.mAspectRatio, 0.0f);
+   mNear                                    = std::exchange(rhs.mNear, 0.0f);
+   mFar                                     = std::exchange(rhs.mFar, 0.0f);
+   mMovementSpeed                           = std::exchange(rhs.mMovementSpeed, 0.0f);
+   mMouseSensitivity                        = std::exchange(rhs.mMouseSensitivity, 0.0f);
+   mIsFree                                  = std::exchange(rhs.mIsFree, false);
+   mViewMatrix                              = std::exchange(rhs.mViewMatrix, glm::mat4(0.0f));
+   mPerspectiveProjectionMatrix             = std::exchange(rhs.mPerspectiveProjectionMatrix, glm::mat4(0.0f));
+   mNeedToUpdateViewMatrix                  = std::exchange(rhs.mNeedToUpdateViewMatrix, true);
+   mNeedToUpdatePerspectiveProjectionMatrix = std::exchange(rhs.mNeedToUpdatePerspectiveProjectionMatrix, true);
    return *this;
 }
 
@@ -75,16 +87,27 @@ glm::vec3 Camera::getPosition()
 
 glm::mat4 Camera::getViewMatrix()
 {
-   // TODO: Could we optimize things by storing the lookAt matrix and only recalculating it if the camera's settings changed?
-   return glm::lookAt(mPosition, mPosition + mFront, mUp);
+   if (mNeedToUpdateViewMatrix)
+   {
+      mViewMatrix = glm::lookAt(mPosition, mPosition + mFront, mUp);
+      mNeedToUpdateViewMatrix = false;
+   }
+
+   return mViewMatrix;
 }
 
 glm::mat4 Camera::getPerspectiveProjectionMatrix()
 {
-   return glm::perspective(glm::radians(mFieldOfViewYInDeg),
-                                        mAspectRatio,
-                                        mNear,
-                                        mFar);
+   if (mNeedToUpdatePerspectiveProjectionMatrix)
+   {
+      mPerspectiveProjectionMatrix = glm::perspective(glm::radians(mFieldOfViewYInDeg),
+                                                      mAspectRatio,
+                                                      mNear,
+                                                      mFar);
+      mNeedToUpdatePerspectiveProjectionMatrix = false;
+   }
+
+   return mPerspectiveProjectionMatrix;
 }
 
 void Camera::reposition(const glm::vec3& position,
@@ -100,6 +123,9 @@ void Camera::reposition(const glm::vec3& position,
    mFieldOfViewYInDeg = fieldOfViewYInDeg;
 
    updateCoordinateFrame();
+
+   mNeedToUpdateViewMatrix = true;
+   mNeedToUpdatePerspectiveProjectionMatrix = true;
 }
 
 void Camera::processKeyboardInput(MovementDirection direction, float deltaTime)
@@ -121,6 +147,8 @@ void Camera::processKeyboardInput(MovementDirection direction, float deltaTime)
       mPosition += mRight * velocity;
       break;
    }
+
+   mNeedToUpdateViewMatrix = true;
 }
 
 void Camera::processMouseMovement(float xOffset, float yOffset)
@@ -144,6 +172,8 @@ void Camera::processMouseMovement(float xOffset, float yOffset)
 
    // Update the front, right and up vectors using the updated Euler angles
    updateCoordinateFrame();
+
+   mNeedToUpdateViewMatrix = true;
 }
 
 void Camera::processScrollWheelMovement(float yOffset)
@@ -162,6 +192,8 @@ void Camera::processScrollWheelMovement(float yOffset)
    {
       mFieldOfViewYInDeg = 45.0f;
    }
+
+   mNeedToUpdatePerspectiveProjectionMatrix = true;
 }
 
 bool Camera::isFree() const

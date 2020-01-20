@@ -215,7 +215,7 @@ float Window::getCursorYOffset() const
 
 void Window::enableCursor(bool enable)
 {
-      glfwSetInputMode(mWindow, GLFW_CURSOR, enable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+   glfwSetInputMode(mWindow, GLFW_CURSOR, enable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
 bool Window::scrollWheelMoved() const

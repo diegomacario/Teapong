@@ -74,6 +74,12 @@ private:
    float     mMouseSensitivity;
 
    bool      mIsFree;
+
+   glm::mat4 mViewMatrix;
+   glm::mat4 mPerspectiveProjectionMatrix;
+
+   bool      mNeedToUpdateViewMatrix;
+   bool      mNeedToUpdatePerspectiveProjectionMatrix;
 };
 
 #endif
