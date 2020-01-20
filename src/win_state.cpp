@@ -2,10 +2,12 @@
 
 WinState::WinState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachine,
                    const std::shared_ptr<Window>&             window,
+                   const std::shared_ptr<Camera>&             camera,
                    const std::shared_ptr<Shader>&             gameObject3DExplosiveShader,
                    const std::shared_ptr<Ball>&               ball)
    : mFSM(finiteStateMachine)
    , mWindow(window)
+   , mCamera(camera)
    , mGameObject3DExplosiveShader(gameObject3DExplosiveShader)
    , mBall(ball)
    , mCameraPosition(0.0f, -30.0f, 10.0f)
@@ -113,7 +115,7 @@ void WinState::render()
    glEnable(GL_DEPTH_TEST);
 
    mGameObject3DExplosiveShader->use();
-   mGameObject3DExplosiveShader->setMat4("view", glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
+   mGameObject3DExplosiveShader->setMat4("projectionView", mCamera->getPerspectiveProjectionMatrix() * glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
    mGameObject3DExplosiveShader->setVec3("cameraPos", mCameraPosition);
    if (mExplode)
    {

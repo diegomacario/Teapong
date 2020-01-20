@@ -30,6 +30,7 @@ public:
 
    glm::mat4 getViewMatrix();
    glm::mat4 getPerspectiveProjectionMatrix();
+   glm::mat4 getPerspectiveProjectionViewMatrix();
 
    void      reposition(const glm::vec3& position,
                         const glm::vec3& worldUp,
@@ -77,9 +78,11 @@ private:
 
    glm::mat4 mViewMatrix;
    glm::mat4 mPerspectiveProjectionMatrix;
+   glm::mat4 mPerspectiveProjectionViewMatrix;
 
    bool      mNeedToUpdateViewMatrix;
    bool      mNeedToUpdatePerspectiveProjectionMatrix;
+   bool      mNeedToUpdatePerspectiveProjectionViewMatrix;
 };
 
 #endif

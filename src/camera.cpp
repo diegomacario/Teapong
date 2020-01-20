@@ -28,8 +28,10 @@ Camera::Camera(glm::vec3 position,
    , mIsFree(false)
    , mViewMatrix()
    , mPerspectiveProjectionMatrix()
+   , mPerspectiveProjectionViewMatrix()
    , mNeedToUpdateViewMatrix(true)
    , mNeedToUpdatePerspectiveProjectionMatrix(true)
+   , mNeedToUpdatePerspectiveProjectionViewMatrix(true)
 {
    updateCoordinateFrame();
 }
@@ -51,32 +53,36 @@ Camera::Camera(Camera&& rhs) noexcept
    , mIsFree(std::exchange(rhs.mIsFree, false))
    , mViewMatrix(std::exchange(rhs.mViewMatrix, glm::mat4(0.0f)))
    , mPerspectiveProjectionMatrix(std::exchange(rhs.mPerspectiveProjectionMatrix, glm::mat4(0.0f)))
+   , mPerspectiveProjectionViewMatrix(std::exchange(rhs.mPerspectiveProjectionViewMatrix, glm::mat4(0.0f)))
    , mNeedToUpdateViewMatrix(std::exchange(rhs.mNeedToUpdateViewMatrix, true))
    , mNeedToUpdatePerspectiveProjectionMatrix(std::exchange(rhs.mNeedToUpdatePerspectiveProjectionMatrix, true))
+   , mNeedToUpdatePerspectiveProjectionViewMatrix(std::exchange(rhs.mNeedToUpdatePerspectiveProjectionViewMatrix, true))
 {
 
 }
 
 Camera& Camera::operator=(Camera&& rhs) noexcept
 {
-   mPosition                                = std::exchange(rhs.mPosition, glm::vec3(0.0f));
-   mFront                                   = std::exchange(rhs.mFront, glm::vec3(0.0f));
-   mUp                                      = std::exchange(rhs.mUp, glm::vec3(0.0f));
-   mRight                                   = std::exchange(rhs.mRight, glm::vec3(0.0f));
-   mWorldUp                                 = std::exchange(rhs.mWorldUp, glm::vec3(0.0f));
-   mYawInDeg                                = std::exchange(rhs.mYawInDeg, 0.0f);
-   mPitchInDeg                              = std::exchange(rhs.mPitchInDeg, 0.0f);
-   mFieldOfViewYInDeg                       = std::exchange(rhs.mFieldOfViewYInDeg, 0.0f);
-   mAspectRatio                             = std::exchange(rhs.mAspectRatio, 0.0f);
-   mNear                                    = std::exchange(rhs.mNear, 0.0f);
-   mFar                                     = std::exchange(rhs.mFar, 0.0f);
-   mMovementSpeed                           = std::exchange(rhs.mMovementSpeed, 0.0f);
-   mMouseSensitivity                        = std::exchange(rhs.mMouseSensitivity, 0.0f);
-   mIsFree                                  = std::exchange(rhs.mIsFree, false);
-   mViewMatrix                              = std::exchange(rhs.mViewMatrix, glm::mat4(0.0f));
-   mPerspectiveProjectionMatrix             = std::exchange(rhs.mPerspectiveProjectionMatrix, glm::mat4(0.0f));
-   mNeedToUpdateViewMatrix                  = std::exchange(rhs.mNeedToUpdateViewMatrix, true);
-   mNeedToUpdatePerspectiveProjectionMatrix = std::exchange(rhs.mNeedToUpdatePerspectiveProjectionMatrix, true);
+   mPosition                                    = std::exchange(rhs.mPosition, glm::vec3(0.0f));
+   mFront                                       = std::exchange(rhs.mFront, glm::vec3(0.0f));
+   mUp                                          = std::exchange(rhs.mUp, glm::vec3(0.0f));
+   mRight                                       = std::exchange(rhs.mRight, glm::vec3(0.0f));
+   mWorldUp                                     = std::exchange(rhs.mWorldUp, glm::vec3(0.0f));
+   mYawInDeg                                    = std::exchange(rhs.mYawInDeg, 0.0f);
+   mPitchInDeg                                  = std::exchange(rhs.mPitchInDeg, 0.0f);
+   mFieldOfViewYInDeg                           = std::exchange(rhs.mFieldOfViewYInDeg, 0.0f);
+   mAspectRatio                                 = std::exchange(rhs.mAspectRatio, 0.0f);
+   mNear                                        = std::exchange(rhs.mNear, 0.0f);
+   mFar                                         = std::exchange(rhs.mFar, 0.0f);
+   mMovementSpeed                               = std::exchange(rhs.mMovementSpeed, 0.0f);
+   mMouseSensitivity                            = std::exchange(rhs.mMouseSensitivity, 0.0f);
+   mIsFree                                      = std::exchange(rhs.mIsFree, false);
+   mViewMatrix                                  = std::exchange(rhs.mViewMatrix, glm::mat4(0.0f));
+   mPerspectiveProjectionMatrix                 = std::exchange(rhs.mPerspectiveProjectionMatrix, glm::mat4(0.0f));
+   mPerspectiveProjectionViewMatrix             = std::exchange(rhs.mPerspectiveProjectionViewMatrix, glm::mat4(0.0f));
+   mNeedToUpdateViewMatrix                      = std::exchange(rhs.mNeedToUpdateViewMatrix, true);
+   mNeedToUpdatePerspectiveProjectionMatrix     = std::exchange(rhs.mNeedToUpdatePerspectiveProjectionMatrix, true);
+   mNeedToUpdatePerspectiveProjectionViewMatrix = std::exchange(rhs.mNeedToUpdatePerspectiveProjectionViewMatrix, true);
    return *this;
 }
 
@@ -110,6 +116,17 @@ glm::mat4 Camera::getPerspectiveProjectionMatrix()
    return mPerspectiveProjectionMatrix;
 }
 
+glm::mat4 Camera::getPerspectiveProjectionViewMatrix()
+{
+   if (mNeedToUpdatePerspectiveProjectionViewMatrix)
+   {
+      mPerspectiveProjectionViewMatrix = getPerspectiveProjectionMatrix() * getViewMatrix();
+      mNeedToUpdatePerspectiveProjectionViewMatrix = false;
+   }
+
+   return mPerspectiveProjectionViewMatrix;
+}
+
 void Camera::reposition(const glm::vec3& position,
                         const glm::vec3& worldUp,
                         float            yawInDeg,
@@ -126,6 +143,7 @@ void Camera::reposition(const glm::vec3& position,
 
    mNeedToUpdateViewMatrix = true;
    mNeedToUpdatePerspectiveProjectionMatrix = true;
+   mNeedToUpdatePerspectiveProjectionViewMatrix = true;
 }
 
 void Camera::processKeyboardInput(MovementDirection direction, float deltaTime)
@@ -149,6 +167,7 @@ void Camera::processKeyboardInput(MovementDirection direction, float deltaTime)
    }
 
    mNeedToUpdateViewMatrix = true;
+   mNeedToUpdatePerspectiveProjectionViewMatrix = true;
 }
 
 void Camera::processMouseMovement(float xOffset, float yOffset)
@@ -174,6 +193,7 @@ void Camera::processMouseMovement(float xOffset, float yOffset)
    updateCoordinateFrame();
 
    mNeedToUpdateViewMatrix = true;
+   mNeedToUpdatePerspectiveProjectionViewMatrix = true;
 }
 
 void Camera::processScrollWheelMovement(float yOffset)
@@ -194,6 +214,7 @@ void Camera::processScrollWheelMovement(float yOffset)
    }
 
    mNeedToUpdatePerspectiveProjectionMatrix = true;
+   mNeedToUpdatePerspectiveProjectionViewMatrix = true;
 }
 
 bool Camera::isFree() const

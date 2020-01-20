@@ -80,7 +80,6 @@ bool Game::initialize(const std::string& title)
                                                                     "resources/shaders/game_object_3D.vs",
                                                                     "resources/shaders/game_object_3D.fs");
    gameObj3DShader->use();
-   gameObj3DShader->setMat4("projection", mCamera->getPerspectiveProjectionMatrix());
    gameObj3DShader->setVec3("pointLights[0].worldPos", glm::vec3(0.0f, 0.0f, 100.0f));
    gameObj3DShader->setVec3("pointLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));
    gameObj3DShader->setFloat("pointLights[0].constantAtt", 1.0f);
@@ -94,7 +93,6 @@ bool Game::initialize(const std::string& title)
                                                                              "resources/shaders/game_object_3D.fs",
                                                                              "resources/shaders/game_object_3D_explosive.gs");
    gameObj3DExplosiveShader->use();
-   gameObj3DExplosiveShader->setMat4("projection", mCamera->getPerspectiveProjectionMatrix());
    gameObj3DExplosiveShader->setVec3("pointLights[0].worldPos", glm::vec3(0.0f, 0.0f, 100.0f));
    gameObj3DExplosiveShader->setVec3("pointLights[0].color", glm::vec3(1.0f, 1.0f, 1.0f));
    gameObj3DExplosiveShader->setFloat("pointLights[0].constantAtt", 1.0f);
@@ -156,6 +154,7 @@ bool Game::initialize(const std::string& title)
 
    mStates["menu"] = std::make_shared<MenuState>(mFSM,
                                                  mWindow,
+                                                 mCamera,
                                                  gameObj3DShader,
                                                  mTitle,
                                                  mTable,
@@ -184,6 +183,7 @@ bool Game::initialize(const std::string& title)
 
    mStates["win"] = std::make_shared<WinState>(mFSM,
                                                mWindow,
+                                               mCamera,
                                                gameObj3DExplosiveShader,
                                                mBall);
 

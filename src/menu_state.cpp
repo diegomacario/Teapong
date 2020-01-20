@@ -5,6 +5,7 @@ float calculateAngularPosWRTPosZAxisInDeg(const glm::vec3& point);
 
 MenuState::MenuState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachine,
                      const std::shared_ptr<Window>&             window,
+                     const std::shared_ptr<Camera>&             camera,
                      const std::shared_ptr<Shader>&             gameObject3DShader,
                      const std::shared_ptr<GameObject3D>&       title,
                      const std::shared_ptr<GameObject3D>&       table,
@@ -13,6 +14,7 @@ MenuState::MenuState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachi
                      const std::shared_ptr<Ball>&               ball)
    : mFSM(finiteStateMachine)
    , mWindow(window)
+   , mCamera(camera)
    , mGameObject3DShader(gameObject3DShader)
    , mTitle(title)
    , mTable(table)
@@ -155,7 +157,7 @@ void MenuState::render()
    glEnable(GL_DEPTH_TEST);
 
    mGameObject3DShader->use();
-   mGameObject3DShader->setMat4("view", glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
+   mGameObject3DShader->setMat4("projectionView", mCamera->getPerspectiveProjectionMatrix() * glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
    mGameObject3DShader->setVec3("cameraPos", mCameraPosition);
 
    if (!mTransitionToPlayState)

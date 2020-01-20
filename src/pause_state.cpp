@@ -142,8 +142,6 @@ void PauseState::processInput(float deltaTime)
       if (mWindow->scrollWheelMoved())
       {
          mCamera->processScrollWheelMovement(mWindow->getScrollYOffset());
-         mGameObject3DShader->use();
-         mGameObject3DShader->setMat4("projection", mCamera->getPerspectiveProjectionMatrix());
          mWindow->resetScrollWheelMoved();
       }
    }
@@ -164,7 +162,7 @@ void PauseState::render()
    glEnable(GL_DEPTH_TEST);
 
    mGameObject3DShader->use();
-   mGameObject3DShader->setMat4("view", mCamera->getViewMatrix());
+   mGameObject3DShader->setMat4("projectionView", mCamera->getPerspectiveProjectionViewMatrix());
    mGameObject3DShader->setVec3("cameraPos", mCamera->getPosition());
 
    mTable->render(*mGameObject3DShader);
@@ -195,7 +193,4 @@ void PauseState::resetCamera()
                        0.0f,
                        0.0f,
                        45.0f);
-
-   mGameObject3DShader->use();
-   mGameObject3DShader->setMat4("projection", mCamera->getPerspectiveProjectionMatrix());
 }
