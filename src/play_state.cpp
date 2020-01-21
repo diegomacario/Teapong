@@ -14,7 +14,8 @@ PlayState::PlayState(const std::shared_ptr<FiniteStateMachine>&     finiteStateM
                      const std::shared_ptr<GameObject3D>&           table,
                      const std::shared_ptr<Paddle>&                 leftPaddle,
                      const std::shared_ptr<Paddle>&                 rightPaddle,
-                     const std::shared_ptr<Ball>&                   ball)
+                     const std::shared_ptr<Ball>&                   ball,
+                     const std::shared_ptr<GameObject3D>&           point)
    : mFSM(finiteStateMachine)
    , mWindow(window)
    , mSoundEngine(soundEngine)
@@ -24,10 +25,17 @@ PlayState::PlayState(const std::shared_ptr<FiniteStateMachine>&     finiteStateM
    , mLeftPaddle(leftPaddle)
    , mRightPaddle(rightPaddle)
    , mBall(ball)
+   , mPoint(point)
    , mBallIsInPlay(false)
    , mBallIsFalling(false)
    , mPointsScoredByLeftPaddle(0)
    , mPointsScoredByRightPaddle(0)
+   , mPositionsOfPointsScoredByLeftPaddle({glm::vec3(-48.5f, -33.0f, 0.0f),
+                                           glm::vec3(-45.5f, -33.0f, 0.0f),
+                                           glm::vec3(-42.5f, -33.0f, 0.0f)})
+   , mPositionsOfPointsScoredByRightPaddle({glm::vec3(42.5f, -33.0f, 0.0f),
+                                            glm::vec3(45.5f, -33.0f, 0.0f),
+                                            glm::vec3(48.5f, -33.0f, 0.0f)})
 {
 
 }
@@ -253,6 +261,8 @@ void PlayState::render()
    mBall->render(*mGameObject3DShader);
    glEnable(GL_CULL_FACE);
 
+   displayScore();
+
    mWindow->generateAntiAliasedImage();
 
    mWindow->swapBuffers();
@@ -346,6 +356,21 @@ void PlayState::playSoundOfCollision()
    {
       mSoundEngine->play2D("resources/sounds/ping_pong_hit.wav", false);
       lastPlayed = glfwGetTime();
+   }
+}
+
+void PlayState::displayScore()
+{
+   for (unsigned int i = 0; i < mPointsScoredByLeftPaddle; ++i)
+   {
+      mPoint->setPosition(mPositionsOfPointsScoredByLeftPaddle[i]);
+      mPoint->render(*mGameObject3DShader);
+   }
+
+   for (unsigned int i = 0; i < mPointsScoredByRightPaddle; ++i)
+   {
+      mPoint->setPosition(mPositionsOfPointsScoredByRightPaddle[i]);
+      mPoint->render(*mGameObject3DShader);
    }
 }
 

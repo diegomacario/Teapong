@@ -1,6 +1,8 @@
 #ifndef PLAY_STATE_H
 #define PLAY_STATE_H
 
+#include <array>
+
 #include "game.h"
 
 class PlayState : public State
@@ -15,7 +17,8 @@ public:
              const std::shared_ptr<GameObject3D>&           table,
              const std::shared_ptr<Paddle>&                 leftPaddle,
              const std::shared_ptr<Paddle>&                 rightPaddle,
-             const std::shared_ptr<Ball>&                   ball);
+             const std::shared_ptr<Ball>&                   ball,
+             const std::shared_ptr<GameObject3D>&           point);
    ~PlayState() = default;
 
    PlayState(const PlayState&) = delete;
@@ -44,6 +47,8 @@ private:
 
    void playSoundOfCollision();
 
+   void displayScore();
+
    std::shared_ptr<FiniteStateMachine>     mFSM;
 
    std::shared_ptr<Window>                 mWindow;
@@ -58,12 +63,16 @@ private:
    std::shared_ptr<Paddle>                 mLeftPaddle;
    std::shared_ptr<Paddle>                 mRightPaddle;
    std::shared_ptr<Ball>                   mBall;
+   std::shared_ptr<GameObject3D>           mPoint;
 
    bool                                    mBallIsInPlay;
    bool                                    mBallIsFalling;
 
    unsigned int                            mPointsScoredByLeftPaddle;
    unsigned int                            mPointsScoredByRightPaddle;
+
+   std::array<glm::vec3, 3>                mPositionsOfPointsScoredByLeftPaddle;
+   std::array<glm::vec3, 3>                mPositionsOfPointsScoredByRightPaddle;
 };
 
 #endif

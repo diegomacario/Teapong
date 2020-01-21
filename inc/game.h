@@ -51,6 +51,9 @@ private:
    std::shared_ptr<Paddle>                 mLeftPaddle;
    std::shared_ptr<Paddle>                 mRightPaddle;
    std::shared_ptr<Ball>                   mBall;
+   std::shared_ptr<GameObject3D>           mPoint;
+   std::shared_ptr<GameObject3D>           mLeftPaddleWins;
+   std::shared_ptr<GameObject3D>           mRightPaddleWins;
 };
 
 #endif

@@ -7,7 +7,8 @@
                           const std::shared_ptr<GameObject3D>&       table,
                           const std::shared_ptr<Paddle>&             leftPaddle,
                           const std::shared_ptr<Paddle>&             rightPaddle,
-                          const std::shared_ptr<Ball>&               ball)
+                          const std::shared_ptr<Ball>&               ball,
+                          const std::shared_ptr<GameObject3D>&       point)
    : mFSM(finiteStateMachine)
    , mWindow(window)
    , mCamera(camera)
@@ -16,6 +17,7 @@
    , mLeftPaddle(leftPaddle)
    , mRightPaddle(rightPaddle)
    , mBall(ball)
+   , mPoint(point)
 {
 
 }

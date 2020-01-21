@@ -23,6 +23,9 @@ Game::Game()
    , mLeftPaddle()
    , mRightPaddle()
    , mBall()
+   , mPoint()
+   , mLeftPaddleWins()
+   , mRightPaddleWins()
 {
 
 }
@@ -106,6 +109,9 @@ bool Game::initialize(const std::string& title)
    mModelManager.loadResource<ModelLoader>("left_paddle", "resources/models/left_paddle/paddle.obj");
    mModelManager.loadResource<ModelLoader>("right_paddle", "resources/models/right_paddle/paddle.obj");
    mModelManager.loadResource<ModelLoader>("teapot", "resources/models/teapot/teapot.obj");
+   mModelManager.loadResource<ModelLoader>("point", "resources/models/point/point.obj");
+   mModelManager.loadResource<ModelLoader>("left_paddle_wins", "resources/models/left_paddle_wins/left_paddle_wins.obj");
+   mModelManager.loadResource<ModelLoader>("right_paddle_wins", "resources/models/right_paddle_wins/right_paddle_wins.obj");
 
    mTitle = std::make_shared<GameObject3D>(mModelManager.getResource("title"),
                                            glm::vec3(0.0f, 0.0f, 13.75f),
@@ -146,6 +152,24 @@ bool Game::initialize(const std::string& title)
                                   7.5f,
                                   1000.0f);
 
+   mPoint = std::make_shared<GameObject3D>(mModelManager.getResource("point"),
+                                           glm::vec3(0.0f),
+                                           270.0f,
+                                           glm::vec3(1.0f, 0.0f, 0.0f),
+                                           3.0f);
+
+   mLeftPaddleWins = std::make_shared<GameObject3D>(mModelManager.getResource("left_paddle_wins"),
+                                                    glm::vec3(0.0f),
+                                                    90.0f,
+                                                    glm::vec3(1.0f, 0.0f, 0.0f),
+                                                    1.0f);
+
+   mRightPaddleWins = std::make_shared<GameObject3D>(mModelManager.getResource("right_paddle_wins"),
+                                                     glm::vec3(0.0f),
+                                                     90.0f,
+                                                     glm::vec3(1.0f, 0.0f, 0.0f),
+                                                     1.0f);
+
    // Create the FSM
    mFSM = std::make_shared<FiniteStateMachine>();
 
@@ -170,7 +194,8 @@ bool Game::initialize(const std::string& title)
                                                  mTable,
                                                  mLeftPaddle,
                                                  mRightPaddle,
-                                                 mBall);
+                                                 mBall,
+                                                 mPoint);
 
    mStates["pause"] = std::make_shared<PauseState>(mFSM,
                                                    mWindow,
@@ -179,13 +204,16 @@ bool Game::initialize(const std::string& title)
                                                    mTable,
                                                    mLeftPaddle,
                                                    mRightPaddle,
-                                                   mBall);
+                                                   mBall,
+                                                   mPoint);
 
    mStates["win"] = std::make_shared<WinState>(mFSM,
                                                mWindow,
                                                mCamera,
                                                gameObj3DExplosiveShader,
-                                               mBall);
+                                               mBall,
+                                               mLeftPaddleWins,
+                                               mRightPaddleWins);
 
    // Initialize the FSM
    mFSM->initialize(std::move(mStates), "menu");

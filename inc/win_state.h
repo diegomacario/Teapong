@@ -11,7 +11,9 @@ public:
             const std::shared_ptr<Window>&             window,
             const std::shared_ptr<Camera>&             camera,
             const std::shared_ptr<Shader>&             gameObject3DExplosiveShader,
-            const std::shared_ptr<Ball>&               ball);
+            const std::shared_ptr<Ball>&               ball,
+            const std::shared_ptr<GameObject3D>&       leftPaddleWins,
+            const std::shared_ptr<GameObject3D>&       rightPaddleWins);
    ~WinState() = default;
 
    WinState(const WinState&) = delete;
@@ -37,6 +39,8 @@ private:
    std::shared_ptr<Shader>             mGameObject3DExplosiveShader;
 
    std::shared_ptr<Ball>               mBall;
+   std::shared_ptr<GameObject3D>       mLeftPaddleWins;
+   std::shared_ptr<GameObject3D>       mRightPaddleWins;
 
    glm::vec3                           mCameraPosition;
    glm::vec3                           mCameraTarget;

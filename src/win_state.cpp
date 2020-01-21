@@ -4,12 +4,16 @@ WinState::WinState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachine
                    const std::shared_ptr<Window>&             window,
                    const std::shared_ptr<Camera>&             camera,
                    const std::shared_ptr<Shader>&             gameObject3DExplosiveShader,
-                   const std::shared_ptr<Ball>&               ball)
+                   const std::shared_ptr<Ball>&               ball,
+                   const std::shared_ptr<GameObject3D>&       leftPaddleWins,
+                   const std::shared_ptr<GameObject3D>&       rightPaddleWins)
    : mFSM(finiteStateMachine)
    , mWindow(window)
    , mCamera(camera)
    , mGameObject3DExplosiveShader(gameObject3DExplosiveShader)
    , mBall(ball)
+   , mLeftPaddleWins(leftPaddleWins)
+   , mRightPaddleWins(rightPaddleWins)
    , mCameraPosition(0.0f, -30.0f, 10.0f)
    , mCameraTarget(0.0f, 0.0f, 5.0f)
    , mCameraUp(0.0f, 0.0f, 1.0f)

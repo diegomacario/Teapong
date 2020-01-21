@@ -14,7 +14,8 @@ public:
               const std::shared_ptr<GameObject3D>&       table,
               const std::shared_ptr<Paddle>&             leftPaddle,
               const std::shared_ptr<Paddle>&             rightPaddle,
-              const std::shared_ptr<Ball>&               ball);
+              const std::shared_ptr<Ball>&               ball,
+              const std::shared_ptr<GameObject3D>&       point);
    ~PauseState() = default;
 
    PauseState(const PauseState&) = delete;
@@ -45,6 +46,7 @@ private:
    std::shared_ptr<Paddle>             mLeftPaddle;
    std::shared_ptr<Paddle>             mRightPaddle;
    std::shared_ptr<Ball>               mBall;
+   std::shared_ptr<GameObject3D>       mPoint;
 };
 
 #endif
