@@ -54,7 +54,7 @@ The controls are as follows:
 - Press <kbd>C</kbd> to toggle between the fixed and free camera modes. When the camera is free, you can position it using <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd> and the mouse. You can also zoom in and out using the scroll wheel.
 - Press <kbd>R</kbd> to reset the camera to its original position.
 
-## Installation
+## Running the game without building it
 
 ### macOS
 
@@ -74,16 +74,16 @@ To run Teapong on macOS, you must follow these steps:
  $ cp -r dependencies/mac/inc/irrklang /usr/local/include/
  $ cp -R dependencies/mac/lib/ /usr/local/lib/
  ```
-- Download release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases), place the Teapong executable at the root of the repository and execute the following command to launch the game:
+- Download **Teapong_macOS.zip** from release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases), open a Terminal in its root directory and execute the following command to launch the game:
  ```sh
  $ ./Teapong
  ```
  
 ### Windows
 
-To run Teapong on Windows, simply download release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases) and launch the game.
+To run Teapong on Windows, simply download **Teapong_Windows.zip** from release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases) and double click **Teapong.exe**.
 
-## Building
+## Building the game
  
 ### macOS
 
