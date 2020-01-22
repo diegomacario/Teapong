@@ -14,22 +14,6 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
   <em>Click on this image to see a two minute demo of Teapong.</em>
 </p>
 
-## Rules and controls
-
-The rules are simple: the first player to score three points wins!
-
-The controls are as follows:
-
-- Press <kbd>Esc</kbd> to close the game.
-- Press <kbd>F</kbd> to toggle between the full screen and the windowed modes. When in the windowed mode, you can manually resize the window using the mouse.
-- Press <kbd>1</kbd>, <kbd>2</kbd>, <kbd>4</kbd> or <kbd>8</kbd> to set the number of samples used for anti-aliasing. By default, the game starts with 1 sample. The higher the number of samples, the better the game looks.
-- When in the menu, press <kbd>Space</kbd> to start a game.
-- When ready to play, press <kbd>Space</kbd> to launch a teapot.
-- The left paddle is controled with <kbd>G</kbd> and <kbd>B</kbd>, while the right paddle is controlled with <kbd>Up</kbd> and <kbd>Down</kbd>.
-- Press <kbd>P</kbd> to pause the game.
-- Press <kbd>C</kbd> to toggle between the fixed and free camera modes. When the camera is free, you can position it using <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd> and the mouse. You can also zoom in and out using the scroll wheel.
-- Press <kbd>R</kbd> to reset the camera to its original position.
-
 ## Technical details
 
 This is the first game that I ever make! :blush:
@@ -53,6 +37,22 @@ The sources of the assets it uses are the following:
 - The background music is Filaments by Podington Bear, and it can be found [here](https://freemusicarchive.org/).
 
 For a more detailed description of this project's code, see [this](https://github.com/diegomacario/Teapong/blob/master/documentation/making_of_teapong.pdf) presentation.
+
+## Rules and controls
+
+The rules are simple: the first player to score three points wins!
+
+The controls are as follows:
+
+- Press <kbd>Esc</kbd> to close the game.
+- Press <kbd>F</kbd> to toggle between the full screen and the windowed modes. When in the windowed mode, you can manually resize the window using the mouse.
+- Press <kbd>1</kbd>, <kbd>2</kbd>, <kbd>4</kbd> or <kbd>8</kbd> to set the number of samples used for anti-aliasing. By default, the game starts with 1 sample. The higher the number of samples, the better the game looks.
+- When in the menu, press <kbd>Space</kbd> to start a game.
+- When ready to play, press <kbd>Space</kbd> to launch a teapot.
+- The left paddle is controled with <kbd>G</kbd> and <kbd>B</kbd>, while the right paddle is controlled with <kbd>Up</kbd> and <kbd>Down</kbd>.
+- Press <kbd>P</kbd> to pause the game.
+- Press <kbd>C</kbd> to toggle between the fixed and free camera modes. When the camera is free, you can position it using <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd> and the mouse. You can also zoom in and out using the scroll wheel.
+- Press <kbd>R</kbd> to reset the camera to its original position.
 
 ## Installation
 
