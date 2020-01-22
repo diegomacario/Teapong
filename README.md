@@ -74,20 +74,20 @@ To run Teapong on macOS, you must follow these steps:
  $ cp -r dependencies/mac/inc/irrklang /usr/local/include/
  $ cp -R dependencies/mac/lib/ /usr/local/lib/
  ```
-- Download **Teapong_macOS.zip** from release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases), open a Terminal in its root directory and execute the following command to launch the game:
+- Download **Teapong_macOS.zip** from release [1.0.0](https://github.com/diegomacario/Teapong/releases/tag/v1.0.0), open a Terminal in its root directory and execute the following command to launch the game:
  ```sh
  $ ./Teapong
  ```
  
 ### Windows
 
-To run Teapong on Windows, simply download **Teapong_Windows.zip** from release [1.0.0](https://github.com/diegomacario/Poor-Fox/releases) and double click **Teapong.exe**.
+To run Teapong on Windows, simply download **Teapong_Windows.zip** from release [1.0.0](https://github.com/diegomacario/Teapong/releases/tag/v1.0.0) and double click **Teapong.exe**.
 
 ## Building the game
  
 ### macOS
 
-To build Teapong on macOS, you must follow the same steps listed in the **Installation** section, except for the last one, which you must replace with the following:
+To build Teapong on macOS, you must follow the same steps listed in the "**Running the game without building it**" section, except for the last one, which you must replace with the following:
 - Execute the following command to build the game:
  ```sh
  $ make Teapong
