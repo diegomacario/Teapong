@@ -34,7 +34,7 @@ The controls are as follows:
 
 This is the first game that I ever make! :blush:
 
-It was written using C++ and OpenGL, with a strong focus on making the code clear, organized and cross-platform. It is currently supported on macOS and Windows.
+It was written using C++ and OpenGL, and it is currently supported on macOS and Windows.
 
 The external libraries it uses and their purposes are the following:
 
