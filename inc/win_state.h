@@ -53,6 +53,17 @@ private:
    bool                                mExplode;
    float                               mSpeedOfExplodingFragments;
    float                               mDistanceTravelledByExplodingFragments;
+
+   enum class Winner : unsigned int
+   {
+      leftPaddleWon  = 0,
+      rightPaddleWon = 1,
+   };
+
+   Winner                              mWinner;
+
+   double                              mTimeWhenWinnerIsFirstDisplayed;
+   bool                                mDisplayWinner;
 };
 
 #endif

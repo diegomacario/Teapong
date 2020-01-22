@@ -1,3 +1,4 @@
+#include "play_state.h"
 #include "win_state.h"
 
 WinState::WinState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachine,
@@ -23,6 +24,9 @@ WinState::WinState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachine
    , mExplode(false)
    , mSpeedOfExplodingFragments(2.0f)
    , mDistanceTravelledByExplodingFragments(0.0f)
+   , mWinner()
+   , mTimeWhenWinnerIsFirstDisplayed(0.0)
+   , mDisplayWinner(false)
 {
 
 }
@@ -45,6 +49,19 @@ void WinState::enter()
    mExplode                               = false;
    mSpeedOfExplodingFragments             = 2.0f;
    mDistanceTravelledByExplodingFragments = 0.0f;
+
+   const PlayState& playState = dynamic_cast<PlayState&>(*mFSM->getPreviousState());
+   if (playState.getPointsScoredByLeftPaddle() == 3)
+   {
+      mWinner = Winner::leftPaddleWon;
+   }
+   else
+   {
+      mWinner = Winner::rightPaddleWon;
+   }
+
+   mTimeWhenWinnerIsFirstDisplayed = 0.0;
+   mDisplayWinner = false;
 }
 
 void WinState::processInput(float deltaTime)
@@ -85,7 +102,20 @@ void WinState::processInput(float deltaTime)
 
 void WinState::update(float deltaTime)
 {
-   if (mDistanceTravelledByExplodingFragments > 120.0f)
+   if (!mDisplayWinner && mDistanceTravelledByExplodingFragments > 120.0f)
+   {
+      // Reset the position of the camera
+      mCameraPosition = glm::vec3(0.0f, -30.0f, 0.0f);
+      mCameraTarget   = glm::vec3(0.0f, 0.0f, 0.0f);
+      mCameraUp       = glm::vec3(0.0f, 0.0f, 1.0f);
+      mCameraRight    = glm::vec3(0.0f);
+
+      mTimeWhenWinnerIsFirstDisplayed = glfwGetTime();
+
+      mDisplayWinner = true;
+   }
+
+   if (mDisplayWinner && (glfwGetTime() > mTimeWhenWinnerIsFirstDisplayed + 3))
    {
       mFSM->changeState("menu");
    }
@@ -106,9 +136,12 @@ void WinState::update(float deltaTime)
       mBall->setPosition(glm::vec3(0.0f, 0.0f, mBall->getScalingFactor() * 1.96875));
    }
 
-   // Rotate the camera CW around the positive Z axis
-   glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(mIdleOrbitalAngularVelocity * deltaTime), glm::vec3(0.0f, 0.0f, 1.0f));
-   mCameraPosition = glm::mat3(rotationMatrix) * mCameraPosition;
+   if (!mDisplayWinner)
+   {
+      // Rotate the camera CW around the positive Z axis
+      glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(mIdleOrbitalAngularVelocity * deltaTime), glm::vec3(0.0f, 0.0f, 1.0f));
+      mCameraPosition = glm::mat3(rotationMatrix) * mCameraPosition;
+   }
 }
 
 void WinState::render()
@@ -121,7 +154,7 @@ void WinState::render()
    mGameObject3DExplosiveShader->use();
    mGameObject3DExplosiveShader->setMat4("projectionView", mCamera->getPerspectiveProjectionMatrix() * glm::lookAt(mCameraPosition, mCameraTarget, mCameraUp));
    mGameObject3DExplosiveShader->setVec3("cameraPos", mCameraPosition);
-   if (mExplode)
+   if (mExplode && !mDisplayWinner)
    {
       mGameObject3DExplosiveShader->setFloat("distanceToMove", mDistanceTravelledByExplodingFragments);
    }
@@ -130,10 +163,24 @@ void WinState::render()
       mGameObject3DExplosiveShader->setFloat("distanceToMove", 0.0f);
    }
 
-   // Disable face culling so that we render the inside of the teapot
-   glDisable(GL_CULL_FACE);
-   mBall->render(*mGameObject3DExplosiveShader);
-   glEnable(GL_CULL_FACE);
+   if (mDisplayWinner)
+   {
+      if (mWinner == Winner::leftPaddleWon)
+      {
+         mLeftPaddleWins->render(*mGameObject3DExplosiveShader);
+      }
+      else
+      {
+         mRightPaddleWins->render(*mGameObject3DExplosiveShader);
+      }
+   }
+   else
+   {
+      // Disable face culling so that we render the inside of the teapot
+      glDisable(GL_CULL_FACE);
+      mBall->render(*mGameObject3DExplosiveShader);
+      glEnable(GL_CULL_FACE);
+   }
 
    mWindow->generateAntiAliasedImage();
 

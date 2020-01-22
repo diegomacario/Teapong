@@ -33,6 +33,9 @@ public:
    void render() override;
    void exit() override;
 
+   unsigned int getPointsScoredByLeftPaddle() const;
+   unsigned int getPointsScoredByRightPaddle() const;
+
 private:
 
    void calculateInitialDirectionOfBall();

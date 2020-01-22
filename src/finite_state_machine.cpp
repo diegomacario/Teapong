@@ -55,6 +55,11 @@ void FiniteStateMachine::changeState(const std::string& newStateID)
    }
 }
 
+std::shared_ptr<State> FiniteStateMachine::getPreviousState()
+{
+   return mStates[mPreviousStateID];
+}
+
 std::string FiniteStateMachine::getPreviousStateID() const
 {
    return mPreviousStateID;

@@ -1,3 +1,4 @@
+#include "play_state.h"
 #include "pause_state.h"
 
    PauseState::PauseState(const std::shared_ptr<FiniteStateMachine>& finiteStateMachine,
@@ -18,13 +19,23 @@
    , mRightPaddle(rightPaddle)
    , mBall(ball)
    , mPoint(point)
+   , mPointsScoredByLeftPaddle(0)
+   , mPointsScoredByRightPaddle(0)
+   , mPositionsOfPointsScoredByLeftPaddle({glm::vec3(-47.5f, -34.0f, 0.0f),
+                                           glm::vec3(-43.5f, -34.0f, 0.0f),
+                                           glm::vec3(-39.5f, -34.0f, 0.0f)})
+   , mPositionsOfPointsScoredByRightPaddle({glm::vec3(47.5f, -34.0f, 0.0f),
+                                            glm::vec3(43.5f, -34.0f, 0.0f),
+                                            glm::vec3(39.5f, -34.0f, 0.0f)})
 {
 
 }
 
 void PauseState::enter()
 {
-
+   const PlayState& playState = dynamic_cast<PlayState&>(*mFSM->getPreviousState());
+   mPointsScoredByLeftPaddle  = playState.getPointsScoredByLeftPaddle();
+   mPointsScoredByRightPaddle = playState.getPointsScoredByRightPaddle();
 }
 
 void PauseState::processInput(float deltaTime)
@@ -177,6 +188,8 @@ void PauseState::render()
    mBall->render(*mGameObject3DShader);
    glEnable(GL_CULL_FACE);
 
+   displayScore();
+
    mWindow->generateAntiAliasedImage();
 
    mWindow->swapBuffers();
@@ -195,4 +208,19 @@ void PauseState::resetCamera()
                        0.0f,
                        0.0f,
                        45.0f);
+}
+
+void PauseState::displayScore()
+{
+   for (unsigned int i = 0; i < mPointsScoredByLeftPaddle; ++i)
+   {
+      mPoint->setPosition(mPositionsOfPointsScoredByLeftPaddle[i]);
+      mPoint->render(*mGameObject3DShader);
+   }
+
+   for (unsigned int i = 0; i < mPointsScoredByRightPaddle; ++i)
+   {
+      mPoint->setPosition(mPositionsOfPointsScoredByRightPaddle[i]);
+      mPoint->render(*mGameObject3DShader);
+   }
 }

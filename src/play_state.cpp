@@ -30,12 +30,12 @@ PlayState::PlayState(const std::shared_ptr<FiniteStateMachine>&     finiteStateM
    , mBallIsFalling(false)
    , mPointsScoredByLeftPaddle(0)
    , mPointsScoredByRightPaddle(0)
-   , mPositionsOfPointsScoredByLeftPaddle({glm::vec3(-48.5f, -33.0f, 0.0f),
-                                           glm::vec3(-45.5f, -33.0f, 0.0f),
-                                           glm::vec3(-42.5f, -33.0f, 0.0f)})
-   , mPositionsOfPointsScoredByRightPaddle({glm::vec3(42.5f, -33.0f, 0.0f),
-                                            glm::vec3(45.5f, -33.0f, 0.0f),
-                                            glm::vec3(48.5f, -33.0f, 0.0f)})
+   , mPositionsOfPointsScoredByLeftPaddle({glm::vec3(-47.5f, -34.0f, 0.0f),
+                                           glm::vec3(-43.5f, -34.0f, 0.0f),
+                                           glm::vec3(-39.5f, -34.0f, 0.0f)})
+   , mPositionsOfPointsScoredByRightPaddle({glm::vec3(47.5f, -34.0f, 0.0f),
+                                            glm::vec3(43.5f, -34.0f, 0.0f),
+                                            glm::vec3(39.5f, -34.0f, 0.0f)})
 {
 
 }
@@ -283,6 +283,16 @@ void PlayState::exit()
          resetScene();
       }
    }
+}
+
+unsigned int PlayState::getPointsScoredByLeftPaddle() const
+{
+   return mPointsScoredByLeftPaddle;
+}
+
+unsigned int PlayState::getPointsScoredByRightPaddle() const
+{
+   return mPointsScoredByRightPaddle;
 }
 
 void PlayState::calculateInitialDirectionOfBall()

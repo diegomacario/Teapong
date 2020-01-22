@@ -154,9 +154,9 @@ bool Game::initialize(const std::string& title)
 
    mPoint = std::make_shared<GameObject3D>(mModelManager.getResource("point"),
                                            glm::vec3(0.0f),
-                                           270.0f,
+                                           90.0f,
                                            glm::vec3(1.0f, 0.0f, 0.0f),
-                                           3.0f);
+                                           7.0f);
 
    mLeftPaddleWins = std::make_shared<GameObject3D>(mModelManager.getResource("left_paddle_wins"),
                                                     glm::vec3(0.0f),
