@@ -7,11 +7,11 @@
 A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.org/wiki/Utah_teapot)!
 
 <p align="center">
-  <a href="youtube">
-    <img src="" href="youtube">
+  <a href="https://www.youtube.com/watch?v=qzS9MX50a6k&feature=youtu.be">
+    <img src="" href="https://www.youtube.com/watch?v=qzS9MX50a6k&feature=youtu.be">
   </a>
   <br></br>
-  <em>Click on this image to see a one minute demo of Teapong.</em>
+  <em>Click on this image to see a two minute demo of Teapong.</em>
 </p>
 
 ## Rules and controls
