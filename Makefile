@@ -13,7 +13,7 @@ EXEC_NAME=teapong
 OBJECTS = $(patsubst %.cpp, $(OUT)/%.o, $(FILES)) $(OUT)/glad.o
 
 CXX=g++
-CXXFLAGS=-std=c++14 -I $(INC)
+CXXFLAGS=-std=c++14 -I $(INC) -O3
 LIBS=-l glfw -l assimp -l irrklang
 LIBS_HEADERS=-L /usr/local/lib
 
