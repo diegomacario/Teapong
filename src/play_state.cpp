@@ -1,3 +1,5 @@
+#include <stb_image_write.h>
+
 #include <array>
 #include <random>
 
@@ -28,8 +30,8 @@ PlayState::PlayState(const std::shared_ptr<FiniteStateMachine>&     finiteStateM
    , mPoint(point)
    , mBallIsInPlay(false)
    , mBallIsFalling(false)
-   , mPointsScoredByLeftPaddle(0)
-   , mPointsScoredByRightPaddle(0)
+   , mPointsScoredByLeftPaddle(1)
+   , mPointsScoredByRightPaddle(2)
    , mPositionsOfPointsScoredByLeftPaddle({glm::vec3(-47.5f, -34.0f, 0.0f),
                                            glm::vec3(-43.5f, -34.0f, 0.0f),
                                            glm::vec3(-39.5f, -34.0f, 0.0f)})
@@ -46,10 +48,12 @@ void PlayState::enter()
    {
       resetCamera();
       resetScene();
-      mPointsScoredByLeftPaddle  = 0;
-      mPointsScoredByRightPaddle = 0;
+      mPointsScoredByLeftPaddle  = 1;
+      mPointsScoredByRightPaddle = 2;
    }
 }
+
+static bool record = false;
 
 void PlayState::processInput(float deltaTime)
 {
@@ -122,9 +126,17 @@ void PlayState::processInput(float deltaTime)
       mFSM->changeState("pause");
    }
 
+   // Make the game full screen or windowed
+   if (mWindow->keyIsPressed(GLFW_KEY_N) && !mWindow->keyHasBeenProcessed(GLFW_KEY_N))
+   {
+      mWindow->setKeyAsProcessed(GLFW_KEY_N);
+      record = false;
+   }
+
    // Release the ball
    if (!mBallIsInPlay && mWindow->keyIsPressed(GLFW_KEY_SPACE))
    {
+      record = true;
       calculateInitialDirectionOfBall();
       mBallIsInPlay = true;
    }
@@ -229,16 +241,20 @@ void PlayState::update(float deltaTime)
 
       if (circleAndAABBCollided(*mBall, *mLeftPaddle, vecFromCenterOfCircleToPointOfCollision))
       {
-         playSoundOfCollision();
+         //playSoundOfCollision();
          resolveCollisionBetweenBallAndPaddle(*mBall, *mLeftPaddle, vecFromCenterOfCircleToPointOfCollision);
       }
       else if (circleAndAABBCollided(*mBall, *mRightPaddle, vecFromCenterOfCircleToPointOfCollision))
       {
-         playSoundOfCollision();
+         //playSoundOfCollision();
          resolveCollisionBetweenBallAndPaddle(*mBall, *mRightPaddle, vecFromCenterOfCircleToPointOfCollision);
       }
    }
 }
+
+static int frameNum = 0;
+static std::string frameName = "C:\\repos\\Teapong\\VS2019_solution\\x64\\Release\\frames\\";
+static GLubyte* data = new GLubyte[3 * 640 * 360];
 
 void PlayState::render()
 {
@@ -264,6 +280,24 @@ void PlayState::render()
    displayScore();
 
    mWindow->generateAntiAliasedImage();
+
+   if (record)
+   {
+      stbi_flip_vertically_on_write(true);
+      int winWidth  = mWindow->getWidthOfFramebufferInPix();
+      int winHeight = mWindow->getHeightOfFramebufferInPix();
+      //GLubyte* data = static_cast<GLubyte*>(malloc(3 * winWidth * winHeight));
+      memset(data, 0, 3 * winWidth * winHeight);
+      //glReadBuffer( GL_BACK );
+      glBindFramebuffer(GL_FRAMEBUFFER, 0);
+      glReadPixels(0, 0,
+                   winWidth, winHeight,
+                   GL_RGB, GL_UNSIGNED_BYTE, data);
+
+      std::string imgName = frameName + std::to_string(frameNum) + ".png";
+      stbi_write_png(imgName.c_str(), winWidth, winHeight, 3, data, winWidth * 3);
+      frameNum++;
+   }
 
    mWindow->swapBuffers();
    mWindow->pollEvents();
