@@ -121,6 +121,13 @@ To build Teapong on Windows, simply download or clone this repository and use th
 
 ## Learning resources
 
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
+ <p align="center">
+  <em>How it felt to work on this project most of the time.</em>
+ </p>
+</p>
+
 The following sources of information are the ones that helped me the most while working on this game:
 
 - The external libraries I used are presented with excellent clarity in [this](https://learnopengl.com/) page.
