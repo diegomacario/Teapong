@@ -39,7 +39,7 @@ The external libraries it uses and their purposes are the following:
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/play.gif"/>
  <p align="center">
-  <em>By pretending that the paddles are two-dimensional rectangles and that the teapot is a two-dimensional circle, it is possible to detect collisions using simple equations for Axis Aligned Bounding Boxes (AABBs) and circles.</em>
+  <em>By pretending that the paddles are two-dimensional rectangles and that the teapot is a two-dimensional circle, it is possible to detect collisions using simple equations for Axis-Aligned Bounding Boxes (AABBs) and circles.</em>
  </p>
 </p>
 
