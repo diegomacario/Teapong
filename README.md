@@ -8,7 +8,7 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=qzS9MX50a6k&feature=youtu.be">
-    <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/teapot.png" href="https://www.youtube.com/watch?v=qzS9MX50a6k&feature=youtu.be">
+    <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif" href="https://www.youtube.com/watch?v=qzS9MX50a6k&feature=youtu.be">
   </a>
   <br></br>
   <em>Click on the image above to see a two minute demo of Teapong!</em>
