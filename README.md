@@ -8,7 +8,7 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=qzS9MX50a6k&feature=youtu.be">
-    <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif" href="https://www.youtube.com/watch?v=qzS9MX50a6k&feature=youtu.be">
+    <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/teapot.png" href="https://www.youtube.com/watch?v=qzS9MX50a6k&feature=youtu.be">
   </a>
   <br></br>
   <em>Click on the image above to see a two minute demo of Teapong!</em>
@@ -20,6 +20,13 @@ This is the first game that I ever make! :blush:
 
 It was written using C++ and OpenGL, and it is currently supported on macOS and Windows.
 
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif"/>
+ <p align="center">
+  <em>Shading is done using the Phong reflection model.</em>
+ </p>
+</p>
+
 The external libraries it uses and their purposes are the following:
 
 - [GLFW](https://www.glfw.org/) is used to interact with the windowing system and to receive inputs.
@@ -29,12 +36,26 @@ The external libraries it uses and their purposes are the following:
 - [stb_image](https://github.com/nothings/stb) is used to load textures.
 - [irrKlang](https://www.ambiera.com/irrklang/) is used to play sounds.
 
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/play.gif"/>
+ <p align="center">
+  <em>By pretending that the paddles are two-dimensional rectangles and that the sphere is a two-dimensional circle, it is possible to detect collisions using simple equations for Axis Aligned Bounding Boxes (AABBs) and circles.</em>
+ </p>
+</p>
+
 The sources of the assets it uses are the following:
 
 - The 3D models were created using [3ds Max](https://area.autodesk.com/3ds-max-indie/).
 - The textures were created procedurally using 3ds Max and the [Open Shading Language](https://github.com/imageworks/OpenShadingLanguage).
 - The sound effects can be found [here](https://freesound.org/).
 - The background music is Filaments by Podington Bear, and it can be found [here](https://freemusicarchive.org/).
+
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/win.gif"/>
+ <p align="center">
+  <em>A geometry shader is used to make the teapot explode by pushing each of its triangles along its normal.</em>
+ </p>
+</p>
 
 For a more detailed description of this project's code, see [this](https://github.com/diegomacario/Teapong/blob/master/documentation/making_of_teapong.pdf) presentation.
 
