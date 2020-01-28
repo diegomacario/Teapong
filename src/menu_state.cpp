@@ -127,7 +127,7 @@ void MenuState::processInput(float deltaTime)
    }
 }
 
-static float degToRotate = -2.0f;
+static float degToRotate = -1.0f;
 static float degsRotated = 0.0f;
 static float totalDegsRotated = 0.0f;
 
@@ -167,7 +167,7 @@ void MenuState::update(float deltaTime)
 
       degsRotated += degToRotate;
 
-      totalDegsRotated += 2.0f;
+      totalDegsRotated += 1.0f;
 
       if (degsRotated >= 45.0f)
       {
@@ -178,7 +178,7 @@ void MenuState::update(float deltaTime)
          degToRotate = -degToRotate;
       }
 
-      if (totalDegsRotated > 184.0f)
+      if (totalDegsRotated >= 181.0f)
       {
          record = false;
       }
