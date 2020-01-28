@@ -1,3 +1,5 @@
+#include <stb_image_write.h>
+
 #include "menu_state.h"
 
 float calculateCWAngularPosOnXYPlaneWRTNegYAxisInDeg(const glm::vec3& point);
@@ -73,6 +75,8 @@ void MenuState::enter()
    mDoneShrinking            = false;
 }
 
+static bool record = true;
+
 void MenuState::processInput(float deltaTime)
 {
    // Close the game
@@ -84,6 +88,14 @@ void MenuState::processInput(float deltaTime)
       mWindow->setKeyAsProcessed(GLFW_KEY_F);
       mWindow->setFullScreen(!mWindow->isFullScreen());
       mWindow->enableCursor(!mWindow->isFullScreen());
+   }
+
+   // Make the game full screen or windowed
+   if (mWindow->keyIsPressed(GLFW_KEY_X) && !mWindow->keyHasBeenProcessed(GLFW_KEY_X))
+   {
+      mWindow->setKeyAsProcessed(GLFW_KEY_X);
+      record = true;
+
    }
 
    // Change the number of samples used for anti aliasing
@@ -115,6 +127,10 @@ void MenuState::processInput(float deltaTime)
    }
 }
 
+static float degToRotate = -2.0f;
+static float degsRotated = 0.0f;
+static float totalDegsRotated = 0.0f;
+
 void MenuState::update(float deltaTime)
 {
    if (mTransitionToPlayState)
@@ -141,13 +157,41 @@ void MenuState::update(float deltaTime)
    else
    {
       // Rotate the camera CW around the positive Z axis
-      glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(mIdleOrbitalAngularVelocity * deltaTime), glm::vec3(0.0f, 0.0f, 1.0f));
+      //glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(mIdleOrbitalAngularVelocity * deltaTime), glm::vec3(0.0f, 0.0f, 1.0f)); // Maybe rotate 1 deg per frame?
+      glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(degToRotate), glm::vec3(0.0f, 0.0f, 1.0f)); // Maybe rotate 1 deg per frame?
+
       mCameraPosition = glm::mat3(rotationMatrix) * mCameraPosition;
 
       // Rotate the title CW around the positive Z axis
-      mTitle->rotate(mIdleOrbitalAngularVelocity * deltaTime, glm::vec3(0.0f, 0.0f, 1.0f));
+      mTitle->rotate(degToRotate, glm::vec3(0.0f, 0.0f, 1.0f));
+
+      degsRotated += degToRotate;
+
+      totalDegsRotated += 2.0f;
+
+      if (degsRotated >= 45.0f)
+      {
+         degToRotate = -degToRotate;
+      }
+      else if (degsRotated <= -45.0f)
+      {
+         degToRotate = -degToRotate;
+      }
+
+      if (totalDegsRotated > 184.0f)
+      {
+         record = false;
+      }
+      else
+      {
+         std::cout << degsRotated << '\n';
+      }
    }
 }
+
+static int frameNum = 0;
+static std::string frameName = "C:\\repos\\Teapong\\VS2019_solution\\x64\\Release\\frames\\";
+static GLubyte* data = new GLubyte[3 * 640 * 360];
 
 void MenuState::render()
 {
@@ -176,6 +220,39 @@ void MenuState::render()
    glEnable(GL_CULL_FACE);
 
    mWindow->generateAntiAliasedImage();
+
+   if (record)
+   {
+      stbi_flip_vertically_on_write(true);
+      int winWidth  = mWindow->getWidthOfFramebufferInPix();
+      int winHeight = mWindow->getHeightOfFramebufferInPix();
+      //GLubyte* data = static_cast<GLubyte*>(malloc(3 * winWidth * winHeight));
+      memset(data, 0, 3 * winWidth * winHeight);
+      //glReadBuffer( GL_BACK );
+      glBindFramebuffer(GL_FRAMEBUFFER, 0);
+      glReadPixels(0, 0,
+                   winWidth, winHeight,
+                   GL_RGB, GL_UNSIGNED_BYTE, data);
+
+      GLenum errorCode = glGetError();
+      if (errorCode != GL_NO_ERROR)
+      {
+         std::string error;
+         switch (errorCode)
+         {
+         case GL_INVALID_ENUM:                  error = "INVALID_ENUM"; break;
+         case GL_INVALID_VALUE:                 error = "INVALID_VALUE"; break;
+         case GL_INVALID_OPERATION:             error = "INVALID_OPERATION"; break;
+         case GL_OUT_OF_MEMORY:                 error = "OUT_OF_MEMORY"; break;
+         case GL_INVALID_FRAMEBUFFER_OPERATION: error = "INVALID_FRAMEBUFFER_OPERATION"; break;
+         }
+         std::cout << error << '\n';
+      }
+
+      std::string imgName = frameName + std::to_string(frameNum) + ".png";
+      stbi_write_png(imgName.c_str(), winWidth, winHeight, 3, data, winWidth * 3);
+      frameNum++;
+   }
 
    mWindow->swapBuffers();
    mWindow->pollEvents();

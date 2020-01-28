@@ -218,8 +218,8 @@ bool Game::initialize(const std::string& title)
    // Initialize the FSM
    mFSM->initialize(std::move(mStates), "menu");
 
-   irrklang::ISound* backgroundMusic = mSoundEngine->play2D("resources/sounds/podington_bear_filaments.wav", true, false, true);
-   backgroundMusic->setVolume(0.3f);
+   //irrklang::ISound* backgroundMusic = mSoundEngine->play2D("resources/sounds/podington_bear_filaments.wav", true, false, true);
+   //backgroundMusic->setVolume(0.3f);
 
    return true;
 }

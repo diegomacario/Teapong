@@ -70,13 +70,15 @@ bool Window::initialize()
       return false;
    }
 
+   setFullScreen(false);
+
    glfwGetFramebufferSize(mWindow, &mWidthOfFramebufferInPix, &mHeightOfFramebufferInPix);
 
    glfwMakeContextCurrent(mWindow);
 
    setInputCallbacks();
 
-   enableCursor(false);
+   enableCursor(true);
 
    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
    {
@@ -96,6 +98,8 @@ bool Window::initialize()
       mWindow = nullptr;
       return false;
    }
+
+   setNumberOfSamples(8);
 
    return true;
 }
@@ -165,8 +169,8 @@ void Window::setFullScreen(bool fullScreen)
    }
    else
    {
-      mWidthOfWindowInPix = 1280;
-      mHeightOfWindowInPix = 720;
+      mWidthOfWindowInPix = 640;
+      mHeightOfWindowInPix = 360;
       glfwSetWindowMonitor(mWindow, NULL, 20, 50, mWidthOfWindowInPix, mHeightOfWindowInPix, GLFW_DONT_CARE);
    }
 
