@@ -53,11 +53,18 @@ The sources of the assets it uses are the following:
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/win.gif"/>
  <p align="center">
-  <em>A geometry shader is used to make the teapot explode by pushing each of its triangles along its normal.</em>
+  <em>A geometry shader is used to make the teapot explode by pushing each triangle along its normal.</em>
  </p>
 </p>
 
 For a more detailed description of this project's code, see [this](https://github.com/diegomacario/Teapong/blob/master/documentation/making_of_teapong.pdf) presentation.
+
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/states.PNG"/>
+ <p align="center">
+  <em>The state design pattern is used to manage the game states and the transitions between them.</em>
+ </p>
+</p>
 
 ## Rules and controls
 
