@@ -18,7 +18,7 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 This is the first game that I ever make!
 
-It was written using C++ and OpenGL, and it is currently supported on macOS and Windows.
+I wrote it using C++ and OpenGL, and it is currently supported on macOS and Windows.
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif"/>
@@ -27,7 +27,7 @@ It was written using C++ and OpenGL, and it is currently supported on macOS and 
  </p>
 </p>
 
-The external libraries it uses and their purposes are the following:
+The external libraries I used and their purposes are the following:
 
 - [GLFW](https://www.glfw.org/) is used to interact with the windowing system and to receive inputs.
 - [GLAD](https://glad.dav1d.de/) is used to load pointers to OpenGL functions.
@@ -43,7 +43,7 @@ The external libraries it uses and their purposes are the following:
  </p>
 </p>
 
-The sources of the assets it uses are the following:
+The sources of the assets I used are the following:
 
 - The 3D models were created using [3ds Max](https://area.autodesk.com/3ds-max-indie/).
 - The textures were created procedurally using 3ds Max and the [Open Shading Language](https://github.com/imageworks/OpenShadingLanguage).
