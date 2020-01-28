@@ -16,7 +16,7 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 ## Technical details
 
-This is the first game that I ever make! :blush:
+This is the first game that I ever make!
 
 It was written using C++ and OpenGL, and it is currently supported on macOS and Windows.
 
