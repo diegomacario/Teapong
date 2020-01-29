@@ -48,7 +48,7 @@ void PlayState::enter()
    {
       resetCamera();
       resetScene();
-      mPointsScoredByLeftPaddle  = 1;
+      mPointsScoredByLeftPaddle  = 2;
       mPointsScoredByRightPaddle = 2;
    }
 }
@@ -136,7 +136,7 @@ void PlayState::processInput(float deltaTime)
    // Release the ball
    if (!mBallIsInPlay && mWindow->keyIsPressed(GLFW_KEY_SPACE))
    {
-      record = true;
+      record = false;
       calculateInitialDirectionOfBall();
       mBallIsInPlay = true;
    }

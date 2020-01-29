@@ -1,3 +1,5 @@
+#include <stb_image_write.h>
+
 #include "play_state.h"
 #include "win_state.h"
 
@@ -36,6 +38,7 @@ void WinState::enter()
    // In the win state, the cursor is disabled when fullscreen and enabled when windowed
    mWindow->enableCursor(!mWindow->isFullScreen());
 
+   mBall->reset();
    float currRadius = mBall->getRadius();
    mBall->scale(7.5f / currRadius);
    mBall->setRadius(7.5f);
@@ -45,7 +48,7 @@ void WinState::enter()
    mCameraUp       = glm::vec3(0.0f, 0.0f, 1.0f);
    mCameraRight    = glm::vec3(0.0f);
 
-   mTimeWhenExplosionShouldBegin          = glfwGetTime() + 3.0;
+   mTimeWhenExplosionShouldBegin          = glfwGetTime() + 3.5;
    mExplode                               = false;
    mSpeedOfExplodingFragments             = 2.0f;
    mDistanceTravelledByExplodingFragments = 0.0f;
@@ -62,7 +65,11 @@ void WinState::enter()
 
    mTimeWhenWinnerIsFirstDisplayed = 0.0;
    mDisplayWinner = false;
+
+   mExplode = true;
 }
+
+static bool record = true;
 
 void WinState::processInput(float deltaTime)
 {
@@ -100,24 +107,45 @@ void WinState::processInput(float deltaTime)
    }
 }
 
+static bool reverse = false;
+static bool done = false;
+
 void WinState::update(float deltaTime)
 {
-   if (!mDisplayWinner && mDistanceTravelledByExplodingFragments > 120.0f)
+   mBall->setPosition(glm::vec3(0.0f, 0.0f, mBall->getScalingFactor() * 1.96875));
+
+   if (!mDisplayWinner && mDistanceTravelledByExplodingFragments > 10.0f) // Hey
    {
       // Reset the position of the camera
-      mCameraPosition = glm::vec3(0.0f, -30.0f, 0.0f);
-      mCameraTarget   = glm::vec3(0.0f, 0.0f, 0.0f);
-      mCameraUp       = glm::vec3(0.0f, 0.0f, 1.0f);
-      mCameraRight    = glm::vec3(0.0f);
+      //mCameraPosition = glm::vec3(0.0f, -30.0f, 0.0f);
+      //mCameraTarget   = glm::vec3(0.0f, 0.0f, 0.0f);
+      //mCameraUp       = glm::vec3(0.0f, 0.0f, 1.0f);
+      //mCameraRight    = glm::vec3(0.0f);
 
-      mTimeWhenWinnerIsFirstDisplayed = glfwGetTime();
+      //mTimeWhenWinnerIsFirstDisplayed = glfwGetTime();
 
-      mDisplayWinner = true;
+      //mDisplayWinner = true;
+      reverse = true;
+      mIdleOrbitalAngularVelocity = -mIdleOrbitalAngularVelocity;
+   }
+   else if (!mDisplayWinner && mDistanceTravelledByExplodingFragments <= 0.0f && reverse) // Hey
+   {
+      // Reset the position of the camera
+      //mCameraPosition = glm::vec3(0.0f, -30.0f, 0.0f);
+      //mCameraTarget   = glm::vec3(0.0f, 0.0f, 0.0f);
+      //mCameraUp       = glm::vec3(0.0f, 0.0f, 1.0f);
+      //mCameraRight    = glm::vec3(0.0f);
+
+      //mTimeWhenWinnerIsFirstDisplayed = glfwGetTime();
+
+      //mDisplayWinner = true;
+      done = true;
+      mFSM->changeState("menu");
    }
 
-   if (mDisplayWinner && (glfwGetTime() > mTimeWhenWinnerIsFirstDisplayed + 3))
+   if (mDisplayWinner && (glfwGetTime() > mTimeWhenWinnerIsFirstDisplayed + 1))
    {
-      mFSM->changeState("menu");
+      //mFSM->changeState("menu");
    }
 
    if (!mExplode && (glfwGetTime() > mTimeWhenExplosionShouldBegin))
@@ -125,14 +153,21 @@ void WinState::update(float deltaTime)
       mExplode = true;
    }
 
-   if (mExplode)
+   mBall->setPosition(glm::vec3(0.0f, 0.0f, mBall->getScalingFactor() * 1.96875));
+
+   if (mExplode && !reverse)
    {
       mSpeedOfExplodingFragments += 0.025f;
       mDistanceTravelledByExplodingFragments += mSpeedOfExplodingFragments * deltaTime;
    }
+   else if (mExplode && reverse)
+   {
+      mSpeedOfExplodingFragments -= 0.025f;
+      mDistanceTravelledByExplodingFragments -= mSpeedOfExplodingFragments * deltaTime;
+   }
    else
    {
-      mBall->moveInFreeFall(deltaTime);
+      //mBall->moveInFreeFall(deltaTime);
       mBall->setPosition(glm::vec3(0.0f, 0.0f, mBall->getScalingFactor() * 1.96875));
    }
 
@@ -143,6 +178,10 @@ void WinState::update(float deltaTime)
       mCameraPosition = glm::mat3(rotationMatrix) * mCameraPosition;
    }
 }
+
+static int frameNum = 0;
+static std::string frameName = "C:\\repos\\Teapong\\VS2019_solution\\x64\\Release\\frames\\";
+static GLubyte* data = new GLubyte[3 * 640 * 360];
 
 void WinState::render()
 {
@@ -183,6 +222,24 @@ void WinState::render()
    }
 
    mWindow->generateAntiAliasedImage();
+
+   if (record)
+   {
+      stbi_flip_vertically_on_write(true);
+      int winWidth  = mWindow->getWidthOfFramebufferInPix();
+      int winHeight = mWindow->getHeightOfFramebufferInPix();
+      //GLubyte* data = static_cast<GLubyte*>(malloc(3 * winWidth * winHeight));
+      memset(data, 0, 3 * winWidth * winHeight);
+      //glReadBuffer( GL_BACK );
+      glBindFramebuffer(GL_FRAMEBUFFER, 0);
+      glReadPixels(0, 0,
+         winWidth, winHeight,
+         GL_RGB, GL_UNSIGNED_BYTE, data);
+
+      std::string imgName = frameName + std::to_string(frameNum) + ".png";
+      stbi_write_png(imgName.c_str(), winWidth, winHeight, 3, data, winWidth * 3);
+      frameNum++;
+   }
 
    mWindow->swapBuffers();
    mWindow->pollEvents();

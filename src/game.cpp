@@ -233,7 +233,7 @@ void Game::executeGameLoop()
    while (!mWindow->shouldClose())
    {
       currentFrame = glfwGetTime();
-      deltaTime    = static_cast<float>(currentFrame - lastFrame);
+      deltaTime    = static_cast<float>(1.0 / 30.0);
       lastFrame    = currentFrame;
 
       mFSM->processInputInCurrentState(deltaTime);
