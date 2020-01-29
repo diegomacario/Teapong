@@ -16,7 +16,7 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 ## Technical details
 
-This project was an attempt to write a game as cleanly as possible. Special focus was placed on the following items:
+This project was an attempt to write a game as cleanly as possible. Special focus was placed on the following goals:
 
 - Using modern C++ and modern OpenGL.
 - Making the game cross-platform, so that it would run on macOS and Windows.
@@ -51,7 +51,7 @@ The sources of the assets used by this project are the following:
 
 ### Shading
 
-Shading is done using the [Phong reflection model](https://en.wikipedia.org/wiki/Phong_reflection_model).
+Shading is done using the simplest model of them all: the [Phong reflection model](https://en.wikipedia.org/wiki/Phong_reflection_model).
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif"/>
@@ -59,7 +59,7 @@ Shading is done using the [Phong reflection model](https://en.wikipedia.org/wiki
 
 ### Collision detection
 
-By pretending that the paddles are two-dimensional rectangles and that the teapot is a two-dimensional circle, it is possible to detect collisions using simple equations for Axis-Aligned Bounding Boxes (AABBs) and circles.
+By pretending that the paddles are two-dimensional rectangles and that the teapot is a two-dimensional circle, collisions are detected using simple equations for Axis-Aligned Bounding Boxes (AABBs) and circles.
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/play.gif"/>
