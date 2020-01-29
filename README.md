@@ -140,7 +140,7 @@ To build Teapong on Windows, simply download or clone this repository and use th
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
  <p align="center">
-  <em>How it felt to work on this project most of the time.</em>
+  <em>How it felt when I started working on this project.</em>
  </p>
 </p>
 
