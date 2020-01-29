@@ -16,18 +16,18 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 ## Technical details
 
-This is the first game that I ever make!
+This project was an attempt to write a game as cleanly as possible. Special focus was placed on the following items:
 
-I wrote it using C++ and OpenGL, and it is currently supported on macOS and Windows.
+- Using modern C++ and modern OpenGL.
+- Making the game cross-platform, so that it would run on macOS and Windows.
+- Finding a flexible way to manage resources (e.g. textures, models, shaders, etc.).
+- Finding an organized way to manage game states (e.g. menu, play, pause, etc.).
 
-<p align="center">
- <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif"/>
- <p align="center">
-  <em>Shading is done using the Phong reflection model.</em>
- </p>
-</p>
+Below you will information on the libraries used by this project and the sources of the game assets, as well as some details on resource management, game state management, shading, collision detection and how to make a teapot explode. 
 
-The external libraries I used and their purposes are the following:
+### Libraries
+
+The libraries used by this project and their purposes are the following:
 
 - [GLFW](https://www.glfw.org/) is used to interact with the windowing system and to receive inputs.
 - [GLAD](https://glad.dav1d.de/) is used to load pointers to OpenGL functions.
@@ -36,6 +36,30 @@ The external libraries I used and their purposes are the following:
 - [stb_image](https://github.com/nothings/stb) is used to load textures.
 - [irrKlang](https://www.ambiera.com/irrklang/) is used to play sounds.
 
+### Game assets
+
+The sources of the assets used by this project are the following:
+
+- The 3D models were created using [3ds Max](https://area.autodesk.com/3ds-max-indie/).
+- The textures were created procedurally using 3ds Max and the [Open Shading Language](https://github.com/imageworks/OpenShadingLanguage).
+- The sound effects can be found [here](https://freesound.org/).
+- The background music is Filaments by Podington Bear, and it can be found [here](https://freemusicarchive.org/).
+
+### Resource management
+
+### Game state management
+
+### Shading
+
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif"/>
+ <p align="center">
+  <em>Shading is done using the Phong reflection model.</em>
+ </p>
+</p>
+
+### Collision detection
+
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/play.gif"/>
  <p align="center">
@@ -43,12 +67,7 @@ The external libraries I used and their purposes are the following:
  </p>
 </p>
 
-The sources of the assets I used are the following:
-
-- The 3D models were created using [3ds Max](https://area.autodesk.com/3ds-max-indie/).
-- The textures were created procedurally using 3ds Max and the [Open Shading Language](https://github.com/imageworks/OpenShadingLanguage).
-- The sound effects can be found [here](https://freesound.org/).
-- The background music is Filaments by Podington Bear, and it can be found [here](https://freemusicarchive.org/).
+### How to make a teapot explode
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/win.gif"/>
