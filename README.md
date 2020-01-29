@@ -71,7 +71,7 @@ By pretending that the paddles are two-dimensional rectangles and that the teapo
 
 ### How to make a teapot explode
 
-A [geometry shader](https://github.com/diegomacario/Teapong/blob/master/resources/shaders/game_object_3D_explosive.gs) is used to make the teapot explode by pushing each triangle along its normal.
+A [geometry shader](https://github.com/diegomacario/Teapong/blob/master/resources/shaders/game_object_3D_explosive.gs) is used to make the teapot explode by pushing each polygon along its normal.
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/win.gif"/>
