@@ -51,29 +51,26 @@ The sources of the assets used by this project are the following:
 
 ### Shading
 
+Shading is done using the [Phong reflection model](https://en.wikipedia.org/wiki/Phong_reflection_model).
+
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif"/>
- <p align="center">
-  <em>Shading is done using the Phong reflection model.</em>
- </p>
 </p>
 
 ### Collision detection
 
+By pretending that the paddles are two-dimensional rectangles and that the teapot is a two-dimensional circle, it is possible to detect collisions using simple equations for Axis-Aligned Bounding Boxes (AABBs) and circles.
+
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/play.gif"/>
- <p align="center">
-  <em>By pretending that the paddles are two-dimensional rectangles and that the teapot is a two-dimensional circle, it is possible to detect collisions using simple equations for Axis-Aligned Bounding Boxes (AABBs) and circles.</em>
- </p>
 </p>
 
 ### How to make a teapot explode
 
+A [geometry shader](https://github.com/diegomacario/Teapong/blob/master/resources/shaders/game_object_3D_explosive.gs) is used to make the teapot explode by pushing each triangle along its normal.
+
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/win.gif"/>
- <p align="center">
-  <em>A geometry shader is used to make the teapot explode by pushing each triangle along its normal.</em>
- </p>
 </p>
 
 For a more detailed description of this project's code, see [this](https://github.com/diegomacario/Teapong/blob/master/documentation/making_of_teapong.pdf) presentation.
