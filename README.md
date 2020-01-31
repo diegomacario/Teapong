@@ -16,16 +16,14 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 ## Technical details
 
-This project was an attempt to write a game from scratch as cleanly as possible. Special focus was placed on the following goals:
+This project was an attempt to write a simple game from scratch as cleanly as possible. Special focus was placed on the following goals:
 
-- Employ various features of modern C++ and modern OpenGL.
+- Use modern C++ and modern OpenGL.
 - Make the game cross-platform, so that it runs on macOS and Windows.
 - Find a flexible way to manage resources (e.g. textures, models, shaders, etc.).
 - Find an organized way to represent game states (e.g. menu, play, pause, etc.), and make them fully independent and encapsulated.
 
-The first three goals were achieved successfully, but the last one only partly, which led to code that is difficult to maintain and doesn't scale well in the game state layer.
-
-This failure is presented below, along with information on the libraries used by this project and the sources of the game assets, as well as some details on resource management, shading, collision detection and how to make a teapot explode.
+The first three goals were achieved successfully, but the last one wasn't, which led to code that doesn't scale well in the game state layer. This failure is explained in the "**Game state management**" subsection  below. The other subsections provide information on the libraries used by this project and the sources of the game assets, as well as some details on resource management, shading, collision detection and how to make a teapot explode.
 
 For additional information on this project's code, see [this](https://github.com/diegomacario/Teapong/blob/master/documentation/making_of_teapong.pdf) presentation.
 
@@ -55,7 +53,7 @@ The sources of the assets used by this project are the following:
 
 ### Shading
 
-Shading is done using the simplest model of them all: the [Phong reflection model](https://en.wikipedia.org/wiki/Phong_reflection_model).
+Shading is done using the [Phong reflection model](https://en.wikipedia.org/wiki/Phong_reflection_model).
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/menu.gif"/>
@@ -71,7 +69,7 @@ By pretending that the paddles are two-dimensional rectangles and that the teapo
 
 ### How to make a teapot explode
 
-A [geometry shader](https://github.com/diegomacario/Teapong/blob/master/resources/shaders/game_object_3D_explosive.gs) is used to make the teapot explode by pushing each polygon along its normal.
+A simple [geometry shader](https://github.com/diegomacario/Teapong/blob/master/resources/shaders/game_object_3D_explosive.gs) is used to make the teapot explode by pushing each polygon along its normal.
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/win.gif"/>
