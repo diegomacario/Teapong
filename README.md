@@ -21,7 +21,7 @@ This project was an attempt to write a simple game from scratch as cleanly as po
 - Use modern C++ and modern OpenGL.
 - Make the game cross-platform, so that it runs on macOS and Windows.
 - Find a flexible way to manage resources (e.g. textures, models, shaders, etc.).
-- Find an organized way to represent game states (e.g. menu, play, pause, etc.), and make them fully independent and encapsulated.
+- Find an organized way to represent game states (e.g. menu, play, pause, etc.) and make them fully independent and encapsulated.
 
 The first three goals were achieved successfully, but the last one wasn't, which led to code that doesn't scale well in the game state layer. This failure is explained in the "**Game state management**" subsection  below.
 
@@ -50,6 +50,14 @@ The sources of the assets used by this project are the following:
 - The background music is Filaments by Podington Bear, and it can be found [here](https://freemusicarchive.org/).
 
 ### Resource management
+
+The resouce manager used by this project was inspired by [this](https://github.com/skypjack/entt/tree/master/src/entt/resource) code from the [EnTT](https://github.com/skypjack/entt) library. It follows the following principles:
+
+- The resource management code is separated from the resource loading code.
+- A resource manager instance can only manage one type of resource.
+- Resources are not deleted automatically if they are not being used. The user must request for them to be deleted.
+
+The implementation of the resource manager is a bit complex because it makes use of variadic templates and perfect forwarding, but using it is super intutive:
 
 ### Game state management
 
@@ -150,4 +158,3 @@ The following sources of information are the ones that helped me the most while 
 
 - The external libraries I used are presented with excellent clarity in [this](https://learnopengl.com/) page.
 - The design pattern I used for game state management was inspired by [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
-- The classes I wrote for resource management were inspired by [this](https://github.com/skypjack/entt/tree/master/src/entt/resource) code.
