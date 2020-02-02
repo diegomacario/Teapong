@@ -88,7 +88,7 @@ The state diagram below illustrates the states that make up this project, and th
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/fsm.PNG"/>
 </p>
 
-So how did this design pattern lead to code that doesn't scale well? The root of the problem is the way I made states communicate with each other: by sharing resources.
+So how did this design pattern lead to code that does not scale well? The root of the problem is the way I made states communicate with each other: by sharing resources.
 
 To illustrate why this was a bad decision, consider the following situation:
 
@@ -100,7 +100,7 @@ To illustrate why this was a bad decision, consider the following situation:
 
 Now imagine the same situation, but with dozens of shared resources and states. The code quickly becomes tangled and difficult to maintain.
 
-So how do we prevent this mess? By only sharing resources that don't require any external variables to be maintained, and by using a different system to allow states to communicate with each other. What does that other system look like, you might ask? That's a question I'm still asking myself. I would love to hear your suggestions if you have any!
+So how do we prevent this mess? By only sharing resources that do not require any external variables to be maintained, and by using a different system to allow states to communicate with each other. What does that other system look like, you might ask? That is a question I am still asking myself. I would love to hear your suggestions if you have any!
 
 ### Shading
 
