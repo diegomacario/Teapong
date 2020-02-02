@@ -57,7 +57,7 @@ The resouce manager class used by this project was inspired by [this](https://gi
 - A resource manager instance can only manage one type of resource (e.g. [texture.h](https://github.com/diegomacario/Teapong/blob/master/inc/texture.h), [model.h](https://github.com/diegomacario/Teapong/blob/master/inc/model.h) or [shader.h](https://github.com/diegomacario/Teapong/blob/master/inc/shader.h)).
 - Resources are not deleted automatically if they are not being used. The user must make a request for them to be deleted.
 
-The implementation of the resource manager is a bit complex because it makes use of variadic templates and perfect forwarding, but using it is super intutive:
+The implementation of the resource manager class is a bit complex because it makes use of variadic templates and perfect forwarding, but using it is super intutive:
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/resource_manager_example.png"/>
