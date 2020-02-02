@@ -16,6 +16,13 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 ## Technical details
 
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
+ <p align="center">
+  <em>How it felt when I started working on this project.</em>
+ </p>
+</p>
+
 This project was an attempt to write a simple game from scratch as cleanly as possible. Special focus was placed on the following goals:
 
 - Use modern C++ and modern OpenGL.
@@ -66,6 +73,8 @@ The implementation of the resource manager may seem complex because it makes use
 </p>
 
 ### Game state management
+
+The design pattern I used for game state management was inspired by [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
 
 ### Shading
 
@@ -150,16 +159,3 @@ Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 ### Windows
 
 To build Teapong on Windows, simply download or clone this repository and use the Visual Studio 2019 solution file that is stored in the **VS2019_solution** directory.
-
-## Learning resources
-
-<p align="center">
- <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
- <p align="center">
-  <em>How it felt when I started working on this project.</em>
- </p>
-</p>
-
-The following sources of information are the ones that helped me the most while working on this game:
-
-- The design pattern I used for game state management was inspired by [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
