@@ -19,7 +19,7 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
  <p align="center">
-  <em>How it felt when I started working on this project.</em>
+  <em>How I felt when I started working on this project.</em>
  </p>
 </p>
 
