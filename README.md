@@ -40,6 +40,8 @@ The libraries used by this project and their purposes are the following:
 - [stb_image](https://github.com/nothings/stb) is used to load textures.
 - [irrKlang](https://www.ambiera.com/irrklang/) is used to play sounds.
 
+[This](https://learnopengl.com/) website explains how to use each of the libraries listed above with excellent clarity.
+
 ### Game assets
 
 The sources of the assets used by this project are the following:
@@ -160,5 +162,4 @@ To build Teapong on Windows, simply download or clone this repository and use th
 
 The following sources of information are the ones that helped me the most while working on this game:
 
-- The external libraries I used are presented with excellent clarity in [this](https://learnopengl.com/) page.
 - The design pattern I used for game state management was inspired by [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
