@@ -83,6 +83,10 @@ The fundamental ideas are the following:
 - Each state only has access to the resources that it needs, and it can share its resources with other states to facilitate communication between states.
 - Each state is responsible for checking the conditions that could lead to a state change, and it must notify a finite state machine when this is the case.
 
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/fsm.PNG"/>
+</p>
+
 ### Shading
 
 Shading is done using the [Phong reflection model](https://en.wikipedia.org/wiki/Phong_reflection_model).
