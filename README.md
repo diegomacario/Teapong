@@ -53,8 +53,7 @@ The libraries used by this project and their purposes are the following:
 
 The sources of the assets used by this project are the following:
 
-- The 3D models were created using [3ds Max](https://area.autodesk.com/3ds-max-indie/).
-- The textures were created procedurally using 3ds Max and the [Open Shading Language](https://github.com/imageworks/OpenShadingLanguage).
+- The 3D models and textures were created using [3ds Max](https://area.autodesk.com/3ds-max-indie/).
 - The sound effects can be found [here](https://freesound.org/).
 - The background music is Filaments by Podington Bear, and it can be found [here](https://freemusicarchive.org/).
 
