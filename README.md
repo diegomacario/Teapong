@@ -78,7 +78,7 @@ The design pattern used by this project for game state management is a modified 
 The fundamental ideas behind my version of that pattern are the following:
 
 - Each state is represented by a class (e.g. [menu_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/menu_state.h), [play_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/play_state.h), [pause_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/pause_state.h) and [win_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/win_state.h)).
-- Each state is required (by inheriting from [state.h](https://github.com/diegomacario/Teapong/blob/master/inc/state.h)) to implement the three functions that are commonly called in a game loop: `processInput`, `update` and `render`.
+- Each state is required (by inheriting from [state.h](https://github.com/diegomacario/Teapong/blob/master/inc/state.h)) to implement the three functions that are always called in a game loop: `processInput`, `update` and `render`.
 - Each state only has access to the resources that it needs, and **it can share its resources with other states to facilitate communication between states**.
 - Each state is responsible for checking the conditions that could lead to a state change, and it must notify a finite state machine ([finite_state_machine.h](https://github.com/diegomacario/Teapong/blob/master/inc/finite_state_machine.h)) when this is the case to make a transition occur.
 
