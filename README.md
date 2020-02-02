@@ -79,14 +79,28 @@ The fundamental ideas behind my implementation of that pattern are the following
 
 - Each state is represented by a class (e.g. [menu_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/menu_state.h), [play_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/play_state.h), [pause_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/pause_state.h) and [win_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/win_state.h)).
 - Each state is required (by inheriting from [state.h](https://github.com/diegomacario/Teapong/blob/master/inc/state.h)) to implement the three functions that are always called in the game loop: `processInput`, `update` and `render`.
-- Each state only has access to the resources that it needs, and **it can share its resources with other states to facilitate communication between states**.
-- Each state is responsible for checking the conditions that could lead to a state change, and it must notify the finite state machine ([finite_state_machine.h](https://github.com/diegomacario/Teapong/blob/master/inc/finite_state_machine.h)) that contains all the states to make a transition occur. 
+- Each state only has access to the resources that it needs, and it can share its resources with other states to facilitate communication between states.
+- Each state is responsible for checking the conditions that could lead to a state change, and it must notify the finite state machine that contains all the states ([finite_state_machine.h](https://github.com/diegomacario/Teapong/blob/master/inc/finite_state_machine.h)) to make a transition occur. 
 
-The state diagram below illustrates the different states of this project and the events that cause the transitions between them to occur:
+The state diagram below illustrates the states that make up this project, and the events that cause the transitions between them to occur:
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/fsm.PNG"/>
 </p>
+
+So how did this design pattern lead to code that doesn't scale well? The root of the problem is the way I made states communicate with each other: by sharing resources.
+
+To illustrate why this was a bad decision, consider the following situation:
+
+- Let's say that state A has the teapot at position X.
+- Now let's say that we need to transition to state B, where the teapot will be placed at position Y.
+- If the teapot needs to go back to position X if we ever switch back to state A in the future, then state A needs to remember position X.
+- But what if both states share the same teapot? As soon as the transition occurs, state B will change the position of the teapot to Y, and X will be lost.
+- This means that the position of the teapot behaves as a global variable, so to avoid this problem state A needs to maintain a variable external to the teapot where it stores position X.
+
+Now imagine the same situation, but with dozens of shared resources and states. The code quickly becomes tangled and difficult to maintain.
+
+So how do we prevent this mess? By only sharing resources that don't require any external variables to be maintained, and by using a different system to allow states to communicate with each other. What does that other system look like, you might ask? That's a question I'm still asking myself. I would love to hear your suggestions if you have any!
 
 ### Shading
 
