@@ -73,7 +73,15 @@ The implementation of the resource manager may seem a bit complex because it mak
 
 ### Game state management
 
-The design pattern I used for game state management was inspired by [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
+The design pattern used by this project for game state management is the State design pattern.
+
+Said pattern is explained brilliantly in [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
+
+The fundamental ideas are the following:
+
+- Each state is represented by a class.
+- Each state only has access to the resources that it needs, and it can share its resources with other states to facilitate communication between states.
+- Each state is responsible for checking the conditions that could lead to a state change, and it must notify a finite state machine when this is the case.
 
 ### Shading
 
