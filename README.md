@@ -59,21 +59,9 @@ The resouce manager class used by this project was inspired by [this](https://gi
 
 The implementation of the resource manager is a bit complex because it makes use of variadic templates and perfect forwarding, but using it is super intutive:
 
-```cpp
-// Create a resource manager for models
-ResourceManager<Model> modelManager;
-
-// Load the teapot model by giving it a resource ID and passing the path to its .obj file
-modelManager.loadResource<ModelLoader>("utah_teapot", "resources/models/teapot/teapot.obj");
-
-// Get the teapot model using its resource ID and render it
-std::shared_ptr<Model> teapot = modelManager.getResource("utah_teapot");
-teapot->render(phongShader);
-
-// Stop managing the resource
-// If nobody is using it, it's deleted. Otherwise, it is deleted when all the shared_ptrs to it go out of scope
-modelManager.stopManagingResource("utah_teapot");
-```
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/resource_manager_example.png"/>
+</p>
 
 ### Game state management
 
