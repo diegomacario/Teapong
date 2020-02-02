@@ -19,7 +19,7 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 This project was an attempt to write a simple game from scratch as cleanly as possible. Special focus was placed on the following goals:
 
 - Use modern C++ and modern OpenGL.
-- Make the game cross-platform, so that it runs on macOS and Windows.
+- Keep the code cross-platform, so that the game runs on macOS and Windows.
 - Find a flexible way to manage resources (e.g. textures, models, shaders, etc.).
 - Find an organized way to represent game states (e.g. menu, play, pause, etc.) and make them fully independent and encapsulated.
 
