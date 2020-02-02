@@ -75,7 +75,7 @@ The implementation of the resource manager may seem a bit complex because it mak
 
 The design pattern used by this project for game state management is a modified version of the State design pattern, which is explained brilliantly in [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
 
-The fundamental ideas behind my version of that pattern are the following:
+The fundamental ideas behind my implementation of that pattern are the following:
 
 - Each state is represented by a class (e.g. [menu_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/menu_state.h), [play_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/play_state.h), [pause_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/pause_state.h) and [win_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/win_state.h)).
 - Each state is required (by inheriting from [state.h](https://github.com/diegomacario/Teapong/blob/master/inc/state.h)) to implement the three functions that are always called in a game loop: `processInput`, `update` and `render`.
