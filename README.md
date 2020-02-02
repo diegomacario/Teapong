@@ -23,7 +23,7 @@ This project was an attempt to write a simple game from scratch as cleanly as po
 - Find a flexible way to manage resources (e.g. textures, models, shaders, etc.).
 - Find an organized way to represent game states (e.g. menu, play, pause, etc.) and make them fully independent and encapsulated.
 
-The first three goals were achieved successfully, but the last one wasn't, which led to code that doesn't scale well in the game state layer. This failure is explained in the "**Game state management**" subsection  below.
+The first three goals were achieved successfully, but the last one was not, which led to code that does not scale well in the game state layer. This failure is explained in the "**Game state management**" subsection  below.
 
 The other subsections provide information on the libraries used by this project and the sources of the game assets, as well as some details on resource management, shading, collision detection and how to make a teapot explode.
 
