@@ -51,13 +51,29 @@ The sources of the assets used by this project are the following:
 
 ### Resource management
 
-The resouce manager used by this project was inspired by [this](https://github.com/skypjack/entt/tree/master/src/entt/resource) code from the [EnTT](https://github.com/skypjack/entt) library. It follows the following principles:
+The resouce manager class used by this project was inspired by [this](https://github.com/skypjack/entt/tree/master/src/entt/resource) code from the [EnTT](https://github.com/skypjack/entt) library. It follows the following principles:
 
-- The resource management code is separated from the resource loading code.
-- A resource manager instance can only manage one type of resource.
+- The resource management code ([resource_manager.h](https://github.com/diegomacario/Teapong/blob/master/inc/resource_manager.h)) is separated from the resource loading code ([texture_loader.h](https://github.com/diegomacario/Teapong/blob/master/inc/texture_loader.h), [model_loader.h](https://github.com/diegomacario/Teapong/blob/master/inc/model_loader.h) and [shader_loader.h](https://github.com/diegomacario/Teapong/blob/master/inc/shader_loader.h)).
+- A resource manager instance can only manage one type of resource (e.g. [texture.h](https://github.com/diegomacario/Teapong/blob/master/inc/texture.h), [model.h](https://github.com/diegomacario/Teapong/blob/master/inc/model.h) or [shader.h](https://github.com/diegomacario/Teapong/blob/master/inc/shader.h)).
 - Resources are not deleted automatically if they are not being used. The user must request for them to be deleted.
 
 The implementation of the resource manager is a bit complex because it makes use of variadic templates and perfect forwarding, but using it is super intutive:
+
+```cpp
+// Create a resource manager for models
+ResourceManager<Model> modelManager;
+
+// Load the teapot model by giving it a resource ID and passing the path to its .obj file
+modelManager.loadResource<ModelLoader>("utah_teapot", "resources/models/teapot/teapot.obj");
+
+// Get the teapot model using its resource ID and render it
+std::shared_ptr<Model> teapot = modelManager.getResource("utah_teapot");
+teapot->render(phongShader);
+
+// Stop managing the resource
+// If nobody is using it, it's deleted. Otherwise, it is deleted when all the shared_ptrs to it go out of scope
+modelManager.stopManagingResource("utah_teapot");
+```
 
 ### Game state management
 
