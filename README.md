@@ -73,15 +73,14 @@ The implementation of the resource manager may seem a bit complex because it mak
 
 ### Game state management
 
-The design pattern used by this project for game state management is the State design pattern.
+The design pattern used by this project for game state management is a modified version of the State design pattern, which is explained brilliantly in [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
 
-Said pattern is explained brilliantly in [this](http://www.ai-junkie.com/architecture/state_driven/tut_state1.html) article.
+The fundamental ideas behind my version of that pattern are the following:
 
-The fundamental ideas are the following:
-
-- Each state is represented by a class.
-- Each state only has access to the resources that it needs, and it can share its resources with other states to facilitate communication between states.
-- Each state is responsible for checking the conditions that could lead to a state change, and it must notify a finite state machine when this is the case.
+- Each state is represented by a class (e.g. [menu_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/menu_state.h), [play_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/play_state.h), [pause_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/pause_state.h) and [win_state.h](https://github.com/diegomacario/Teapong/blob/master/inc/win_state.h)).
+- Each state is required to implement the three functions that are commonly called in a game loop: `processInput`, `update` and `render`.
+- Each state only has access to the resources that it needs, and **it can share its resources with other states to facilitate communication between states**.
+- Each state is responsible for checking the conditions that could lead to a state change, and it must notify a finite state machine ([finite_state_machine.h](https://github.com/diegomacario/Teapong/blob/master/inc/finite_state_machine.h)) when this is the case to make a transition occur.
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/fsm.PNG"/>
