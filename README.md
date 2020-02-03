@@ -89,11 +89,13 @@ To illustrate why this was a bad decision, consider the following situation:
 - Now let's say that we need to transition to state B, where the teapot will be placed at position Y.
 - If the teapot needs to go back to position X if we ever switch back to state A in the future, then state A needs to remember position X.
 - But what if both states share the same teapot? As soon as the transition occurs, state B will change the position of the teapot to Y, and X will be lost.
-- This means that the position of the teapot behaves as a global variable, so to avoid this problem state A needs to maintain a variable external to the teapot where it stores position X.
+- This means that the position of the teapot behaves as a global variable, so to avoid losing X, state A needs to maintain a variable external to the teapot where it stores that value.
 
-Now imagine the same situation, but with dozens of shared resources and states. The code quickly becomes tangled and difficult to maintain.
+Now imagine the same situation, but with dozens of states and shared resources. The code quickly becomes tangled and difficult to maintain.
 
-So how do we prevent this mess? By only sharing resources that do not require any external variables to be maintained, and by using a different system to allow states to communicate with each other. What does that other system look like, you might ask? That is a question I am still asking myself. I would love to hear your suggestions if you have any!
+So how do we prevent this mess? By only sharing resources that do not require any external variables to be maintained, and by using a different system to allow states to communicate with each other.
+
+"What does that other system look like?" you might ask. That is a question that I am still trying to answer. I you have any suggestions, please let me know!
 
 ### Shading
 
