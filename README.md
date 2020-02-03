@@ -16,13 +16,6 @@ A two-player game for fans of Pong and the [Utah teapot](https://en.wikipedia.or
 
 ## Technical details
 
-<p align="center">
- <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
- <p align="center">
-  <em>How I felt when I started working on this project.</em>
- </p>
-</p>
-
 This project was an attempt to write a simple game from scratch as cleanly as possible. Special focus was placed on the following goals:
 
 - Use modern C++ and modern OpenGL.
@@ -35,6 +28,13 @@ The first three goals were achieved successfully, but the last one was not, whic
 The other subsections provide information on the libraries used by this project and the sources of the game assets, as well as some details on resource management, shading, collision detection and how to make a teapot explode.
 
 For additional information on this project's code, see [this](https://github.com/diegomacario/Teapong/blob/master/documentation/making_of_teapong.pdf) presentation.
+
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
+ <p align="center">
+  <em>How I felt when I started working on this project.</em>
+ </p>
+</p>
 
 ### Libraries
 
