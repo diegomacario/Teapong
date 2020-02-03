@@ -93,7 +93,7 @@ To illustrate why this was a bad decision, consider the following situation:
 
 Now imagine the same situation, but with dozens of states and shared resources. The code quickly becomes tangled and difficult to maintain.
 
-So how do we prevent this mess? By only sharing resources that do not require any external variables to be maintained, and by using a different system to allow states to communicate with each other.
+To prevent this mess we must only share resources that do not require any external variables to be maintained, and we must use a different system to allow states to communicate with each other.
 
 "What does that other system look like?" you might ask. That is a question that I am still trying to answer. I you have any suggestions, please let me know!
 
