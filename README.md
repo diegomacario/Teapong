@@ -29,13 +29,6 @@ The other subsections provide information on the libraries used by this project 
 
 For additional information on this project's code, see [this](https://github.com/diegomacario/Teapong/blob/master/documentation/making_of_teapong.pdf) presentation.
 
-<p align="center">
- <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
- <p align="center">
-  <em>How I felt when I started working on this project.</em>
- </p>
-</p>
-
 ### Libraries
 
 The libraries used by this project and their purposes are the following:
@@ -185,3 +178,12 @@ Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 ### Windows
 
 To build Teapong on Windows, simply download or clone this repository and use the Visual Studio 2019 solution file that is stored in the **VS2019_solution** directory.
+
+## Untitled
+
+<p align="center">
+ <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
+ <p align="center">
+  <em>How I felt when I started working on this project.</em>
+ </p>
+</p>
