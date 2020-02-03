@@ -142,7 +142,7 @@ The controls are as follows:
 - Press <kbd>C</kbd> to toggle between the fixed and free camera modes. When the camera is free, you can position it using <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd> and the mouse. You can also zoom in and out using the scroll wheel.
 - Press <kbd>R</kbd> to reset the camera to its original position.
 
-## Running the game without building it
+## How to run Teapong
 
 ### macOS
 
@@ -171,11 +171,11 @@ To run Teapong on macOS, you must follow these steps:
 
 To run Teapong on Windows, simply download **Teapong_Windows.zip** from release [1.0.0](https://github.com/diegomacario/Teapong/releases/tag/v1.0.0) and double click **Teapong.exe**.
 
-## Building the game
+## How to build Teapong
  
 ### macOS
 
-To build Teapong on macOS, you must follow the same steps listed in the "**Running the game without building it**" section, except for the last one, which you must replace with the following:
+To build Teapong on macOS, you must follow the same steps listed in the "**How to run Teapong**" section, except for the last one, which you must replace with the following:
 - Execute the following command to build the game:
  ```sh
  $ make Teapong
