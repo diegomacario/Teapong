@@ -181,7 +181,11 @@ Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 
 To build Teapong on Windows, simply download or clone this repository and use the Visual Studio 2019 solution file that is stored in the **VS2019_solution** directory.
 
-## Untitled
+## Conclusion
+
+I hope that this project helps anyone who decides to embark on a similar adventure.
+
+All my life I have wanted to build a game, and I always knew that when I finally did it, I would do it from scratch, to understand every single little detail about it. It is not easy or practical to build a game this way, but I think it is the most insightful and rewarding way.
 
 <p align="center">
  <img src="https://github.com/diegomacario/Teapong/blob/master/readme_images/no_idea.jpg"/>
