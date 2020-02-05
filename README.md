@@ -95,7 +95,7 @@ Now imagine the same situation, but with dozens of states and shared resources. 
 
 To prevent this mess we must only share resources that do not require any external variables to be maintained, and we must use a different system to allow states to communicate with each other.
 
-"What does that other system look like?" you might ask. That is a question that I am still trying to answer. I you have any suggestions, please let me know!
+"What does that other system look like?" you might ask. That is a question that I am still trying to answer. If you have any suggestions, please let me know!
 
 ### Shading
 
