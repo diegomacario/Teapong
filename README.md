@@ -181,6 +181,29 @@ Thanks to [Daniel Macario](https://github.com/macadev) for writing the Makefile!
 
 To build Teapong on Windows, simply download or clone this repository and use the Visual Studio 2019 solution file that is stored in the **VS2019_solution** directory.
 
+### Linux
+
+To build Teapong on Linux, you must follow these steps:
+- Download or clone this repository and open a Terminal window in its root.
+- Use your distribution's package manager to install GLFW, GLM and Assimp. For example, on Arch Linux:
+ ```sh
+ $ pacman -S assimp glm glfw
+ ```
+- Use your distribution's package manager to install the GLAD and KHR headers, or manually install them from this repository:
+ ```sh
+ $ cp -r dependencies/linux/inc/glad /usr/local/include
+ $ cp -r dependencies/linux/inc/KHR  /usr/local/include
+ ```
+- Download and install IrrKlang, or install it from this repository:
+ ```sh
+ $ cp -r dependencies/linux/inc/irrklang /usr/local/include
+ $ cp -r dependencies/linux/lib/ /usr/local/lib
+ ```
+- Now you should be able to build the game
+ ```sh
+ $ make
+ ```
+ 
 ## Conclusion
 
 I hope that this project helps anyone who decides to embark on a similar adventure.

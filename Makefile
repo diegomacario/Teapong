@@ -14,7 +14,15 @@ OBJECTS = $(patsubst %.cpp, $(OUT)/%.o, $(FILES)) $(OUT)/glad.o
 
 CXX=g++
 CXXFLAGS=-std=c++14 -I $(INC) -O3
+# $(LIBS) is gonna be a little different on linux.
+ifeq ($(shell uname),Linux)
+# For some reason the linux version of irrklang has different casing in the file name.
+# Also I was required to link against libdl. Not sure if/why this isn't the case on macOS,
+# but I'll leave that part alone.
+LIBS=-l dl -l glfw -l assimp -l IrrKlang
+else
 LIBS=-l glfw -l assimp -l irrklang
+endif
 LIBS_HEADERS=-L /usr/local/lib
 
 # To build the game all the .o files in OBJECTS need to have been built and certain directories need to exist
